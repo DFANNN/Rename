@@ -25,7 +25,8 @@
     "@electron-toolkit/utils": "^3.0.0",
     "electron-updater": "^6.1.7",
     "element-plus": "^2.9.3",
-    "less": "^4.2.1"
+    "less": "^4.2.1",
+    "vue-router": "4"
   },
   "devDependencies": {
     "@electron-toolkit/eslint-config": "^1.0.2",

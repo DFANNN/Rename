@@ -34,6 +34,7 @@ export default defineConfig({
         // 生成组件的声明文件，用于TypeScript类型检查
         dts: 'src/components.d.ts'
       })
-    ]
+    ],
+
   }
 })
