@@ -5,16 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="abc650b7-5378-4301-a482-439b4e5a2095" name="更改" comment="feat(renderer): 搭建基础框架&#10;&#10;- 添加路由配置和布局组件&#10;- 设置全局样式&#10;- 更新 App 组件结构&#10;-引入 vue-router 依赖">
-      <change afterPath="$PROJECT_DIR$/src/renderer/src/layouts/index.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/renderer/src/routers/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/renderer/src/assets/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/renderer/src/layouts/aside.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/electron.vite.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/electron.vite.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/assets/base.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/assets/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/assets/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/main.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/layouts/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/layouts/index.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,8 +19,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Vue Composition API Component" />
         <option value="TypeScript File" />
+        <option value="Vue Composition API Component" />
       </list>
     </option>
   </component>
@@ -40,12 +35,12 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "DFANNN"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;DFANNN&quot;
   }
-}]]></component>
+}</component>
   <component name="GitToolBoxStore">
     <option name="recentBranches">
       <RecentBranches>
@@ -71,16 +66,16 @@
       </RecentBranches>
     </option>
   </component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/DFANNN/Rename.git",
-    "accountId": "4c4d5019-954a-4cc8-a8c4-9216cd319eee"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/DFANNN/Rename.git&quot;,
+    &quot;accountId&quot;: &quot;4c4d5019-954a-4cc8-a8c4-9216cd319eee&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 4
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="2rqXz8EI9kTniLFWd3nEVDgZkDP" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -96,9 +91,9 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "prettier.import.notification.dismissed": "true",
-    "prettierjs.PrettierConfiguration.Package": "C:\\Program Files\\nodejs\\node_modules\\prettier",
-    "settings.editor.selected.configurable": "settings.javascript.prettier",
-    "ts.external.directory.path": "C:\\project\\Rename\\node_modules\\typescript\\lib",
+    "prettierjs.PrettierConfiguration.Package": "/Users/dfan/.local/share/fnm/node-versions/v22.12.0/installation/lib/node_modules/prettier",
+    "settings.editor.selected.configurable": "actions.on.save",
+    "ts.external.directory.path": "/Users/dfan/Downloads/project/personal_project/Rename/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -110,7 +105,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-WS-242.23726.96" />
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-WS-243.22562.112" />
       </set>
     </attachedChunks>
   </component>
