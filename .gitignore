@@ -6,3 +6,4 @@ out
 !/src/renderer/src/auto-imports.d.ts
 !/src/renderer/src/components.d.ts
 !/.vscode/
+!/.idea/
