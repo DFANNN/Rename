@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="abc650b7-5378-4301-a482-439b4e5a2095" name="更改" comment="1">
+    <list default="true" id="abc650b7-5378-4301-a482-439b4e5a2095" name="更改" comment="忽略文件">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/extensions.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/launch.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/auto-imports.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components.d.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,8 +91,8 @@
     "nodejs_package_manager_path": "npm",
     "prettier.import.notification.dismissed": "true",
     "prettierjs.PrettierConfiguration.Package": "/Users/dfan/.local/share/fnm/node-versions/v22.12.0/installation/lib/node_modules/prettier",
-    "settings.editor.selected.configurable": "actions.on.save",
-    "ts.external.directory.path": "/Users/dfan/Downloads/project/personal_project/Rename/node_modules/typescript/lib",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "C:\\project\\Rename\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -145,7 +142,23 @@
       <option name="project" value="LOCAL" />
       <updated>1737378806445</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="忽略文件">
+      <option name="closed" value="true" />
+      <created>1737379442683</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1737379442683</updated>
+    </task>
+    <task id="LOCAL-00005" summary="忽略文件">
+      <option name="closed" value="true" />
+      <created>1737379446226</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1737379446226</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -166,6 +179,7 @@
     <MESSAGE value="基础框架搭建" />
     <MESSAGE value="feat(renderer): 搭建基础框架&#10;&#10;- 添加路由配置和布局组件&#10;- 设置全局样式&#10;- 更新 App 组件结构&#10;-引入 vue-router 依赖" />
     <MESSAGE value="1" />
-    <option name="LAST_COMMIT_MESSAGE" value="1" />
+    <MESSAGE value="忽略文件" />
+    <option name="LAST_COMMIT_MESSAGE" value="忽略文件" />
   </component>
 </project>
