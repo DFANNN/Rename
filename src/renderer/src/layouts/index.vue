@@ -1,12 +1,12 @@
 <template>
   <div>
     <el-container class="common-layout">
-      <el-aside class="aside">
-        <AsideComponent/>
-      </el-aside>
+      <AsideComponent/>
       <el-container class="common-container">
         <el-header class="header">Header</el-header>
-        <el-main class="main">Main</el-main>
+        <el-main class="main">
+          <router-view/>
+        </el-main>
         <el-footer class="footer">Footer</el-footer>
       </el-container>
     </el-container>
@@ -21,12 +21,6 @@ import AsideComponent from '@renderer/layouts/aside.vue'
 .common-layout {
   height: 100vh;
 
-  .aside {
-    background-color: #d3dce6;
-    width: 256px;
-    padding: 0 1.5rem;
-    height: 100%;
-  }
 
   .common-container {
     .header {

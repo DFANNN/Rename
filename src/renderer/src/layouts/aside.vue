@@ -4,92 +4,149 @@
       <div class="logo">
         <img src="../assets/logo.png" alt="logo">
       </div>
-      <div class="logo-title">DFAN-Rename</div>
+      <div class="logo-title-box" :class="{'collapsed': collapse}">
+        <div class="name">DFAN</div>
+        <div class="name">Rename</div>
+      </div>
     </div>
     <div class="menu-box">
       <el-menu
         default-active="2"
         class="el-menu-vertical-demo"
-        :collapse="false"
-        @open="handleOpen"
-        @close="handleClose"
+        :collapse="collapse"
+        router
       >
-        <el-menu-item index="2">
+
+        <el-menu-item :index="menu.path" v-for="menu in menus">
           <el-icon>
-            <icon-menu/>
+            <component :is="menuIcons[menu.meta?.icon as any]"/>
           </el-icon>
-          <template #title>Navigator Two</template>
-        </el-menu-item>
-        <el-menu-item index="4">
-          <el-icon>
-            <setting/>
-          </el-icon>
-          <template #title>Navigator Four</template>
-        </el-menu-item>
-        <el-menu-item index="5">
-          <el-icon>
-            <setting/>
-          </el-icon>
-          <template #title>这是什么模式了</template>
-        </el-menu-item>
-        <el-menu-item index="6">
-          <el-icon>
-            <setting/>
-          </el-icon>
-          <template #title>那这个了</template>
+          <template #title>{{ menu.meta?.title }}</template>
         </el-menu-item>
       </el-menu>
+    </div>
+    <div class="expand-box">
+      <el-icon>
+        <Expand @click="collapse = !collapse"/>
+      </el-icon>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import {
-  Document,
-  Menu as IconMenu,
-  Location,
-  Setting,
+  Tools,
+  Management,
+  Platform,
+  Expand
 } from '@element-plus/icons-vue'
+import {RouteRecordRaw} from 'vue-router'
 
-const isCollapse = ref(true)
-const handleOpen = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
+
+const router = useRouter()
+
+const menus = ref<RouteRecordRaw[]>([])
+
+const collapse = ref(false)
+
+const menuIcons = {
+  Tools,
+  Management,
+  Platform
 }
-const handleClose = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
+
+
+const getMenus = () => {
+  menus.value = router.getRoutes().filter((item) => item.path === '/layouts')[0].children
 }
+
+onMounted(() => {
+    getMenus()
+  }
+)
+
+
 </script>
 
 <style scoped lang="less">
 .aside-container {
+  padding: 0 0.5rem;
+
   .logo-box {
     display: flex;
     align-items: center;
     height: 85px;
 
     .logo {
-      width: 48px;
-      height: 48px;
+      width: 64px;
+      height: 64px;
 
       img {
         width: 100%;
       }
     }
 
-    .logo-title {
-      margin-left: 1rem;
+    .logo-title-box {
+      flex: 1;
       font-size: 20px;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+
+      &.collapsed {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+
+      .name {
+        margin-left: 1rem;
+      }
     }
+
+
   }
 
   .menu-box {
-    height: calc(100vh - 85px);
-    background-color: hotpink;
+    height: calc(100vh - 85px - 30px);
+  }
+
+  .expand-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
   }
 }
 
 .el-menu-vertical-demo:not(.el-menu--collapse) {
-  width: 200px;
-  min-height: 400px;
+  width: 180px;
+  height: 100%;
+  border: none;
+}
+
+.el-menu-vertical-demo.el-menu--collapse {
+  height: 100%;
+  border: none;
+}
+
+.el-menu-item {
+  //font-size: 16px;
+  border-radius: 4px;
+  color: #374151;
+  //height: 48px;
+  //line-height: 48px;
+
+}
+
+.el-menu-item:hover {
+  color: #ffffff;
+  background: #000000;
+}
+
+.el-menu-item.is-active {
+  color: #ffffff;
+  background: #000000;
+}
+
+.el-icon {
+  //font-size: 20px;
 }
 </style>
