@@ -3,3 +3,6 @@ dist
 out
 .DS_Store
 *.log*
+!/src/renderer/src/auto-imports.d.ts
+!/src/renderer/src/components.d.ts
+!/.vscode/
