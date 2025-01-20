@@ -4,12 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="abc650b7-5378-4301-a482-439b4e5a2095" name="更改" comment="feat(renderer): 搭建基础框架&#10;&#10;- 添加路由配置和布局组件&#10;- 设置全局样式&#10;- 更新 App 组件结构&#10;-引入 vue-router 依赖">
-      <change afterPath="$PROJECT_DIR$/src/renderer/src/assets/logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/renderer/src/layouts/aside.vue" afterDir="false" />
+    <list default="true" id="abc650b7-5378-4301-a482-439b4e5a2095" name="更改" comment="1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/components.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/components.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/src/layouts/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/src/layouts/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/extensions.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/launch.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/auto-imports.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/renderer/src/components.d.ts" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,6 +84,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "development",
     "node.js.detected.package.eslint": "true",
@@ -135,7 +137,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737290972191</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="1">
+      <option name="closed" value="true" />
+      <created>1737378806445</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1737378806445</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -155,6 +165,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="基础框架搭建" />
     <MESSAGE value="feat(renderer): 搭建基础框架&#10;&#10;- 添加路由配置和布局组件&#10;- 设置全局样式&#10;- 更新 App 组件结构&#10;-引入 vue-router 依赖" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(renderer): 搭建基础框架&#10;&#10;- 添加路由配置和布局组件&#10;- 设置全局样式&#10;- 更新 App 组件结构&#10;-引入 vue-router 依赖" />
+    <MESSAGE value="1" />
+    <option name="LAST_COMMIT_MESSAGE" value="1" />
   </component>
 </project>
