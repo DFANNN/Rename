@@ -8,7 +8,7 @@
       <el-table-column prop="name" label="新文件名"/>
       <el-table-column prop="address" label="状态" width="100">
         <template #default>
-          <CommonStatus>成功</CommonStatus>
+          <CommonStatus status="failure">成功</CommonStatus>
         </template>
       </el-table-column>
     </el-table>
