@@ -4,8 +4,9 @@
       <div class="margin-right">已选择文件：2 个</div>
       <div class="margin-right">成功：2 个</div>
       <div class="margin-right">失败：0 个</div>
-      <div class="progress-name">进度：</div>
-      <el-progress :percentage="percentage" color="#4B5563" class="progress"/>
+      <!--   TODO:展示不要进度条功能   -->
+      <!--      <div class="progress-name">进度：</div>-->
+      <!--      <el-progress :percentage="percentage" color="#4B5563" class="progress"/>-->
     </div>
     <div>
       <CommonButton class="margin-right">重置数据</CommonButton>

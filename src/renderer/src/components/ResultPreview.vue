@@ -3,9 +3,10 @@
     <div class="title">修改结果预览</div>
     <el-table :data="tableData" :height="publicStore.tableHeight" :header-cell-style="headerCellStyle"
               class="table-box">
+      <el-table-column type="index" width="60" label="序号" align="center"/>
       <el-table-column prop="date" label="原文件名"/>
       <el-table-column prop="name" label="新文件名"/>
-      <el-table-column prop="address" label="状态">
+      <el-table-column prop="address" label="状态" width="100">
         <template #default>
           <CommonStatus>成功</CommonStatus>
         </template>
@@ -26,61 +27,74 @@ const headerCellStyle = {
 
 const tableData = [
   {
-    date: "2016-05-032016-05-032016-05-032016-05-03",
-    name: "2016-05-032016-05-032016-05-032016-05-03",
+    date: "白月梵星",
+    name: "白月梵星 S01E01.MP4",
     address: "No. "
   }, {
-    date: "2016-05-03",
-    name: "Tom",
+    date: "白月梵星",
+    name: "白月梵星 S01E01.MP4",
     address: "No. "
   }, {
-    date: "2016-05-03",
-    name: "Tom",
+    date: "白月梵星",
+    name: "白月梵星 S01E01.MP4",
     address: "No. "
   }, {
-    date: "2016-05-03",
-    name: "Tom",
+    date: "白月梵星",
+    name: "白月梵星 S01E01.MP4",
     address: "No. "
   }, {
-    date: "2016-05-03",
-    name: "Tom",
+    date: "白月梵星",
+    name: "白月梵星 S01E01.MP4",
     address: "No. "
   }, {
-    date: "2016-05-03",
-    name: "Tom",
+    date: "白月梵星",
+    name: "白月梵星 S01E01.MP4",
     address: "No. "
   }, {
-    date: "2016-05-03",
-    name: "Tom",
+    date: "白月梵星",
+    name: "白月梵星 S01E01.MP4",
     address: "No. "
   }, {
-    date: "2016-05-03",
-    name: "Tom",
+    date: "白月梵星",
+    name: "白月梵星 S01E01.MP4",
     address: "No. "
   }, {
-    date: "2016-05-03",
-    name: "Tom",
+    date: "白月梵星",
+    name: "白月梵星 S01E01.MP4",
     address: "No. "
   }, {
-    date: "2016-05-03",
-    name: "Tom",
+    date: "白月梵星",
+    name: "白月梵星 S01E01.MP4",
+    address: "No. "
+  }, {
+    date: "白月梵星",
+    name: "白月梵星 S01E01.MP4",
+    address: "No. "
+  }, {
+    date: "白月梵星",
+    name: "白月梵星 S01E01.MP4",
+    address: "No. "
+  }, {
+    date: "白月梵星",
+    name: "白月梵星 S01E01.MP4",
+    address: "No. "
+  }, {
+    date: "白月梵星",
+    name: "白月梵星 S01E01.MP4",
+    address: "No. "
+  }, {
+    date: "白月梵星",
+    name: "白月梵星 S01E01.MP4",
+    address: "No. "
+  }, {
+    date: "白月梵星",
+    name: "白月梵星 S01E01.MP4",
+    address: "No. "
+  }, {
+    date: "白月梵星",
+    name: "白月梵星 S01E01.MP4",
     address: "No. "
   },
-  {
-    date: "2016-05-02",
-    name: "Tom",
-    address: "No. "
-  },
-  {
-    date: "2016-05-04",
-    name: "Tom",
-    address: "No. "
-  },
-  {
-    date: "2016-05-01",
-    name: "Tom",
-    address: "No. "
-  }
 ];
 
 

@@ -1,16 +1,16 @@
 <template>
   <div ref="commonLayoutRef">
     <el-container class="common-layout">
-      <AsideComponent />
+      <AsideComponent/>
       <el-container class="common-container">
         <el-header class="header" height="85px">
-          <HeaderComponent />
+          <HeaderComponent/>
         </el-header>
         <el-main class="main">
-          <router-view />
+          <router-view/>
         </el-main>
         <el-footer class="footer">
-          <FooterComponent />
+          <FooterComponent/>
         </el-footer>
       </el-container>
     </el-container>
@@ -57,14 +57,13 @@ onBeforeUnmount(() => {
 .common-layout {
   height: 100vh;
 
-
   .common-container {
     .header {
       border-bottom: 1px solid #E5E7EB;
     }
 
     .main {
-      //background-color: blueviolet;
+      //background-color: #ccc;
 
     }
 

@@ -4,11 +4,11 @@
       <div class="logo">
         <img src="../assets/logo.png" alt="logo">
       </div>
-      <!--   TODO:收缩和展开的动画效果未写   -->
-      <div class="logo-title-box" v-if="!collapse">
-        <div class="name">DFAN</div>
-        <div class="name">Rename</div>
-      </div>
+      <!--   TODO:展示不要折叠功能  -->
+      <!--      <div class="logo-title-box" v-if="!collapse">-->
+      <!--        <div class="name">DFAN</div>-->
+      <!--        <div class="name">Rename</div>-->
+      <!--      </div>-->
     </div>
     <div class="menu-box">
       <el-menu
@@ -19,17 +19,18 @@
       >
         <el-menu-item :index="menu.path" v-for="menu in menus">
           <el-icon>
-            <component :is="menuIcons[menu.meta?.icon as any]" />
+            <component :is="menuIcons[menu.meta?.icon as any]"/>
           </el-icon>
           <template #title>{{ menu.meta?.title }}</template>
         </el-menu-item>
       </el-menu>
     </div>
-    <div class="function-box">
-      <el-icon class="expand-box">
-        <Expand @click="collapse = !collapse" />
-      </el-icon>
-    </div>
+    <!--   TODO:展示不要折叠功能  -->
+    <!--    <div class="function-box">-->
+    <!--      <el-icon class="expand-box">-->
+    <!--        <Expand @click="collapse = !collapse"/>-->
+    <!--      </el-icon>-->
+    <!--    </div>-->
   </div>
 </template>
 
@@ -40,7 +41,7 @@ import {
   Platform,
   Expand
 } from "@element-plus/icons-vue";
-import { RouteRecordRaw } from "vue-router";
+import {RouteRecordRaw} from "vue-router";
 
 
 const router = useRouter();

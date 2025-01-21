@@ -6,10 +6,10 @@ import icon from "../../resources/icon.png?asset";
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 1000,
-    minWidth: 1000,
-    height: 700,
-    minHeight: 700,
+    width: 1100,
+    minWidth: 1100,
+    height: 770,
+    minHeight: 770,
     show: false,
     autoHideMenuBar: true,
     ...(process.platform === "linux" ? {icon} : {}),

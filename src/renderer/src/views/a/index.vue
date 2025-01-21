@@ -12,17 +12,23 @@
         class="demo-ruleForm"
       >
         <el-form-item label="查找文本" prop="pass">
-          <el-input v-model="ruleForm.pass" type="password" autocomplete="off"/>
+          <el-input v-model="ruleForm.pass" autocomplete="off"/>
         </el-form-item>
-        <el-form-item label="替换为" prop="pass">
-          <el-input v-model="ruleForm.pass" type="password" autocomplete="off"/>
-        </el-form-item>
+        <div class="line-box">
+          <el-form-item label="起始集" prop="pass" class="line-item">
+            <el-input-number v-model="ruleForm.checkPass" class="number-input"/>
+          </el-form-item>
+          <el-form-item label="当前季" prop="pass" class="line-item">
+            <el-input-number v-model="ruleForm.checkPass" class="number-input"/>
+          </el-form-item>
+        </div>
+
         <el-form-item>
           <CommonButton style="width: 100%">预览修改结果</CommonButton>
         </el-form-item>
       </el-form>
     </div>
-    <ResultPreview/>
+    <ResultPreview class="result-preview"/>
   </div>
 </template>
 
@@ -36,25 +42,26 @@ const ruleFormRef = ref<FormInstance>()
 
 const ruleForm = ref({
   pass: '',
-  checkPass: '',
-  age: '',
+  checkPass: 1,
+  age: 1,
 })
 
 </script>
 
 <style scoped lang="less">
 .a-container {
+  display: flex;
   height: 100%;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
+  width: 100%;
 
   .left-box {
     padding: 1.5rem;
-    width: 100%;
-    height: 100%;
     border: 1px solid #E5E7EB;
     border-radius: 0.5rem;
+    width: 38%;
+    height: 100%;
+    margin-right: 2%;
+    min-width: 350px;
 
     .title1 {
       line-height: 1.5rem;
@@ -68,6 +75,37 @@ const ruleForm = ref({
       color: #000;
       margin: 1rem 0;
     }
+
+    .line-box {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+
+      .line-item {
+        flex: 1;
+        margin-left: 1rem;
+
+        .number-input {
+          width: 100%;
+        }
+
+        &:first-child {
+          margin-left: 0;
+        }
+      }
+    }
+
+    .el-form-item {
+      margin-bottom: 1rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .result-preview {
+    width: 60%;
   }
 }
 </style>
