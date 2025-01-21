@@ -1,18 +1,18 @@
-import { app, shell, BrowserWindow, ipcMain } from "electron";
-import { join } from "path";
-import { electronApp, optimizer, is } from "@electron-toolkit/utils";
+import {app, shell, BrowserWindow, ipcMain} from "electron";
+import {join} from "path";
+import {electronApp, optimizer, is} from "@electron-toolkit/utils";
 import icon from "../../resources/icon.png?asset";
 
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 1200,
-    minWidth: 1200,
-    height: 800,
-    minHeight: 800,
+    width: 1000,
+    minWidth: 1000,
+    height: 700,
+    minHeight: 700,
     show: false,
     autoHideMenuBar: true,
-    ...(process.platform === "linux" ? { icon } : {}),
+    ...(process.platform === "linux" ? {icon} : {}),
     webPreferences: {
       preload: join(__dirname, "../preload/index.js"),
       sandbox: false
@@ -25,7 +25,7 @@ function createWindow(): void {
 
   mainWindow.webContents.setWindowOpenHandler((details) => {
     shell.openExternal(details.url);
-    return { action: "deny" };
+    return {action: "deny"};
   });
 
   // HMR for renderer base on electron-vite cli.
@@ -56,7 +56,7 @@ app.whenReady().then(() => {
 
   createWindow();
 
-  app.on("activate", function() {
+  app.on("activate", function () {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) createWindow();

@@ -3,8 +3,8 @@
     <div class="title">修改结果预览</div>
     <el-table :data="tableData" :height="publicStore.tableHeight" :header-cell-style="headerCellStyle"
               class="table-box">
-      <el-table-column prop="date" label="原文件名" />
-      <el-table-column prop="name" label="新文件名" />
+      <el-table-column prop="date" label="原文件名"/>
+      <el-table-column prop="name" label="新文件名"/>
       <el-table-column prop="address" label="状态">
         <template #default>
           <CommonStatus>成功</CommonStatus>
@@ -26,8 +26,8 @@ const headerCellStyle = {
 
 const tableData = [
   {
-    date: "2016-05-03",
-    name: "Tom",
+    date: "2016-05-032016-05-032016-05-032016-05-03",
+    name: "2016-05-032016-05-032016-05-032016-05-03",
     address: "No. "
   }, {
     date: "2016-05-03",
