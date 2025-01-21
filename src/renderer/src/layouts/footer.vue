@@ -4,8 +4,8 @@
       <div class="margin-right">已选择文件：2 个</div>
       <div class="margin-right">成功：2 个</div>
       <div class="margin-right">失败：0 个</div>
-      <div>进度：</div>
-      <el-progress :percentage="percentage" color="#4B5563" style="width: 300px;" />
+      <div class="progress-name">进度：</div>
+      <el-progress :percentage="percentage" color="#4B5563" class="progress" />
     </div>
     <div>
       <CommonButton class="margin-right">重置数据</CommonButton>
@@ -29,8 +29,18 @@ const percentage = ref(20);
 
   .result-box {
     display: flex;
+    flex: 1;
     font-size: 14px;
     color: #4B5563;
+
+    .progress-name {
+      margin-left: 2rem;
+    }
+
+    .progress {
+      flex: 1;
+      margin-right: 3rem;
+    }
   }
 
   .margin-right {
