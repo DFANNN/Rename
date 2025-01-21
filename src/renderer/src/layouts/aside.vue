@@ -1,33 +1,33 @@
 <template>
-  <div class="aside-container">
+  <div class="aside-container" :class="{'collapse':collapse}">
     <div class="logo-box">
       <div class="logo">
         <img src="../assets/logo.png" alt="logo">
       </div>
-      <div class="logo-title-box" :class="{'collapsed': collapse}">
+      <!--   TODO:收缩和展开的动画效果未写   -->
+      <div class="logo-title-box" v-if="!collapse">
         <div class="name">DFAN</div>
         <div class="name">Rename</div>
       </div>
     </div>
     <div class="menu-box">
       <el-menu
-        default-active="2"
+        :default-active="defaultActive"
         class="el-menu-vertical-demo"
         :collapse="collapse"
         router
       >
-
         <el-menu-item :index="menu.path" v-for="menu in menus">
           <el-icon>
-            <component :is="menuIcons[menu.meta?.icon as any]"/>
+            <component :is="menuIcons[menu.meta?.icon as any]" />
           </el-icon>
           <template #title>{{ menu.meta?.title }}</template>
         </el-menu-item>
       </el-menu>
     </div>
-    <div class="expand-box">
-      <el-icon>
-        <Expand @click="collapse = !collapse"/>
+    <div class="function-box">
+      <el-icon class="expand-box">
+        <Expand @click="collapse = !collapse" />
       </el-icon>
     </div>
   </div>
@@ -39,31 +39,41 @@ import {
   Management,
   Platform,
   Expand
-} from '@element-plus/icons-vue'
-import {RouteRecordRaw} from 'vue-router'
+} from "@element-plus/icons-vue";
+import { RouteRecordRaw } from "vue-router";
 
 
-const router = useRouter()
+const router = useRouter();
+const route = useRoute();
 
-const menus = ref<RouteRecordRaw[]>([])
+// 折叠
+const collapse = ref(true);
 
-const collapse = ref(false)
+// 菜单
+const menus = ref<RouteRecordRaw[]>([]);
 
+// 菜单icon
 const menuIcons = {
   Tools,
   Management,
   Platform
-}
+};
+
+// 页面加载时默认激活菜单的 index
+const defaultActive = computed(() => route.path);
 
 
+// 获取菜单
 const getMenus = () => {
-  menus.value = router.getRoutes().filter((item) => item.path === '/layouts')[0].children
-}
+  console.log(router.getRoutes());
+  menus.value = router.getRoutes().filter((item) => item.meta.isMenu);
+  console.log(menus.value);
+};
 
 onMounted(() => {
-    getMenus()
+    getMenus();
   }
-)
+);
 
 
 </script>
@@ -71,6 +81,16 @@ onMounted(() => {
 <style scoped lang="less">
 .aside-container {
   padding: 0 0.5rem;
+  transition: all 0.3s ease;
+  border-right: 1px solid #E5E7EB;
+
+  &.collapse {
+    padding: 0;
+
+    .el-menu-item {
+      border-radius: 0;
+    }
+  }
 
   .logo-box {
     display: flex;
@@ -89,12 +109,6 @@ onMounted(() => {
     .logo-title-box {
       flex: 1;
       font-size: 20px;
-      transition: opacity 0.3s ease, transform 0.3s ease;
-
-      &.collapsed {
-        opacity: 0;
-        transform: translateX(-20px);
-      }
 
       .name {
         margin-left: 1rem;
@@ -108,11 +122,12 @@ onMounted(() => {
     height: calc(100vh - 85px - 30px);
   }
 
-  .expand-box {
+  .function-box {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 30px;
+    font-size: 18px;
   }
 }
 
@@ -146,7 +161,4 @@ onMounted(() => {
   background: #000000;
 }
 
-.el-icon {
-  //font-size: 20px;
-}
 </style>

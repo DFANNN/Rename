@@ -1,13 +1,24 @@
 <template>
-  <div>
-    a
+  <div class="a-container">
+    <div class="left-box">左边</div>
+    <ResultPreview />
   </div>
 </template>
 
 <script setup lang="ts">
-
+import ResultPreview from "@renderer/components/ResultPreview.vue";
 </script>
 
-<style scoped>
+<style scoped lang="less">
+.a-container {
+  //background-color: hotpink;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
 
+  .left-box {
+    background-color: hotpink;
+  }
+}
 </style>
