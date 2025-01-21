@@ -1,15 +1,24 @@
 <template>
   <div class="result-preview-container">
     <div class="title">修改结果预览</div>
-    <el-table :data="tableData" :header-cell-style="headerCellStyle" class="table-box">
-      <el-table-column prop="date" label="原文件名" width="180" />
-      <el-table-column prop="name" label="新文件名" width="180" />
-      <el-table-column prop="address" label="状态" />
+    <el-table :data="tableData" :height="publicStore.tableHeight" :header-cell-style="headerCellStyle"
+              class="table-box">
+      <el-table-column prop="date" label="原文件名" />
+      <el-table-column prop="name" label="新文件名" />
+      <el-table-column prop="address" label="状态">
+        <template #default>
+          <CommonStatus>成功</CommonStatus>
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>
 
 <script setup lang="ts">
+import CommonStatus from "@renderer/components/CommonStatus.vue";
+
+const publicStore = usePublicStore();
+
 const headerCellStyle = {
   backgroundColor: "#F9FAFB",
   color: "#4B5563"

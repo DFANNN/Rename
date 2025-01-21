@@ -11,7 +11,6 @@ import ResultPreview from "@renderer/components/ResultPreview.vue";
 
 <style scoped lang="less">
 .a-container {
-  //background-color: hotpink;
   height: 100%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
