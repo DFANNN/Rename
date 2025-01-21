@@ -26,17 +26,30 @@ const commonLayoutRef = ref<HTMLElement | null>();
 
 const publicStore = usePublicStore();
 
-// TODO:写一个防抖函数
+// 防抖函数
+const debounce = (func: Function, delay: number) => {
+  let timer: any = null;
+  return function () {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(() => {
+      func()
+    }, delay);
+  };
+};
+
+
 // 动态更新表格高度
 const updateTableHeight = () => {
   if (commonLayoutRef.value) {
     publicStore.appHeight = commonLayoutRef.value.offsetHeight; // 获取容器的当前高度
-    console.log("窗口变化了");
   }
 };
 
+const debounceUpdateTableHeight = debounce(updateTableHeight, 200);
+
+
 // 监听窗口变换
-window.addEventListener("resize", updateTableHeight);
+window.addEventListener("resize", debounceUpdateTableHeight);
 
 
 onMounted(() => {
