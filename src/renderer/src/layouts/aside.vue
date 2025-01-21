@@ -4,7 +4,7 @@
       <div class="logo">
         <img src="../assets/logo.png" alt="logo">
       </div>
-      <!--   TODO:展示不要折叠功能  -->
+      <!--   TODO:暂时不要折叠功能  -->
       <!--      <div class="logo-title-box" v-if="!collapse">-->
       <!--        <div class="name">DFAN</div>-->
       <!--        <div class="name">Rename</div>-->
@@ -25,12 +25,23 @@
         </el-menu-item>
       </el-menu>
     </div>
-    <!--   TODO:展示不要折叠功能  -->
-    <!--    <div class="function-box">-->
-    <!--      <el-icon class="expand-box">-->
-    <!--        <Expand @click="collapse = !collapse"/>-->
-    <!--      </el-icon>-->
-    <!--    </div>-->
+
+    <div class="function-box">
+      <div class="dark-mode-box">
+        <el-icon v-if="!darkMode" class="icon" @click="darkMode = !darkMode">
+          <Sunny/>
+        </el-icon>
+        <el-icon v-else class="icon" @click="darkMode = !darkMode">
+          <Moon/>
+        </el-icon>
+      </div>
+
+
+      <!--   TODO:暂时不要折叠功能  -->
+      <!--      <el-icon class="expand-box">-->
+      <!--        <Expand @click="collapse = !collapse"/>-->
+      <!--      </el-icon>-->
+    </div>
   </div>
 </template>
 
@@ -39,7 +50,8 @@ import {
   Tools,
   Management,
   Platform,
-  Expand
+  Sunny,
+  Moon
 } from "@element-plus/icons-vue";
 import {RouteRecordRaw} from "vue-router";
 
@@ -49,6 +61,8 @@ const route = useRoute();
 
 // 折叠
 const collapse = ref(true);
+// 暗夜模式开关
+const darkMode = ref(false);
 
 // 菜单
 const menus = ref<RouteRecordRaw[]>([]);
@@ -66,9 +80,7 @@ const defaultActive = computed(() => route.path);
 
 // 获取菜单
 const getMenus = () => {
-  console.log(router.getRoutes());
   menus.value = router.getRoutes().filter((item) => item.meta.isMenu);
-  console.log(menus.value);
 };
 
 onMounted(() => {
@@ -120,15 +132,27 @@ onMounted(() => {
   }
 
   .menu-box {
-    height: calc(100vh - 85px - 30px);
+    height: calc(100vh - 85px - 59px);
   }
 
   .function-box {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 30px;
-    font-size: 18px;
+    .dark-mode-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 59px;
+      font-size: 20px;
+
+      .icon {
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+          font-size: 28px;
+        }
+      }
+    }
+
   }
 }
 
@@ -144,12 +168,8 @@ onMounted(() => {
 }
 
 .el-menu-item {
-  //font-size: 16px;
   border-radius: 4px;
   color: #374151;
-  //height: 48px;
-  //line-height: 48px;
-
 }
 
 .el-menu-item:hover {
