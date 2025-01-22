@@ -3,9 +3,9 @@
     <div class="title">修改结果预览</div>
     <el-table :data="tableData" :height="publicStore.tableHeight" :header-cell-style="headerCellStyle"
               class="table-box">
-      <el-table-column type="index" width="60" label="序号" align="center"/>
-      <el-table-column prop="date" label="原文件名"/>
-      <el-table-column prop="name" label="新文件名"/>
+      <el-table-column type="index" width="60" label="序号" align="center" />
+      <el-table-column prop="date" label="原文件名" />
+      <el-table-column prop="name" label="新文件名" />
       <el-table-column prop="address" label="状态" width="100">
         <template #default>
           <CommonStatus status="failure">成功</CommonStatus>
@@ -94,7 +94,7 @@ const tableData = [
     date: "白月梵星",
     name: "白月梵星 S01E01.MP4",
     address: "No. "
-  },
+  }
 ];
 
 
@@ -107,6 +107,7 @@ const tableData = [
   height: 100%;
   border: 1px solid #E5E7EB;
   border-radius: 0.5rem;
+  background-color: #fff;
 
   .title {
     line-height: 1.5rem;

@@ -1,16 +1,16 @@
 <template>
   <div ref="commonLayoutRef">
     <el-container class="common-layout">
-      <AsideComponent/>
+      <AsideComponent />
       <el-container class="common-container">
         <el-header class="header" height="85px">
-          <HeaderComponent/>
+          <HeaderComponent />
         </el-header>
         <el-main class="main">
-          <router-view/>
+          <router-view />
         </el-main>
         <el-footer class="footer">
-          <FooterComponent/>
+          <FooterComponent />
         </el-footer>
       </el-container>
     </el-container>
@@ -29,10 +29,10 @@ const publicStore = usePublicStore();
 // 防抖函数
 const debounce = (func: Function, delay: number) => {
   let timer: any = null;
-  return function () {
+  return function() {
     if (timer) clearTimeout(timer);
     timer = setTimeout(() => {
-      func()
+      func();
     }, delay);
   };
 };
@@ -76,7 +76,7 @@ onBeforeUnmount(() => {
     }
 
     .main {
-      //background-color: #ccc;
+      background-color: #f5f5f5;
 
     }
 

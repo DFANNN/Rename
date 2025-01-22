@@ -2,7 +2,7 @@
   <div class="a-container">
     <div class="left-box">
       <div class="title1">文件选择</div>
-      <UploadFile/>
+      <UploadFile />
       <div class="title2">替换规则</div>
       <el-form
         ref="ruleFormRef"
@@ -12,14 +12,14 @@
         class="demo-ruleForm"
       >
         <el-form-item label="查找文本" prop="pass">
-          <el-input v-model="ruleForm.pass" autocomplete="off"/>
+          <el-input v-model="ruleForm.pass" autocomplete="off" />
         </el-form-item>
         <div class="line-box">
           <el-form-item label="起始集" prop="pass" class="line-item">
-            <el-input-number v-model="ruleForm.checkPass" class="number-input"/>
+            <el-input-number v-model="ruleForm.checkPass" class="number-input" />
           </el-form-item>
           <el-form-item label="当前季" prop="pass" class="line-item">
-            <el-input-number v-model="ruleForm.checkPass" class="number-input"/>
+            <el-input-number v-model="ruleForm.checkPass" class="number-input" />
           </el-form-item>
         </div>
 
@@ -28,23 +28,23 @@
         </el-form-item>
       </el-form>
     </div>
-    <ResultPreview class="result-preview"/>
+    <ResultPreview class="result-preview" />
   </div>
 </template>
 
 <script setup lang="ts">
 import ResultPreview from "@renderer/components/ResultPreview.vue";
-import UploadFile from '@renderer/components/UploadFile.vue'
-import type {FormInstance} from 'element-plus'
+import UploadFile from "@renderer/components/UploadFile.vue";
+import type { FormInstance } from "element-plus";
 
-const ruleFormRef = ref<FormInstance>()
+const ruleFormRef = ref<FormInstance>();
 
 
 const ruleForm = ref({
-  pass: '',
+  pass: "",
   checkPass: 1,
-  age: 1,
-})
+  age: 1
+});
 
 </script>
 
@@ -62,6 +62,7 @@ const ruleForm = ref({
     height: 100%;
     margin-right: 2%;
     min-width: 350px;
+    background: #fff;
 
     .title1 {
       line-height: 1.5rem;
