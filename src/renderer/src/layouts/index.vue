@@ -14,6 +14,7 @@
         </el-footer>
       </el-container>
     </el-container>
+    <ThemeSetting />
   </div>
 </template>
 
@@ -21,6 +22,7 @@
 import AsideComponent from "@renderer/layouts/aside.vue";
 import HeaderComponent from "@renderer/layouts/header.vue";
 import FooterComponent from "@renderer/layouts/footer.vue";
+import ThemeSetting from "@renderer/components/ThemeSetting.vue";
 
 const commonLayoutRef = ref<HTMLElement | null>();
 

@@ -9,8 +9,25 @@ export const usePublicStore = defineStore("public", () => {
     return appHeight.value - 84 - 60 - 40 - 48 - 16 - 30;
   });
 
+  // --------------ThemeSetting 相关参数-----------------
+
+  // ThemeSetting drawer开关
+  const themeSettingDrawer = ref(false);
+
+  // 当前的主题模式
+  const themeMode = ref("light");
+  // 主题色数据
+  const themeColorList = ["#000", "#3B82F6", "#22C55E", "#EF4444", "#EAB308", "#A855F7", "#EC4899"];
+
+  // 当前导航菜单模式(是否折叠菜单,默认折叠)
+  const themeMenuMode = ref(true);
+
   return {
     appHeight,
-    tableHeight
+    tableHeight,
+    themeSettingDrawer,
+    themeMode,
+    themeColorList,
+    themeMenuMode
   };
 });

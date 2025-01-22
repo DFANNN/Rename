@@ -19,7 +19,7 @@
       >
         <el-menu-item :index="menu.path" v-for="menu in menus">
           <el-icon>
-            <component :is="menuIcons[menu.meta?.icon as any]"/>
+            <component :is="menuIcons[menu.meta?.icon as any]" />
           </el-icon>
           <template #title>{{ menu.meta?.title }}</template>
         </el-menu-item>
@@ -27,12 +27,9 @@
     </div>
 
     <div class="function-box">
-      <div class="dark-mode-box">
-        <el-icon v-if="!darkMode" class="icon" @click="darkMode = !darkMode">
-          <Sunny/>
-        </el-icon>
-        <el-icon v-else class="icon" @click="darkMode = !darkMode">
-          <Moon/>
+      <div class="setting-box">
+        <el-icon class="icon" @click="publicStore.themeSettingDrawer = true">
+          <Tools />
         </el-icon>
       </div>
 
@@ -49,20 +46,17 @@
 import {
   Tools,
   Management,
-  Platform,
-  Sunny,
-  Moon
+  Platform
 } from "@element-plus/icons-vue";
-import {RouteRecordRaw} from "vue-router";
+import { RouteRecordRaw } from "vue-router";
 
 
 const router = useRouter();
 const route = useRoute();
+const publicStore = usePublicStore();
 
 // 折叠
 const collapse = ref(true);
-// 暗夜模式开关
-const darkMode = ref(false);
 
 // 菜单
 const menus = ref<RouteRecordRaw[]>([]);
@@ -136,7 +130,7 @@ onMounted(() => {
   }
 
   .function-box {
-    .dark-mode-box {
+    .setting-box {
       display: flex;
       align-items: center;
       justify-content: center;
