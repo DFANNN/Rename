@@ -2,7 +2,7 @@
   <div class="a-container">
     <div class="left-box">
       <div class="title1">文件选择</div>
-      <UploadFile />
+      <UploadFile/>
       <div class="title2">替换规则</div>
       <el-form
         ref="ruleFormRef"
@@ -12,14 +12,14 @@
         class="demo-ruleForm"
       >
         <el-form-item label="查找文本" prop="pass">
-          <el-input v-model="ruleForm.pass" autocomplete="off" />
+          <el-input v-model="ruleForm.pass" autocomplete="off"/>
         </el-form-item>
         <div class="line-box">
           <el-form-item label="起始集" prop="pass" class="line-item">
-            <el-input-number v-model="ruleForm.checkPass" class="number-input" />
+            <el-input-number v-model="ruleForm.checkPass" class="number-input"/>
           </el-form-item>
           <el-form-item label="当前季" prop="pass" class="line-item">
-            <el-input-number v-model="ruleForm.checkPass" class="number-input" />
+            <el-input-number v-model="ruleForm.checkPass" class="number-input"/>
           </el-form-item>
         </div>
 
@@ -28,14 +28,14 @@
         </el-form-item>
       </el-form>
     </div>
-    <ResultPreview class="result-preview" />
+    <ResultPreview class="result-preview"/>
   </div>
 </template>
 
 <script setup lang="ts">
 import ResultPreview from "@renderer/components/ResultPreview.vue";
 import UploadFile from "@renderer/components/UploadFile.vue";
-import type { FormInstance } from "element-plus";
+import type {FormInstance} from "element-plus";
 
 const ruleFormRef = ref<FormInstance>();
 
@@ -56,24 +56,24 @@ const ruleForm = ref({
 
   .left-box {
     padding: 1.5rem;
-    border: 1px solid #E5E7EB;
+    border: 1px solid var(--border-color);
     border-radius: 0.5rem;
     width: 38%;
     height: 100%;
     margin-right: 2%;
     min-width: 350px;
-    background: #fff;
+    background: var(--background-color);
 
     .title1 {
       line-height: 1.5rem;
-      color: #000;
+      color: var(--text-color);
       margin-bottom: 1rem;
     }
 
     .title2 {
       font-size: 14px;
       line-height: 1.25rem;
-      color: #000;
+      color: var(--text-color);
       margin: 1rem 0;
     }
 

@@ -1,3 +1,6 @@
+@import './theme.css';
+
+
 *,
 *::before,
 *::after {
@@ -12,8 +15,8 @@ ul {
 
 body {
   min-height: 100vh;
-  /*color: var(--color-text);*/
-  /*background: var(--color-background);*/
+  color: var(--text-color);
+  background: var(--background-color);
   line-height: 1.6;
   font-family: Inter,
   -apple-system,

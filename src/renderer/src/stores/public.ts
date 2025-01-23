@@ -1,4 +1,4 @@
-import { defineStore } from "pinia";
+import {defineStore} from "pinia";
 
 export const usePublicStore = defineStore("public", () => {
   // app dom 高度
@@ -15,12 +15,25 @@ export const usePublicStore = defineStore("public", () => {
   const themeSettingDrawer = ref(false);
 
   // 当前的主题模式
-  const themeMode = ref("light");
+  const themeMode = ref(localStorage.getItem("themeMode") || "light");
   // 主题色数据
   const themeColorList = ["#000", "#3B82F6", "#22C55E", "#EF4444", "#EAB308", "#A855F7", "#EC4899"];
 
   // 当前导航菜单模式(是否折叠菜单,默认折叠)
   const themeMenuMode = ref(true);
+
+  // 切换主题模式
+  const toggleThemeMode = () => {
+    const html = document.documentElement
+    html.className = themeMode.value
+  };
+
+
+  // 监听主题模式变化,动态更新本地存储
+  watchEffect(() => {
+    localStorage.setItem("themeMode", themeMode.value)
+    toggleThemeMode()
+  })
 
   return {
     appHeight,
@@ -28,6 +41,7 @@ export const usePublicStore = defineStore("public", () => {
     themeSettingDrawer,
     themeMode,
     themeColorList,
-    themeMenuMode
+    themeMenuMode,
+    toggleThemeMode
   };
 });

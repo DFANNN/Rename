@@ -19,13 +19,13 @@
   .title {
     font-size: 18px;
     line-height: 1.75rem;
-    color: #000000;
+    color: var(--text-color);
   }
 
   .info {
     font-size: 14px;
     line-height: 1.25rem;
-    color: #6B7280;
+    color: var(--text-info-color);
   }
 }
 </style>

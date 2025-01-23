@@ -32,7 +32,7 @@ const percentage = ref(20);
     display: flex;
     flex: 1;
     font-size: 14px;
-    color: #4B5563;
+    color: var(--text-info-color);
 
     .progress-name {
       margin-left: 1rem;

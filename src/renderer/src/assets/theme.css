@@ -1,0 +1,33 @@
+/* 浅色模式 */
+:root {
+  --background-color: #ffffff;
+  --text-color: #000000;
+  --border-color: #E5E7EB;
+  --text-info-color: #4B5563;
+  /* main盒子 背景色 */
+  --main-background-color: #f9fafb;
+  /* 菜单选择 文本颜色 */
+  --menu-select-text-color: #ffffff;
+  /* 菜单选择 背景色 */
+  --menu-select-background-color: #000000;
+  /* 菜单未选择 文本颜色 */
+  --menu-no-select-text-color: #374151;
+}
+
+
+/* 深色模式 */
+html.dark {
+  --background-color: #1F2937;
+  --text-color: #ffffff;
+  --border-color: #374151;
+  --text-info-color: #9CA3AF;
+  /* main盒子 背景色 */
+  --main-background-color: #111827;
+  /* 菜单选择 文本颜色 */
+  --menu-select-text-color: #ffffff;
+  /* 菜单选择 背景色 */
+  --menu-select-background-color: #000000;
+  /* 菜单未选择 文本颜色 */
+  --menu-no-select-text-color: #D1D5DB;
+}
+

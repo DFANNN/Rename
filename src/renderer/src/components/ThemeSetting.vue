@@ -7,13 +7,13 @@
     <div class="mode-box">
       <div class="default-box" :class="{ 'light-active': isLightMode }" @click="setThemeMode('light')">
         <el-icon class="default-icon">
-          <Sunny />
+          <Sunny/>
         </el-icon>
         <div class="default-name">浅色</div>
       </div>
       <div class="default-box" :class="{ 'light-active': isDarkMode }" @click="setThemeMode('dark')">
         <el-icon class="default-icon">
-          <Moon />
+          <Moon/>
         </el-icon>
         <div class="default-name">深色</div>
       </div>
@@ -22,19 +22,19 @@
     <div class="theme-color-box">
       <div class="theme-color-item" :style="{background: color}" v-for="(color,index) in publicStore.themeColorList"
            :key="index"></div>
-      <el-color-picker v-model="color1" class="color-picker" />
+      <el-color-picker v-model="color1" class="color-picker"/>
     </div>
     <el-divider content-position="center">导航菜单</el-divider>
     <div class="mode-box">
       <div class="default-box" :class="{ 'light-active': isThemeMenuMode }" @click="setThemeMenuMode(true)">
         <el-icon class="default-icon">
-          <Fold />
+          <Fold/>
         </el-icon>
         <div class="default-name">折叠</div>
       </div>
       <div class="default-box" :class="{ 'light-active': !isThemeMenuMode }" @click="setThemeMenuMode(false)">
         <el-icon class="default-icon">
-          <Expand />
+          <Expand/>
         </el-icon>
         <div class="default-name">展开</div>
       </div>
@@ -43,7 +43,7 @@
 </template>
 
 <script setup lang="ts">
-import { Sunny, Moon, Fold, Expand } from "@element-plus/icons-vue";
+import {Sunny, Moon, Fold, Expand} from "@element-plus/icons-vue";
 
 const publicStore = usePublicStore();
 
@@ -68,10 +68,12 @@ const setThemeMenuMode = (mode: boolean) => {
 </script>
 
 <style scoped lang="less">
+
+
 .drawer-title {
   font-size: 16px;
   text-align: center;
-  color: #000
+  color: var(--text-color);
 }
 
 .mode-box {
@@ -124,7 +126,6 @@ const setThemeMenuMode = (mode: boolean) => {
     border-radius: 0.25rem;
     cursor: pointer;
   }
-
 
 }
 
