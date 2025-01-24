@@ -12,6 +12,14 @@
   --menu-select-background-color: #000000;
   /* 菜单未选择 文本颜色 */
   --menu-no-select-text-color: #374151;
+  /* 上传组件 边框颜色 */
+  --upload-border-color: #D1D5DB;
+  /* 表格 头 文本颜色 */
+  --table-header-text-color: #4B5563;
+  /* 表格 头 背景色 */
+  --table-header-background-color: #f9fafb;
+  /* 表格 行 hover 颜色 */
+  --table-tr-hover-color: #F3F4F6;
 }
 
 
@@ -29,5 +37,13 @@ html.dark {
   --menu-select-background-color: #000000;
   /* 菜单未选择 文本颜色 */
   --menu-no-select-text-color: #D1D5DB;
+  /* 上传组件 边框颜色 */
+  --upload-border-color: #4B5563;
+  /* 表格 头 文本颜色 */
+  --table-header-text-color: #D1D5DB;
+  /* 表格 头 背景色 */
+  --table-header-background-color: #364150;
+  /* 表格 行 hover 颜色 */
+  --table-tr-hover-color: #374151;
 }
 

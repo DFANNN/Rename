@@ -1,11 +1,10 @@
 <template>
   <div class="result-preview-container">
     <div class="title">修改结果预览</div>
-    <el-table :data="tableData" :height="publicStore.tableHeight" :header-cell-style="headerCellStyle"
-              class="table-box">
-      <el-table-column type="index" width="60" label="序号" align="center"/>
-      <el-table-column prop="date" label="原文件名"/>
-      <el-table-column prop="name" label="新文件名"/>
+    <el-table :data="tableData" :height="publicStore.tableHeight" :highlight-current-row="false" class="table-box">
+      <el-table-column type="index" width="60" label="序号" align="center" />
+      <el-table-column prop="date" label="原文件名" />
+      <el-table-column prop="name" label="新文件名" />
       <el-table-column prop="address" label="状态" width="100">
         <template #default>
           <CommonStatus status="failure">成功</CommonStatus>
@@ -20,10 +19,6 @@ import CommonStatus from "@renderer/components/CommonStatus.vue";
 
 const publicStore = usePublicStore();
 
-const headerCellStyle = {
-  backgroundColor: "#F9FAFB",
-  color: "#4B5563"
-};
 
 const tableData = [
   {
@@ -121,7 +116,7 @@ const tableData = [
   }
 
   .el-table {
-    color: #000;
+    color: var(--text-color);
 
     &:last-child {
       border-bottom: none;
@@ -129,6 +124,28 @@ const tableData = [
   }
 
 
+}
+
+:deep(.el-table th.el-table__cell) {
+  background-color: var(--table-header-background-color);
+  border-color: var(--border-color);
+  color: var(--table-header-text-color);
+}
+
+:deep(.el-table tr) {
+  background-color: var(--background-color);
+}
+
+:deep(.el-table--enable-row-transition .el-table__body td.el-table__cell) {
+  border-color: var(--border-color);
+}
+
+:deep(.el-table__inner-wrapper:before) {
+  background-color: var(--border-color);
+}
+
+.el-table {
+  --el-table-row-hover-bg-color: var(--table-tr-hover-color);
 }
 
 </style>

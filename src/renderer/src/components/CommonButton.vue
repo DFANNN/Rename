@@ -16,6 +16,7 @@
   line-height: 1.5rem;
   height: 2.25rem;
   transition: background-color 0.3s ease;
+  border: none;
 
   &:hover {
     background-color: #333333; /* 悬停时变为深灰色 */
