@@ -34,3 +34,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* drawer 组件 */
+.el-drawer {
+  background: var(--background-color) !important;
+}
+
+.el-divider__text {
+  background: red;
+}

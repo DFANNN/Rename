@@ -3,38 +3,38 @@
     <template #title>
       <div class="drawer-title">系统设置</div>
     </template>
-    <el-divider content-position="center">显示模式</el-divider>
+    <DividerLine>显示模式</DividerLine>
     <div class="mode-box">
       <div class="default-box" :class="{ 'light-active': isLightMode }" @click="setThemeMode('light')">
         <el-icon class="default-icon">
-          <Sunny/>
+          <Sunny />
         </el-icon>
         <div class="default-name">浅色</div>
       </div>
       <div class="default-box" :class="{ 'light-active': isDarkMode }" @click="setThemeMode('dark')">
         <el-icon class="default-icon">
-          <Moon/>
+          <Moon />
         </el-icon>
         <div class="default-name">深色</div>
       </div>
     </div>
-    <el-divider content-position="center">主题色</el-divider>
+    <DividerLine>主题色</DividerLine>
     <div class="theme-color-box">
       <div class="theme-color-item" :style="{background: color}" v-for="(color,index) in publicStore.themeColorList"
            :key="index"></div>
-      <el-color-picker v-model="color1" class="color-picker"/>
+      <el-color-picker v-model="color1" class="color-picker" />
     </div>
-    <el-divider content-position="center">导航菜单</el-divider>
+    <DividerLine>导航菜单</DividerLine>
     <div class="mode-box">
       <div class="default-box" :class="{ 'light-active': isThemeMenuMode }" @click="setThemeMenuMode(true)">
         <el-icon class="default-icon">
-          <Fold/>
+          <Fold />
         </el-icon>
         <div class="default-name">折叠</div>
       </div>
       <div class="default-box" :class="{ 'light-active': !isThemeMenuMode }" @click="setThemeMenuMode(false)">
         <el-icon class="default-icon">
-          <Expand/>
+          <Expand />
         </el-icon>
         <div class="default-name">展开</div>
       </div>
@@ -43,7 +43,8 @@
 </template>
 
 <script setup lang="ts">
-import {Sunny, Moon, Fold, Expand} from "@element-plus/icons-vue";
+import { Sunny, Moon, Fold, Expand } from "@element-plus/icons-vue";
+import DividerLine from "@renderer/components/DividerLine.vue";
 
 const publicStore = usePublicStore();
 
@@ -68,8 +69,6 @@ const setThemeMenuMode = (mode: boolean) => {
 </script>
 
 <style scoped lang="less">
-
-
 .drawer-title {
   font-size: 16px;
   text-align: center;
@@ -81,14 +80,14 @@ const setThemeMenuMode = (mode: boolean) => {
   justify-content: space-between;
   padding: 0.5rem;
   border-radius: 0.5rem;
-  background: #F3F4F6;
+  background: var(--table-tr-hover-color);
   gap: 0.5rem;
 
   .default-box {
     flex: 1;
     border-radius: 0.25rem;
     padding: 0.5rem 0;
-    background: #F3F4F6;
+    background: var(--table-tr-hover-color);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -129,8 +128,15 @@ const setThemeMenuMode = (mode: boolean) => {
 
 }
 
+:deep(.el-divider__text) {
+  background: var(--background-color);
+  color: var(--text-info-color);
+}
+
 :deep(.el-color-picker__trigger) {
   width: 100%;
   height: 100%;
 }
+
+
 </style>
