@@ -21,7 +21,7 @@
     <DividerLine>主题色</DividerLine>
     <div class="theme-color-box">
       <div class="theme-color-item" :style="{background: color}" v-for="(color,index) in publicStore.themeColorList"
-           :key="index"></div>
+           :key="index" @click="publicStore.toggleThemeColor(color)"></div>
       <el-color-picker v-model="color1" class="color-picker" />
     </div>
     <DividerLine>导航菜单</DividerLine>
@@ -66,6 +66,7 @@ const setThemeMenuMode = (mode: boolean) => {
   publicStore.themeMenuMode = mode;
 };
 
+
 </script>
 
 <style scoped lang="less">
@@ -107,10 +108,10 @@ const setThemeMenuMode = (mode: boolean) => {
 
   .default-box.light-active {
     background: #fff;
-    color: #000;
+    color: var(--button-background-color);
 
     .default-icon {
-      color: #EAB308;
+      color: var(--button-background-color);
     }
   }
 }

@@ -10,7 +10,7 @@
 
 <style scoped lang="less">
 .el-button {
-  background-color: #000000;
+  background-color: var(--button-background-color);
   color: #fff;
   padding: 0.5rem 1.5rem;
   line-height: 1.5rem;
