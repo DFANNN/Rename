@@ -1,4 +1,4 @@
-import { defineStore } from "pinia";
+import {defineStore} from "pinia";
 
 export const usePublicStore = defineStore("public", () => {
   // app dom 高度
@@ -33,7 +33,7 @@ export const usePublicStore = defineStore("public", () => {
   // 切换主题颜色
   const toggleThemeColor = (color: string) => {
     themeColor.value = color;
-    document.documentElement.style.setProperty("--button-background-color", themeColor.value);
+    document.documentElement.style.setProperty("--theme-color-dark", themeColor.value);
 
   };
 

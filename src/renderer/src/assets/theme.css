@@ -1,7 +1,9 @@
-/*  以下变量用于主题色切换,通用  */
+/*  公共 用于主题色变换  */
 :root {
-  /* 按钮背景色 */
-  --button-background-color: #000000;
+  /* 深色主题色--主要用于按钮 */
+  --theme-color-dark: #000000;
+  /* 浅色主题色--主要用于背景 */
+  --theme-color-light: #f9fafb;
 }
 
 
@@ -27,8 +29,8 @@
   --table-header-background-color: #f9fafb;
   /* 表格 行 hover 颜色 */
   --table-tr-hover-color: #F3F4F6;
-
-
+  /* 选中效果 的字体色  */
+  --select-text-color: #ffffff;
 }
 
 
@@ -54,7 +56,8 @@ html.dark {
   --table-header-background-color: #364150;
   /* 表格 行 hover 颜色 */
   --table-tr-hover-color: #374151;
-
+  /* 选中效果 的字体色  */
+  --select-text-color: #000;
 
 }
 
