@@ -17,9 +17,11 @@ export const usePublicStore = defineStore("public", () => {
   // 当前的主题模式
   const themeMode = ref(localStorage.getItem("themeMode") || "light");
   // 当前主题色
-  const themeColor = ref(localStorage.getItem("themeColor") || "#000");
+  const themeColor = ref(localStorage.getItem("themeColor") || "#000000");
+  // 颜色选择器颜色
+  const pickerColor = ref('')
   // 主题色数据
-  const themeColorList = ["#000", "#3B82F6", "#22C55E", "#EF4444", "#EAB308", "#A855F7", "#EC4899"];
+  const themeColorList = ["#000000", "#3a1725", "#7b3650", "#a02e4e", "#c04e5e"];
 
   // 当前导航菜单模式(是否折叠菜单,默认折叠)
   const themeMenuMode = ref(true);
@@ -32,8 +34,9 @@ export const usePublicStore = defineStore("public", () => {
 
   // 切换主题颜色
   const toggleThemeColor = (color: string) => {
+    if (themeColorList.includes(color)) pickerColor.value = ''
     themeColor.value = color;
-    document.documentElement.style.setProperty("--theme-color-dark", themeColor.value);
+    document.documentElement.style.setProperty("--theme-common-color", color);
 
   };
 
@@ -43,6 +46,12 @@ export const usePublicStore = defineStore("public", () => {
     localStorage.setItem("themeMode", themeMode.value);
     toggleThemeMode();
   });
+  // 监听主题颜色变化,动态更新本地存储
+  watchEffect(() => {
+    localStorage.setItem("themeColor", themeColor.value);
+    toggleThemeColor(themeColor.value)
+    if (!themeColorList.includes(themeColor.value)) pickerColor.value = themeColor.value
+  });
 
   return {
     appHeight,
@@ -51,6 +60,8 @@ export const usePublicStore = defineStore("public", () => {
     themeMode,
     themeColorList,
     themeMenuMode,
+    themeColor,
+    pickerColor,
     toggleThemeMode,
     toggleThemeColor
   };

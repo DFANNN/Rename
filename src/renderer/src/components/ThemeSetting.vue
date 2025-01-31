@@ -6,36 +6,28 @@
     <DividerLine>主题模式</DividerLine>
     <div class="theme-mode-box">
       <div class="common-mode-box" v-for="(mode,index) in themeModeInfoList" :key="index"
-           @click=" publicStore.themeMode = mode.value" :class="{ 'is-active': publicStore.themeMode === mode.value }">
+           @click="publicStore.themeMode = mode.value" :class="{ 'is-active': publicStore.themeMode === mode.value }">
         <el-icon class="common-icon">
           <Check v-if="publicStore.themeMode === mode.value"/>
           <component :is="mode.icon" v-else/>
         </el-icon>
         <div>{{ mode.title }}</div>
       </div>
-
     </div>
     <DividerLine>主题色</DividerLine>
     <div class="theme-color-box">
-      <div class="theme-color-item" :style="{background: color}" v-for="(color,index) in publicStore.themeColorList"
-           :key="index" @click="publicStore.toggleThemeColor(color)"></div>
-      <el-color-picker v-model="color1" class="color-picker"/>
+      <div v-for="(color,index) in publicStore.themeColorList"
+           class="theme-color-item"
+           :class="{'is-active': color === publicStore.themeColor}"
+           :key="index"
+           :style="{background: color}" @click="publicStore.toggleThemeColor(color)">
+        <el-icon class="icon" v-show="publicStore.themeColor === color">
+          <Check/>
+        </el-icon>
+      </div>
+      <el-color-picker v-model="publicStore.pickerColor" class="color-picker" @change="changeColor"/>
     </div>
     <DividerLine>导航菜单</DividerLine>
-    <div class="mode-box">
-      <div class="default-box" :class="{ 'light-active': isThemeMenuMode }" @click="setThemeMenuMode(true)">
-        <el-icon class="default-icon">
-          <Fold/>
-        </el-icon>
-        <div class="default-name">折叠</div>
-      </div>
-      <div class="default-box" :class="{ 'light-active': !isThemeMenuMode }" @click="setThemeMenuMode(false)">
-        <el-icon class="default-icon">
-          <Expand/>
-        </el-icon>
-        <div class="default-name">展开</div>
-      </div>
-    </div>
   </el-drawer>
 </template>
 
@@ -53,15 +45,12 @@ const themeModeInfoList = [
 ]
 
 
-const isThemeMenuMode = computed(() => publicStore.themeMenuMode);
-
 const color1 = ref("");
 
-
-// 设置主题菜单模式
-const setThemeMenuMode = (mode: boolean) => {
-  publicStore.themeMenuMode = mode;
-};
+// 当色彩选择器发生改变时
+const changeColor = (e) => {
+  publicStore.toggleThemeColor(e);
+}
 
 
 </script>
@@ -78,6 +67,7 @@ const setThemeMenuMode = (mode: boolean) => {
   display: flex;
   border: 1px solid var(--border-color);
   border-radius: 9999px;
+  font-size: 14px;
 
   .common-mode-box {
     flex: 1;
@@ -100,63 +90,32 @@ const setThemeMenuMode = (mode: boolean) => {
   }
 
   .common-mode-box.is-active {
-    color: var(--select-text-color);
-    background: var(--theme-color-dark);
-  }
-}
-
-.mode-box {
-  display: flex;
-  justify-content: space-between;
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-  background: var(--table-tr-hover-color);
-  gap: 0.5rem;
-
-  .default-box {
-    flex: 1;
-    border-radius: 0.25rem;
-    padding: 0.5rem 0;
-    background: var(--table-tr-hover-color);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: #6B7280;
-    cursor: pointer;
-
-    .default-icon {
-      font-size: 20px;
-    }
-
-    .default-name {
-      font-size: 14px;
-      margin-top: 0.5rem;
-    }
-  }
-
-  .default-box.light-active {
-    background: #fff;
-    color: var(--button-background-color);
-
-    .default-icon {
-      color: var(--button-background-color);
-    }
+    color: #ffffff;
+    background: var(--theme-common-color);
   }
 }
 
 .theme-color-box {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 1rem;
 
   .theme-color-item {
-    height: 50px;
-    border-radius: 0.25rem;
+    height: 38.33px;
+    border-radius: 4px;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .icon {
+      color: #fff;
+    }
+
   }
 
 }
+
 
 :deep(.el-divider__text) {
   background: var(--background-color);

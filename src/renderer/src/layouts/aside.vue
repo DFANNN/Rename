@@ -19,7 +19,7 @@
       >
         <el-menu-item :index="menu.path" v-for="menu in menus">
           <el-icon>
-            <component :is="menuIcons[menu.meta?.icon as any]" />
+            <component :is="menuIcons[menu.meta?.icon as any]"/>
           </el-icon>
           <template #title>{{ menu.meta?.title }}</template>
         </el-menu-item>
@@ -29,7 +29,7 @@
     <div class="function-box">
       <div class="setting-box">
         <el-icon class="icon" @click="publicStore.themeSettingDrawer = true">
-          <Tools />
+          <Tools/>
         </el-icon>
       </div>
 
@@ -48,7 +48,7 @@ import {
   Management,
   Platform
 } from "@element-plus/icons-vue";
-import { RouteRecordRaw } from "vue-router";
+import {RouteRecordRaw} from "vue-router";
 
 
 const router = useRouter();
@@ -173,13 +173,13 @@ onMounted(() => {
 
 .el-menu-item:hover {
   color: var(--menu-select-text-color);
-  background: #000000;
+  background: var(--theme-common-color);
   font-size: 20px;
 }
 
 .el-menu-item.is-active {
   color: var(--menu-select-text-color);
-  background: #000000;
+  background: var(--theme-common-color);
 }
 
 </style>
