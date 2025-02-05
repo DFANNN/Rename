@@ -15,12 +15,13 @@
           <el-input v-model="ruleForm.pass" autocomplete="off" />
         </el-form-item>
         <div class="line-box">
-          <el-form-item label="起始集" prop="pass" class="line-item">
-            <el-input-number v-model="ruleForm.checkPass" class="number-input" />
-          </el-form-item>
           <el-form-item label="当前季" prop="pass" class="line-item">
             <el-input-number v-model="ruleForm.checkPass" class="number-input" />
           </el-form-item>
+          <el-form-item label="起始集" prop="pass" class="line-item">
+            <el-input-number v-model="ruleForm.checkPass" class="number-input" />
+          </el-form-item>
+
         </div>
 
         <el-form-item>

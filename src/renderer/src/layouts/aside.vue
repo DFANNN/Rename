@@ -25,7 +25,7 @@
     <div class="function-box">
       <div class="setting-box">
         <el-icon class="icon" @click="publicStore.themeSettingDrawer = true">
-          <Tools />
+          <Setting />
         </el-icon>
       </div>
     </div>
@@ -34,9 +34,10 @@
 
 <script setup lang="ts">
 import {
-  Tools,
-  Management,
-  Platform
+  VideoCamera,
+  DocumentCopy,
+  DocumentRemove,
+  Setting
 } from "@element-plus/icons-vue";
 import { RouteRecordRaw } from "vue-router";
 
@@ -53,9 +54,9 @@ const menus = ref<RouteRecordRaw[]>([]);
 
 // 菜单icon
 const menuIcons = {
-  Tools,
-  Management,
-  Platform
+  VideoCamera,
+  DocumentCopy,
+  DocumentRemove
 };
 
 // 页面加载时默认激活菜单的 index

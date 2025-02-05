@@ -9,17 +9,17 @@ const routes = [
       {
         path: "a",
         component: () => import("@renderer/views/a/index.vue"),
-        meta: { title: "替换文本", icon: "Tools", isMenu: true }
+        meta: { title: "电视剧模式", icon: "VideoCamera", isMenu: true }
       },
       {
         path: "b",
         component: () => import("@renderer/views/b/index.vue"),
-        meta: { title: "插入文本", icon: "Management", isMenu: true }
+        meta: { title: "插入文本模式", icon: "DocumentCopy", isMenu: true }
       },
       {
         path: "c",
         component: () => import("@renderer/views/c/index.vue"),
-        meta: { title: "索引文本", icon: "Platform", isMenu: true }
+        meta: { title: "替换文本模式", icon: "DocumentRemove", isMenu: true }
       }
     ]
   }

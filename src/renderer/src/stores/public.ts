@@ -1,4 +1,4 @@
-import {defineStore} from "pinia";
+import { defineStore } from "pinia";
 
 export const usePublicStore = defineStore("public", () => {
   // app dom 高度
@@ -19,9 +19,9 @@ export const usePublicStore = defineStore("public", () => {
   // 当前主题色
   const themeColor = ref(localStorage.getItem("themeColor") || "#000000");
   // 颜色选择器颜色
-  const pickerColor = ref('')
+  const pickerColor = ref("");
   // 主题色数据
-  const themeColorList = ["#000000", "#3a1725", "#7b3650", "#a02e4e", "#c04e5e"];
+  const themeColorList = ["#1C1C1E", "#7EB6E6", "#91C499", "#E8A87C", "#F4B6C2"];
 
   // 当前导航菜单模式(是否折叠菜单,默认折叠)
   const themeMenuMode = ref(true);
@@ -34,7 +34,7 @@ export const usePublicStore = defineStore("public", () => {
 
   // 切换主题颜色
   const toggleThemeColor = (color: string) => {
-    if (themeColorList.includes(color)) pickerColor.value = ''
+    if (themeColorList.includes(color)) pickerColor.value = "";
     themeColor.value = color;
     document.documentElement.style.setProperty("--theme-common-color", color);
 
@@ -49,8 +49,8 @@ export const usePublicStore = defineStore("public", () => {
   // 监听主题颜色变化,动态更新本地存储
   watchEffect(() => {
     localStorage.setItem("themeColor", themeColor.value);
-    toggleThemeColor(themeColor.value)
-    if (!themeColorList.includes(themeColor.value)) pickerColor.value = themeColor.value
+    toggleThemeColor(themeColor.value);
+    if (!themeColorList.includes(themeColor.value)) pickerColor.value = themeColor.value;
   });
 
   return {
