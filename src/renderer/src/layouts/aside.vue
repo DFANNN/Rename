@@ -4,40 +4,30 @@
       <div class="logo">
         <img src="../assets/logo.png" alt="logo">
       </div>
-      <!--   TODO:暂时不要折叠功能  -->
-      <!--      <div class="logo-title-box" v-if="!collapse">-->
-      <!--        <div class="name">DFAN</div>-->
-      <!--        <div class="name">Rename</div>-->
-      <!--      </div>-->
     </div>
     <div class="menu-box">
-      <el-menu
-        :default-active="defaultActive"
-        class="el-menu-vertical-demo"
-        :collapse="collapse"
-        router
-      >
-        <el-menu-item :index="menu.path" v-for="menu in menus">
+      <div :class="{'icon-box':true,'is-active':defaultActive === menu.path}" v-for="(menu,index) in menus"
+           :key="index" @click="router.push(menu.path)">
+        <el-tooltip
+          :effect="publicStore.themeMode"
+          :content="menu.meta?.title as string"
+          placement="right"
+          :offset="30"
+          :show-after="200"
+        >
           <el-icon>
-            <component :is="menuIcons[menu.meta?.icon as any]"/>
+            <component :is="menuIcons[menu.meta?.icon as any]" />
           </el-icon>
-          <template #title>{{ menu.meta?.title }}</template>
-        </el-menu-item>
-      </el-menu>
+        </el-tooltip>
+      </div>
     </div>
 
     <div class="function-box">
       <div class="setting-box">
         <el-icon class="icon" @click="publicStore.themeSettingDrawer = true">
-          <Tools/>
+          <Tools />
         </el-icon>
       </div>
-
-
-      <!--   TODO:暂时不要折叠功能  -->
-      <!--      <el-icon class="expand-box">-->
-      <!--        <Expand @click="collapse = !collapse"/>-->
-      <!--      </el-icon>-->
     </div>
   </div>
 </template>
@@ -48,7 +38,7 @@ import {
   Management,
   Platform
 } from "@element-plus/icons-vue";
-import {RouteRecordRaw} from "vue-router";
+import { RouteRecordRaw } from "vue-router";
 
 
 const router = useRouter();
@@ -127,6 +117,23 @@ onMounted(() => {
 
   .menu-box {
     height: calc(100vh - 85px - 59px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .icon-box {
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      padding: 12px 16px;
+      border-radius: 4px;
+      color: var(--menu-no-select-text-color);
+    }
+
+    .icon-box.is-active {
+      background: var(--theme-common-color);
+      color: var(--menu-select-text-color)
+    }
   }
 
   .function-box {
@@ -150,36 +157,4 @@ onMounted(() => {
 
   }
 }
-
-.el-menu {
-  background: var(--background-color);
-}
-
-.el-menu-vertical-demo:not(.el-menu--collapse) {
-  width: 180px;
-  height: 100%;
-  border: none;
-}
-
-.el-menu-vertical-demo.el-menu--collapse {
-  height: 100%;
-  border: none;
-}
-
-.el-menu-item {
-  border-radius: 4px;
-  color: var(--menu-no-select-text-color);
-}
-
-.el-menu-item:hover {
-  color: var(--menu-select-text-color);
-  background: var(--theme-common-color);
-  font-size: 20px;
-}
-
-.el-menu-item.is-active {
-  color: var(--menu-select-text-color);
-  background: var(--theme-common-color);
-}
-
 </style>

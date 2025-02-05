@@ -127,6 +127,31 @@ const ruleForm = ref({
     background-color: var(--background-color);
     border-color: var(--upload-border-color);
   }
+
+  .el-input {
+    --el-input-focus-border-color: var(--theme-common-color);
+  }
+
+  :deep(.el-input__wrapper.is-focus) {
+    box-shadow: 0 0 0 1px var(--theme-common-color) inset;
+  }
+
+  :deep(.el-input-number__increase:hover~.el-input:not(.is-disabled) .el-input__wrapper) {
+    box-shadow: 0 0 0 1px var(--theme-common-color) inset;
+  }
+
+  :deep(.el-input-number__decrease:hover~.el-input:not(.is-disabled) .el-input__wrapper) {
+    box-shadow: 0 0 0 1px var(--theme-common-color) inset;
+  }
+
+  :deep(.el-input-number__increase:hover, .el-input-number__increase:hover) {
+    color: var(--theme-common-color);
+  }
+
+  :deep(.el-input-number__decrease:hover, .el-input-number__increase:hover) {
+    color: var(--theme-common-color);
+  }
 }
+
 
 </style>
