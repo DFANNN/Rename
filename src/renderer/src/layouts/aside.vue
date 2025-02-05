@@ -2,7 +2,7 @@
   <div class="aside-container" :class="{'collapse':collapse}">
     <div class="logo-box">
       <div class="logo">
-        <img src="../assets/logo.png" alt="logo">
+        <img src="../assets/logo1.jpg" alt="logo">
       </div>
     </div>
     <div class="menu-box">

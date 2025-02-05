@@ -1,12 +1,13 @@
 <template>
   <div class="header-container">
-    <div class="title">替换文本模式</div>
+    <div class="title">{{ route.meta.title }}</div>
     <div class="info">在此模式下，您可以批量替换文件名中的指定文本</div>
   </div>
 </template>
 
 <script setup lang="ts">
 
+const route = useRoute();
 </script>
 
 <style scoped lang="less">

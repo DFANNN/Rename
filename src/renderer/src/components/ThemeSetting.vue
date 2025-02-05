@@ -8,8 +8,8 @@
       <div class="common-mode-box" v-for="(mode,index) in themeModeInfoList" :key="index"
            @click="publicStore.themeMode = mode.value" :class="{ 'is-active': publicStore.themeMode === mode.value }">
         <el-icon class="common-icon">
-          <Check v-if="publicStore.themeMode === mode.value"/>
-          <component :is="mode.icon" v-else/>
+          <Check v-if="publicStore.themeMode === mode.value" />
+          <component :is="mode.icon" v-else />
         </el-icon>
         <div>{{ mode.title }}</div>
       </div>
@@ -22,35 +22,32 @@
            :key="index"
            :style="{background: color}" @click="publicStore.toggleThemeColor(color)">
         <el-icon class="icon" v-show="publicStore.themeColor === color">
-          <Check/>
+          <Check />
         </el-icon>
       </div>
-      <el-color-picker v-model="publicStore.pickerColor" class="color-picker" @change="changeColor"/>
+      <el-color-picker v-model="publicStore.pickerColor" class="color-picker" @change="changeColor" />
     </div>
-    <DividerLine>导航菜单</DividerLine>
   </el-drawer>
 </template>
 
 <script setup lang="ts">
-import {Sunny, Moon, Fold, Expand, Monitor, Check} from "@element-plus/icons-vue";
+import { Sunny, Moon, Monitor, Check } from "@element-plus/icons-vue";
 import DividerLine from "@renderer/components/DividerLine.vue";
 
 const publicStore = usePublicStore();
 
 //  主题模式列表
 const themeModeInfoList = [
-  {title: "浅色", value: "light", icon: Sunny},
-  {title: "深色", value: "dark", icon: Moon},
-  {title: "设备", value: "device", icon: Monitor},
-]
+  { title: "浅色", value: "light", icon: Sunny },
+  { title: "深色", value: "dark", icon: Moon },
+  { title: "设备", value: "device", icon: Monitor }
+];
 
-
-const color1 = ref("");
 
 // 当色彩选择器发生改变时
 const changeColor = (e) => {
   publicStore.toggleThemeColor(e);
-}
+};
 
 
 </script>
