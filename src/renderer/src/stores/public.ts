@@ -21,7 +21,7 @@ export const usePublicStore = defineStore("public", () => {
   // 颜色选择器颜色
   const pickerColor = ref("");
   // 主题色数据
-  const themeColorList = ["#1C1C1E", "#7EB6E6", "#91C499", "#E8A87C", "#F4B6C2"];
+  const themeColorList = ["#1C1C1E", "#7EB6E6", "#91C499", "#E8A87C", "#F4B6C2", "#123455", "#0F0F10", "#3A6B91", "#496B50", "#8C5A3E", "#865564"];
 
   // 当前导航菜单模式(是否折叠菜单,默认折叠)
   const themeMenuMode = ref(true);
@@ -29,7 +29,17 @@ export const usePublicStore = defineStore("public", () => {
   // 切换主题模式
   const toggleThemeMode = () => {
     const html = document.documentElement;
+
+    // 跟随系统主题
+    if (themeMode.value === "device") {
+      // 获取当前是否是深色模式
+      const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      html.className = isDarkMode ? "dark" : "light";
+      return;
+    }
+    // 手动设置主题
     html.className = themeMode.value;
+
   };
 
   // 切换主题颜色
@@ -51,6 +61,16 @@ export const usePublicStore = defineStore("public", () => {
     localStorage.setItem("themeColor", themeColor.value);
     toggleThemeColor(themeColor.value);
     if (!themeColorList.includes(themeColor.value)) pickerColor.value = themeColor.value;
+  });
+
+  // 当系统主题发生变化时，如果用户选择的是系统主题，则切换主题模式，跟系统主题保持一致
+  onMounted(() => {
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    mediaQuery.addEventListener("change", toggleThemeMode);
+  });
+  onUnmounted(() => {
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    mediaQuery.removeEventListener("change", toggleThemeMode);
   });
 
   return {
