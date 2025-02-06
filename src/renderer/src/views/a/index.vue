@@ -35,7 +35,7 @@
 
 <script setup lang="ts">
 import ResultPreview from "@renderer/components/ResultPreview.vue";
-import UploadFile from "@renderer/components/UploadFile.vue";
+import UploadFile from "@renderer/components/FileSelect.vue";
 import type { FormInstance } from "element-plus";
 
 const ruleFormRef = ref<FormInstance>();
