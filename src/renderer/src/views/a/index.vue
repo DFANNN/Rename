@@ -1,7 +1,7 @@
 <template xmlns="">
   <div class="a-container">
     <div class="left-box">
-      <div class="title1">文件选择</div>
+      <!--      <div class="title1">文件选择</div>-->
       <UploadFile />
       <div class="title2">替换规则</div>
       <el-form

@@ -1,43 +1,58 @@
 <template>
-  <el-upload
-    class="upload-demo"
-    drag
-    action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
-    multiple
-  >
-    <el-icon class="el-icon--upload">
-      <upload-filled />
-    </el-icon>
-    <div class="el-upload__text">
-      <div class="info">拖拽文件到此处，或点击选择文件</div>
-      <CommonButton>选择文件</CommonButton>
+  <div class="file-select-container">
+    <div class="title">文件选择</div>
+    <div class="file-select-box">
+      <el-input v-model="input" placeholder="请选择文件夹路径" />
+      <CommonButton class="button" @click="dialogVisible = true">浏览文件夹</CommonButton>
     </div>
 
-  </el-upload>
+    <el-dialog
+      v-model="dialogVisible"
+      :show-close="false"
+      :draggable="true"
+    >
+      <template #header>
+        <div>选择文件路径</div>
+        <el-icon>
+          <Close />
+        </el-icon>
+      </template>
+      <div>This is a message</div>
+      <template #footer>
+        <div class="dialog-footer">
+          <CommonButton @click="dialogVisible = false">取消</CommonButton>
+          <CommonButton @click="dialogVisible = false">确定</CommonButton>
+        </div>
+      </template>
+    </el-dialog>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { UploadFilled } from "@element-plus/icons-vue";
 import CommonButton from "@renderer/components/CommonButton.vue";
+import { Close } from "@element-plus/icons-vue";
+
+const input = ref("");
+const dialogVisible = ref(false);
 </script>
 
 <style scoped lang="less">
-:deep(.el-upload-dragger) {
-  padding: 2rem 0;
-  background-color: var(--background-color);
-  border-color: var(--upload-border-color);
-}
+.file-select-container {
+  .title {
+    line-height: 1.5rem;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+  }
 
-.el-icon--upload {
-  font-size: 36px;
-  margin-bottom: 0;
-  color: var(--text-info-color);
-}
+  .file-select-box {
+    border: 2px dashed var(--border-color);
+    border-radius: 8px;
+    padding: 2rem 1.5rem;
 
-.el-upload__text {
-  .info {
-    margin: 0.5rem 0;
-    color: var(--text-info-color);
+    .button {
+      width: 100%;
+      margin-top: 1rem;
+    }
   }
 }
 </style>
