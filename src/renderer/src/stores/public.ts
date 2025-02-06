@@ -21,7 +21,7 @@ export const usePublicStore = defineStore("public", () => {
   // 颜色选择器颜色
   const pickerColor = ref("");
   // 主题色数据
-  const themeColorList = ["#000000", "#7EB6E6", "#91C499", "#E8A87C", "#F4B6C2", "#123456", "#121212", "#3A6B91", "#496B50", "#8C5A3E", "#865564"];
+  const themeColorList = ["#7EB6E6", "#91C499", "#E8A87C", "#F4B6C2", "#CAB8E1", "#000000", "#3A6B91", "#496B50", "#8C5A3E", "#865564", "#9277C2"];
 
   // 当前导航菜单模式(是否折叠菜单,默认折叠)
   const themeMenuMode = ref(true);
