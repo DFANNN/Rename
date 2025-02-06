@@ -19,7 +19,7 @@
   border: none;
 
   &:hover {
-    background-color: #333333; /* 悬停时变为深灰色 */
+    filter: brightness(1.2); /* 提高亮度，使颜色变浅 */
   }
 }
 </style>
