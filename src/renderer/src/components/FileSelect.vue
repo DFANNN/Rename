@@ -2,21 +2,21 @@
   <div class="file-select-container">
     <div class="title">文件选择</div>
     <div class="file-select-box">
-      <el-input v-model="input" placeholder="请选择文件夹路径" />
+      <el-input v-model="input" placeholder="请选择文件夹路径"/>
       <CommonButton class="button" @click="dialogVisible = true">浏览文件夹</CommonButton>
     </div>
 
     <el-dialog
       v-model="dialogVisible"
       :show-close="false"
+      :align-center="true"
       :draggable="true"
-      width="70%"
     >
       <template #header>
         <div class="dialog-header">
           <div>选择文件路径</div>
           <el-icon class="close-icon">
-            <Close />
+            <Close/>
           </el-icon>
         </div>
 
@@ -31,7 +31,7 @@
               :show-after="200"
             >
               <el-icon class="current-path-home-icon">
-                <FolderIcon />
+                <FolderIcon/>
               </el-icon>
             </el-tooltip>
 
@@ -50,24 +50,28 @@
               <span class="path-name">Document</span>
               <span class="separator">/</span>
             </div>
+            <div>
+              <span class="path-name">Document</span>
+              <span class="separator">/</span>
+            </div>
           </div>
         </div>
         <div class="disk-path-box">
           <div class="disk-box" v-for="disk in diskList">
             <el-icon class="disk-icon">
-              <DiskIcon />
+              <DiskIcon/>
             </el-icon>
-            <div>{{ disk }}</div>
+            <div class="disk-name">{{ disk }}</div>
           </div>
           <div class="disk-box">
             <el-icon class="disk-icon">
-              <FolderOpened />
+              <FolderOpened/>
             </el-icon>
             <div>文件夹</div>
           </div>
           <div class="disk-box">
             <el-icon class="disk-icon">
-              <Document />
+              <Document/>
             </el-icon>
             <div>xxxx.html</div>
           </div>
@@ -87,14 +91,15 @@
 import CommonButton from "@renderer/components/CommonButton.vue";
 import FolderIcon from "@renderer/components/icon/FolderIcon.vue";
 import DiskIcon from "@renderer/components/icon/DiskIcon.vue";
-import { Close, Document, FolderOpened } from "@element-plus/icons-vue";
+import {Close, Document, FolderOpened} from "@element-plus/icons-vue";
 
 const publicStore = usePublicStore();
 
 const input = ref("");
 const dialogVisible = ref(false);
 
-const diskList = ref(["本地磁盘C", "本地磁盘D", "本地磁盘E"]);
+const diskList = ref(["白月梵星 S01E01.MP4", "本地磁盘D", "本地磁盘E", "本地磁盘F", "本地磁盘C", "本地磁盘G", "本地磁盘C", "本地磁盘H",
+  "这个文件夹的名字超级长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长"]);
 </script>
 
 <style scoped lang="less">
@@ -177,33 +182,46 @@ const diskList = ref(["本地磁盘C", "本地磁盘D", "本地磁盘E"]);
 
     .disk-path-box {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-row-gap: 2rem; /* 行间距（可选） */
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 0 1rem;
       grid-auto-rows: min-content; /* 自动调整行高 */
       padding: 1rem 1.5rem;
       border-radius: 0.5rem;
       color: var(--text-color);
       border: 1px solid var(--border-color);
-      height: 300px;
+      height: 40vh;
       overflow-y: auto;
+      cursor: pointer;
 
       .disk-box {
         display: flex;
         align-items: center;
+        padding: 0.75rem 0.5rem;
+        border-radius: 0.25rem;
 
         .disk-icon {
           margin-right: 0.5rem;
           font-size: 1rem;
           color: var(--menu-no-select-text-color);
         }
+
+        .disk-name {
+          width: 100%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+
+        }
+
+        &:hover {
+          background-color: var(--table-tr-hover-color);
+        }
       }
-
-
     }
   }
 
   .dialog-footer {
-    padding: 0.5rem 1.5rem;
+    padding: 0.75rem 1.5rem;
     border-top: 1px solid var(--border-color);
   }
 }
@@ -212,4 +230,17 @@ const diskList = ref(["本地磁盘C", "本地磁盘D", "本地磁盘E"]);
   padding: 0;
   background-color: var(--background-color);
 }
+
+@media (max-width: 1350px) {
+  :deep(.el-dialog) {
+    width: 70vw;
+  }
+}
+
+@media (min-width: 1351px) {
+  :deep(.el-dialog) {
+    width: 50vw;
+  }
+}
+
 </style>
