@@ -15,7 +15,7 @@ export const diskList = async () => {
     const disks = await si.fsSize();
     const data = disks.map((item: any) => {
       return {
-        name: process.platform === 'win32' ? item.mount + '\\' : item.mount,
+        name: item.mount,
         type: 0,
         fullPath: process.platform === 'win32' ? item.mount + '\\' : item.mount
       }

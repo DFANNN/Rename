@@ -15,7 +15,7 @@
       <template #header>
         <div class="dialog-header">
           <div>选择文件路径</div>
-          <el-icon class="close-icon">
+          <el-icon class="close-icon" @click="cancel">
             <Close/>
           </el-icon>
         </div>
@@ -30,36 +30,22 @@
               placement="top-start"
               :show-after="200"
             >
-              <el-icon class="current-path-home-icon">
+              <el-icon class="current-path-home-icon" @click="returnRootDir">
                 <FolderIcon/>
               </el-icon>
             </el-tooltip>
             <div>
               当前路径：
             </div>
-            <div>
-              <span class="path-name">本地磁盘c</span>
-              <span class="separator">/</span>
+            <div class="path-box" v-for="(disk,index) in diskStore.currentFullPath" @click="goToPath(disk,index)">
+              <span class="path-name">{{ disk.name }}</span>
+              <span class="separator" v-if="(diskStore.currentFullPath.length - 1) !== index">\</span>
             </div>
-            <div>
-              <span class="path-name">Users</span>
-              <span class="separator">/</span>
-            </div>
-            <div>
-              <span class="path-name">Document</span>
-              <span class="separator">/</span>
-            </div>
-            <div>
-              <span class="path-name">Document</span>
-              <span class="separator">/</span>
-            </div>
-            <div>
-              {{ diskStore.currentFullPath }}
-            </div>
+
           </div>
         </div>
         <div class="disk-path-box">
-          <div class="disk-box" v-for="disk in diskStore.diskOrFilesList" @click="getDirList(disk.fullPath,disk.type)">
+          <div class="disk-box" v-for="disk in diskStore.diskOrFilesList" @click="getDirList(disk)">
             <el-icon class="disk-icon">
               <DiskIcon v-if="disk.type === 0"/>
               <FolderOpened v-if="disk.type === 1"/>
@@ -71,8 +57,8 @@
       </div>
       <template #footer>
         <div class="dialog-footer">
-          <CommonButton @click="dialogVisible = false">取消</CommonButton>
-          <CommonButton @click="dialogVisible = false">确定</CommonButton>
+          <CommonButton @click="cancel">取消</CommonButton>
+          <CommonButton @click="confirm">确定</CommonButton>
         </div>
       </template>
     </el-dialog>
@@ -84,6 +70,7 @@ import CommonButton from "@renderer/components/CommonButton.vue";
 import FolderIcon from "@renderer/components/icon/FolderIcon.vue";
 import DiskIcon from "@renderer/components/icon/DiskIcon.vue";
 import {Close, Document, FolderOpened} from "@element-plus/icons-vue";
+import type {IDiskOrFilesListItem} from "@renderer/stores/diskType";
 
 const publicStore = usePublicStore();
 const diskStore = useDiskStore();
@@ -108,19 +95,48 @@ const getDiskList = async () => {
   }
 };
 
-// 获取目录列表
-const getDirList = async (fullPath: string, type: number) => {
+// 返回根目录
+const returnRootDir = () => {
+  diskStore.currentFullPath = []
+  diskStore.diskOrFilesList = []
+  getDiskList()
+};
+
+/**
+ * 获取目录列表
+ * @param disk 当前点击的目录
+ * @param isPush 是否将当前目录添加到currentFullPath中
+ */
+const getDirList = async (disk: IDiskOrFilesListItem, isPush: boolean = true) => {
   // 如果当前是文件，则不进行操作
-  if (type === 2) return
-  diskStore.currentFullPath = fullPath
-  const data = await window.electron.ipcRenderer.invoke("dirList", fullPath)
+  if (disk.type === 2) return
+  if (isPush) diskStore.currentFullPath.push(disk)
+  const data = await window.electron.ipcRenderer.invoke("dirList", disk.fullPath)
   if (data.code === 0) {
     diskStore.diskOrFilesList = data.data
-    console.log("获取目录列表成功", data)
   } else {
     console.log("获取目录列表失败", data)
   }
 };
+
+// 页面header展示的当前路径的 跳转方法
+const goToPath = (disk: IDiskOrFilesListItem, index: number) => {
+  // 删除 currentFullPath 点击目录的 后面的元素
+  diskStore.currentFullPath = diskStore.currentFullPath.slice(0, index + 1)
+  getDirList(disk, false)
+};
+
+// 确定
+const confirm = () => {
+  cancel()
+}
+// 取消
+const cancel = () => {
+  dialogVisible.value = false
+  diskStore.currentFullPath = []
+  diskStore.diskOrFilesList = []
+};
+
 
 </script>
 
@@ -187,18 +203,30 @@ const getDirList = async (fullPath: string, type: number) => {
           }
         }
 
-        .path-name {
-          cursor: pointer;
+        .path-box {
+          display: flex;
+          align-items: center;
 
-          &:hover {
-            color: var(--theme-common-color);
-            text-decoration: underline;
+          .path-name {
+            cursor: pointer;
+            max-width: 10rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+
+
+            &:hover {
+              color: var(--theme-common-color);
+              text-decoration: underline;
+            }
+          }
+
+          .separator {
+            margin: 0 0.25rem;
           }
         }
 
-        .separator {
-          margin: 0 0.5rem;
-        }
+
       }
     }
 
