@@ -2,6 +2,7 @@ import {app, shell, BrowserWindow, ipcMain} from "electron";
 import {join} from "path";
 import {electronApp, optimizer, is} from "@electron-toolkit/utils";
 import icon from "../../resources/icon.png?asset";
+import {diskList, dirList} from './utils'
 
 function createWindow(): void {
   // Create the browser window.
@@ -18,6 +19,9 @@ function createWindow(): void {
       sandbox: false
     }
   });
+
+  ipcMain.handle("diskList", diskList)
+  ipcMain.handle("dirList", dirList)
 
   mainWindow.on("ready-to-show", () => {
     mainWindow.show();

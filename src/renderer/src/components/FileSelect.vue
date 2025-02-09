@@ -3,7 +3,7 @@
     <div class="title">文件选择</div>
     <div class="file-select-box">
       <el-input v-model="input" placeholder="请选择文件夹路径"/>
-      <CommonButton class="button" @click="dialogVisible = true">浏览文件夹</CommonButton>
+      <CommonButton class="button" @click="showDialog">浏览文件夹</CommonButton>
     </div>
 
     <el-dialog
@@ -34,7 +34,6 @@
                 <FolderIcon/>
               </el-icon>
             </el-tooltip>
-
             <div>
               当前路径：
             </div>
@@ -54,26 +53,19 @@
               <span class="path-name">Document</span>
               <span class="separator">/</span>
             </div>
+            <div>
+              {{ diskStore.currentFullPath }}
+            </div>
           </div>
         </div>
         <div class="disk-path-box">
-          <div class="disk-box" v-for="disk in diskList">
+          <div class="disk-box" v-for="disk in diskStore.diskOrFilesList" @click="getDirList(disk.fullPath,disk.type)">
             <el-icon class="disk-icon">
-              <DiskIcon/>
+              <DiskIcon v-if="disk.type === 0"/>
+              <FolderOpened v-if="disk.type === 1"/>
+              <Document v-if="disk.type === 2"/>
             </el-icon>
-            <div class="disk-name">{{ disk }}</div>
-          </div>
-          <div class="disk-box">
-            <el-icon class="disk-icon">
-              <FolderOpened/>
-            </el-icon>
-            <div>文件夹</div>
-          </div>
-          <div class="disk-box">
-            <el-icon class="disk-icon">
-              <Document/>
-            </el-icon>
-            <div>xxxx.html</div>
+            <div class="disk-name">{{ disk.name }}</div>
           </div>
         </div>
       </div>
@@ -94,12 +86,42 @@ import DiskIcon from "@renderer/components/icon/DiskIcon.vue";
 import {Close, Document, FolderOpened} from "@element-plus/icons-vue";
 
 const publicStore = usePublicStore();
+const diskStore = useDiskStore();
 
 const input = ref("");
+// 开关
 const dialogVisible = ref(false);
 
-const diskList = ref(["白月梵星 S01E01.MP4", "本地磁盘D", "本地磁盘E", "本地磁盘F", "本地磁盘C", "本地磁盘G", "本地磁盘C", "本地磁盘H",
-  "这个文件夹的名字超级长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长"]);
+// 打开文件选择对话框
+const showDialog = () => {
+  dialogVisible.value = true;
+  getDiskList()
+};
+
+// 获取磁盘列表
+const getDiskList = async () => {
+  const data = await window.electron.ipcRenderer.invoke("diskList")
+  if (data.code === 0) {
+    diskStore.diskOrFilesList = data.data
+  } else {
+    console.log("获取磁盘列表失败", data)
+  }
+};
+
+// 获取目录列表
+const getDirList = async (fullPath: string, type: number) => {
+  // 如果当前是文件，则不进行操作
+  if (type === 2) return
+  diskStore.currentFullPath = fullPath
+  const data = await window.electron.ipcRenderer.invoke("dirList", fullPath)
+  if (data.code === 0) {
+    diskStore.diskOrFilesList = data.data
+    console.log("获取目录列表成功", data)
+  } else {
+    console.log("获取目录列表失败", data)
+  }
+};
+
 </script>
 
 <style scoped lang="less">

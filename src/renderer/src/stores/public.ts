@@ -1,4 +1,5 @@
-import { defineStore } from "pinia";
+//  主题设置公共数据仓库
+import {defineStore} from "pinia";
 
 export const usePublicStore = defineStore("public", () => {
   // app dom 高度
