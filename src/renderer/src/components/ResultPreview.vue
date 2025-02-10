@@ -1,10 +1,11 @@
 <template>
   <div class="result-preview-container">
     <div class="title">修改结果预览</div>
-    <el-table :data="tableData" :height="publicStore.tableHeight" :highlight-current-row="false" class="table-box">
+    <el-table :data="diskStore.TVSeriesList" :height="publicStore.tableHeight" :highlight-current-row="false"
+              class="table-box">
       <el-table-column type="index" width="60" label="序号" align="center" />
-      <el-table-column prop="date" label="原文件名" />
-      <el-table-column prop="name" label="新文件名" />
+      <el-table-column prop="name" label="原文件名" />
+      <el-table-column prop="newName" label="新文件名" />
       <el-table-column prop="address" label="状态" width="100">
         <template #default>
           <CommonStatus status="failure">成功</CommonStatus>
@@ -18,79 +19,7 @@
 import CommonStatus from "@renderer/components/CommonStatus.vue";
 
 const publicStore = usePublicStore();
-
-
-const tableData = [
-  {
-    date: "白月梵星",
-    name: "白月梵星 S01E01.MP4",
-    address: "No. "
-  }, {
-    date: "白月梵星",
-    name: "白月梵星 S01E01.MP4",
-    address: "No. "
-  }, {
-    date: "白月梵星",
-    name: "白月梵星 S01E01.MP4",
-    address: "No. "
-  }, {
-    date: "白月梵星",
-    name: "白月梵星 S01E01.MP4",
-    address: "No. "
-  }, {
-    date: "白月梵星",
-    name: "白月梵星 S01E01.MP4",
-    address: "No. "
-  }, {
-    date: "白月梵星",
-    name: "白月梵星 S01E01.MP4",
-    address: "No. "
-  }, {
-    date: "白月梵星",
-    name: "白月梵星 S01E01.MP4",
-    address: "No. "
-  }, {
-    date: "白月梵星",
-    name: "白月梵星 S01E01.MP4",
-    address: "No. "
-  }, {
-    date: "白月梵星",
-    name: "白月梵星 S01E01.MP4",
-    address: "No. "
-  }, {
-    date: "白月梵星",
-    name: "白月梵星 S01E01.MP4",
-    address: "No. "
-  }, {
-    date: "白月梵星",
-    name: "白月梵星 S01E01.MP4",
-    address: "No. "
-  }, {
-    date: "白月梵星",
-    name: "白月梵星 S01E01.MP4",
-    address: "No. "
-  }, {
-    date: "白月梵星",
-    name: "白月梵星 S01E01.MP4",
-    address: "No. "
-  }, {
-    date: "白月梵星",
-    name: "白月梵星 S01E01.MP4",
-    address: "No. "
-  }, {
-    date: "白月梵星",
-    name: "白月梵星 S01E01.MP4",
-    address: "No. "
-  }, {
-    date: "白月梵星",
-    name: "白月梵星 S01E01.MP4",
-    address: "No. "
-  }, {
-    date: "白月梵星",
-    name: "白月梵星 S01E01.MP4",
-    address: "No. "
-  }
-];
+const diskStore = useDiskStore();
 
 
 </script>

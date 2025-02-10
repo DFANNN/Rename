@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { IDiskOrFilesListItem } from "@renderer/stores/diskType";
+import { IDiskOrFilesListItem, ITVSeriesListItem } from "@renderer/stores/diskType";
 
 
 export const useDiskStore = defineStore("disk", () => {
@@ -11,6 +11,12 @@ export const useDiskStore = defineStore("disk", () => {
 
   // 当前点击的所有文件
   const currentFullPath = ref<IDiskOrFilesListItem[]>([]);
+
+  // 当前用户选择的文件夹路径
+  const currentSelectDirPath = ref<IDiskOrFilesListItem>({} as IDiskOrFilesListItem);
+
+  // 当前用户选择的文件夹下的电视剧文件
+  const TVSeriesList = ref<ITVSeriesListItem[]>([]);
 
   // 获取当前系统类型
   const getSystemType = async () => {
@@ -28,6 +34,8 @@ export const useDiskStore = defineStore("disk", () => {
   return {
     systemType,
     diskOrFilesList,
-    currentFullPath
+    currentFullPath,
+    currentSelectDirPath,
+    TVSeriesList
   };
 });

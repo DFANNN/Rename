@@ -1,7 +1,6 @@
 <template xmlns="">
   <div class="a-container">
     <div class="left-box">
-      <!--      <div class="title1">文件选择</div>-->
       <UploadFile />
       <div class="title2">替换规则</div>
       <el-form
@@ -11,7 +10,7 @@
         label-position="top"
         class="demo-ruleForm"
       >
-        <el-form-item label="查找文本" prop="pass">
+        <el-form-item label="电视剧名称" prop="pass">
           <el-input v-model="ruleForm.pass" autocomplete="off" />
         </el-form-item>
         <div class="line-box">
@@ -64,12 +63,6 @@ const ruleForm = ref({
     margin-right: 2%;
     min-width: 350px;
     background: var(--background-color);
-
-    .title1 {
-      line-height: 1.5rem;
-      color: var(--text-color);
-      margin-bottom: 1rem;
-    }
 
     .title2 {
       font-size: 14px;

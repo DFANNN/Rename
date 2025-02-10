@@ -81,9 +81,9 @@ export const dirList = async (_event: IpcMainInvokeEvent, dirPath: string) => {
     const dir = await fs.promises.opendir(dirPath);
     // 初始化文件数组，用于存储目录中的文件和子目录信息
     const files: { name: string; type: number, fullPath: string }[] = [];
-
     // 遍历目录中的每一项
     for await (const dirent of dir) {
+      console.log(dirent);
       // 将文件或目录的信息添加到数组中
       files.push({
         name: dirent.name,
@@ -93,6 +93,11 @@ export const dirList = async (_event: IpcMainInvokeEvent, dirPath: string) => {
         fullPath: path.join(dirPath, dirent.name)
       });
     }
+    // 使用自然排序，以保证文件或目录按名称进行排序
+    files.sort((a, b) =>
+      new Intl.Collator("zh-CN", { numeric: true, sensitivity: "base" }).compare(a.name, b.name)
+    );
+
     return {
       code: 0,
       data: files,

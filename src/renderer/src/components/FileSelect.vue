@@ -2,7 +2,7 @@
   <div class="file-select-container">
     <div class="title">文件选择</div>
     <div class="file-select-box">
-      <el-input v-model="input" placeholder="请选择文件夹路径" />
+      <el-input v-model="diskStore.currentSelectDirPath.fullPath" placeholder="请选择文件夹路径" />
       <CommonButton class="button" @click="showDialog">浏览文件夹</CommonButton>
     </div>
 
@@ -77,7 +77,6 @@ import type { IDiskOrFilesListItem } from "@renderer/stores/diskType";
 const publicStore = usePublicStore();
 const diskStore = useDiskStore();
 
-const input = ref("");
 // 开关
 const dialogVisible = ref(false);
 
@@ -89,11 +88,11 @@ const showDialog = () => {
 
 // 获取磁盘列表
 const getDiskList = async () => {
-  const data = await window.electron.ipcRenderer.invoke("diskList");
-  if (data.code === 0) {
-    diskStore.diskOrFilesList = data.data;
+  const res = await window.electron.ipcRenderer.invoke("diskList");
+  if (res.code === 0) {
+    diskStore.diskOrFilesList = res.data;
   } else {
-    console.log("获取磁盘列表失败", data);
+    console.log("获取磁盘列表失败", res);
   }
 };
 
@@ -104,6 +103,7 @@ const returnRootDir = () => {
   getDiskList();
 };
 
+// TODO:问题：点击磁盘列表中的文件夹，会自动跳转到该文件夹，但是当有滚动条时，跳转到下一个文件夹滚动条是不会回到最顶端
 /**
  * 获取目录列表
  * @param disk 当前点击的目录
@@ -113,11 +113,11 @@ const getDirList = async (disk: IDiskOrFilesListItem, isPush: boolean = true) =>
   // 如果当前是文件，则不进行操作
   if (disk.type === 2) return;
   if (isPush) diskStore.currentFullPath.push(disk);
-  const data = await window.electron.ipcRenderer.invoke("dirList", disk.fullPath);
-  if (data.code === 0) {
-    diskStore.diskOrFilesList = data.data;
+  const res = await window.electron.ipcRenderer.invoke("dirList", disk.fullPath);
+  if (res.code === 0) {
+    diskStore.diskOrFilesList = res.data;
   } else {
-    console.log("获取目录列表失败", data);
+    console.log("获取目录列表失败", res);
   }
 };
 
@@ -129,7 +129,14 @@ const goToPath = (disk: IDiskOrFilesListItem, index: number) => {
 };
 
 // 确定
-const confirm = () => {
+const confirm = async () => {
+  diskStore.currentSelectDirPath = diskStore.currentFullPath[diskStore.currentFullPath.length - 1];
+  const res = await window.electron.ipcRenderer.invoke("dirList", diskStore.currentSelectDirPath.fullPath);
+  if (res.code === 0) {
+    diskStore.TVSeriesList = res.data;
+  } else {
+    console.log("获取电视剧集失败", res);
+  }
   cancel();
 };
 // 取消
