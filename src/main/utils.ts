@@ -1,7 +1,38 @@
-import si from 'systeminformation';
-import fs from 'fs'
+import si from "systeminformation";
+import fs from "fs";
 import path from "node:path";
-import {IpcMainInvokeEvent} from 'electron';
+import { IpcMainInvokeEvent } from "electron";
+
+
+/**
+ * 系统类型
+ * process.platform的值 ：
+ * win32（适用于 Windows 所有版本）
+ * darwin（适用于 macOS (苹果)）
+ * linux（适用于所有 Linux 发行版）
+ */
+export const systemType = () => {
+  try {
+    // 获取系统类型
+    const type = process.platform;
+    const typeMap = {
+      win32: "Windows",
+      darwin: "macOS",
+      linux: "Linux"
+    };
+    return {
+      code: 0,
+      data: typeMap[type],
+      message: "获取系统类型成功"
+    };
+  } catch (error) {
+    return {
+      code: 500,
+      data: null,
+      message: error
+    };
+  }
+};
 
 /**
  * 获取磁盘信息
@@ -17,14 +48,14 @@ export const diskList = async () => {
       return {
         name: item.mount,
         type: 0,
-        fullPath: process.platform === 'win32' ? item.mount + '\\' : item.mount
-      }
+        fullPath: process.platform === "win32" ? item.mount + "\\" : item.mount
+      };
     });
     return {
       code: 0,
       data: data,
-      message: '获取磁盘信息成功'
-    }
+      message: "获取磁盘信息成功"
+    };
   } catch (error) {
     return {
       code: 500,
@@ -32,7 +63,7 @@ export const diskList = async () => {
       message: error
     };
   }
-}
+};
 
 
 /**
@@ -65,8 +96,8 @@ export const dirList = async (_event: IpcMainInvokeEvent, dirPath: string) => {
     return {
       code: 0,
       data: files,
-      message: '获取目录内容成功'
-    }
+      message: "获取目录内容成功"
+    };
   } catch (error) {
     return {
       code: 500,
@@ -74,7 +105,7 @@ export const dirList = async (_event: IpcMainInvokeEvent, dirPath: string) => {
       message: error
     };
   }
-}
+};
 
 
 // const getDrives = (): string[] => {
