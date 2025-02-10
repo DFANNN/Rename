@@ -134,6 +134,7 @@ const confirm = async () => {
   const res = await window.electron.ipcRenderer.invoke("dirList", diskStore.currentSelectDirPath.fullPath);
   if (res.code === 0) {
     diskStore.TVSeriesList = res.data;
+    console.log("获取电视剧集成功", diskStore.TVSeriesList);
   } else {
     console.log("获取电视剧集失败", res);
   }

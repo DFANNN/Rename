@@ -2,7 +2,7 @@ import { app, shell, BrowserWindow, ipcMain } from "electron";
 import { join } from "path";
 import { electronApp, optimizer, is } from "@electron-toolkit/utils";
 import icon from "../../resources/icon.png?asset";
-import { diskList, dirList, systemType } from "./utils";
+import { diskList, dirList, systemType, TVSeriesModePreview } from "./utils";
 
 function createWindow(): void {
   // Create the browser window.
@@ -23,6 +23,8 @@ function createWindow(): void {
   ipcMain.handle("systemType", systemType);
   ipcMain.handle("diskList", diskList);
   ipcMain.handle("dirList", dirList);
+  ipcMain.handle("TVSeriesModePreview", TVSeriesModePreview);
+
 
   mainWindow.on("ready-to-show", () => {
     mainWindow.show();

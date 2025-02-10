@@ -83,7 +83,6 @@ export const dirList = async (_event: IpcMainInvokeEvent, dirPath: string) => {
     const files: { name: string; type: number, fullPath: string }[] = [];
     // 遍历目录中的每一项
     for await (const dirent of dir) {
-      console.log(dirent);
       // 将文件或目录的信息添加到数组中
       files.push({
         name: dirent.name,
@@ -113,25 +112,96 @@ export const dirList = async (_event: IpcMainInvokeEvent, dirPath: string) => {
 };
 
 
-// const getDrives = (): string[] => {
-//   if (process.platform === 'win32') {
-//     // Windows: 通过 `wmic` 获取所有磁盘
-//     try {
-//       const output = execSync('wmic logicaldisk get caption', { encoding: 'utf-8' });
-//       return output
-//         .split('\n') // 按行拆分
-//         .map(line => line.trim()) // 去掉空格
-//         .filter(line => /^[A-Z]:$/.test(line)) // 只保留 "C:" 这种格式
-//         .map(drive => path.parse(drive).root); // 直接获取 `C:\`
-//     } catch (error) {
-//       console.error('获取磁盘驱动器失败:', error);
-//       return [];
-//     }
-//   } else {
-//     // Linux/macOS: 获取挂载点
-//     const mountDirs = ['/mnt', '/Volumes'];
-//     return mountDirs.flatMap(dir =>
-//       fs.existsSync(dir) ? fs.readdirSync(dir).map(sub => path.join(dir, sub)) : []
-//     );
-//   }
-// };
+interface IConfig {
+  // 电视剧名称
+  name: string;
+  // 当前电视剧是第几季
+  season: number;
+  // 当前集数
+  startEpisode: number;
+}
+
+interface IFiles {
+  // 旧的剧集名称
+  name: string;
+  // 0:磁盘；1:文件夹；2:文件
+  type: number;
+  // 当前文件完整路径
+  fullPath: string;
+  // 新的剧集名字
+  newName: string,
+  // 新的剧集完整路径
+  newFullPath: string,
+}
+
+/**
+ * 电视剧模式预览
+ * @param _event 事件对象，未在本函数中使用，但可能在将来用于事件处理
+ * @param config 配置对象，(name:电视剧名称，season:当前电视剧是第几季,startEpisode:当前集数,isExpanded 是否需要修改扩展名)
+ * @param files 要修改名称的文件列表（完整路径数组）
+ */
+export const TVSeriesModePreview = (_event: IpcMainInvokeEvent, config: IConfig, files: IFiles[]) => {
+  try {
+    const { name, season, startEpisode } = config;
+    const newFiles = files.map((file: IFiles, index) => {
+      const dir = path.dirname(file.fullPath);
+      const ext = path.extname(file.fullPath); // 原始扩展名
+      const episodeNumber = startEpisode + index; // 计算当前集数
+      const newFileName = `${name} S${String(season).padStart(2, "0")}E${String(episodeNumber).padStart(2, "0")}${ext}`; // 新的文件名
+      const newFilePath = path.join(dir, newFileName);
+      return {
+        ...file,
+        // 新的剧集名字
+        newName: newFileName,
+        // 新的剧集完整路径
+        newFullPath: newFilePath
+      };
+    });
+    return { code: 0, data: newFiles, message: "重命名成功" };
+  } catch (error) {
+    return { code: 500, data: [], message: "重命名失败" };
+  }
+};
+
+/**
+ * 重命名文件
+ */
+export const renameFiles = async (_event: IpcMainInvokeEvent, files: IFiles[]) => {
+  console.log("开始批量重命名文件...");
+
+  const results = await Promise.all(
+    files.map(async (file: IFiles) => {
+      try {
+        // 执行文件重命名
+        await fs.promises.rename(file.fullPath, file.newFullPath);
+
+        // 返回成功结果
+        return {
+          name: file.name,
+          fullPath: file.fullPath,
+          newFullPath: file.newFullPath,
+          status: "成功",
+          message: "重命名成功"
+        };
+      } catch (error: any) {
+        console.error(`重命名失败: ${file.fullPath}`, error);
+        // 返回失败结果
+        return {
+          name: file.name,
+          fullPath: file.fullPath,
+          newFullPath: file.newFullPath,
+          status: "失败",
+          message: error.message || "未知错误"
+        };
+      }
+    })
+  );
+  // 打印和返回结果
+  console.log("批量重命名完成", results);
+  return {
+    code: 0,
+    data: results,
+    message: "批量重命名操作完成"
+  };
+};
+

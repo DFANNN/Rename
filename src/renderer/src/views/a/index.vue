@@ -11,20 +11,18 @@
         class="demo-ruleForm"
       >
         <el-form-item label="电视剧名称" prop="pass">
-          <el-input v-model="ruleForm.pass" autocomplete="off" />
+          <el-input v-model="ruleForm.name" autocomplete="off" />
         </el-form-item>
         <div class="line-box">
           <el-form-item label="当前季" prop="pass" class="line-item">
-            <el-input-number v-model="ruleForm.checkPass" class="number-input" />
+            <el-input-number v-model="ruleForm.season" class="number-input" />
           </el-form-item>
           <el-form-item label="起始集" prop="pass" class="line-item">
-            <el-input-number v-model="ruleForm.checkPass" class="number-input" />
+            <el-input-number v-model="ruleForm.startEpisode" class="number-input" />
           </el-form-item>
-
         </div>
-
         <el-form-item>
-          <CommonButton style="width: 100%">预览修改结果</CommonButton>
+          <CommonButton style="width: 100%" @click="TVSeriesModePreviewHandler">预览修改结果</CommonButton>
         </el-form-item>
       </el-form>
     </div>
@@ -36,15 +34,31 @@
 import ResultPreview from "@renderer/components/ResultPreview.vue";
 import UploadFile from "@renderer/components/FileSelect.vue";
 import type { FormInstance } from "element-plus";
+import { TVSSS } from "../../../../main/utils";
 
+const diskStore = useDiskStore();
 const ruleFormRef = ref<FormInstance>();
 
 
 const ruleForm = ref({
-  pass: "",
-  checkPass: 1,
-  age: 1
+  name: "",
+  season: 1,
+  startEpisode: 1
 });
+
+// 电视剧模式预览
+const TVSeriesModePreviewHandler = async () => {
+  const config = JSON.parse(JSON.stringify(ruleForm.value));
+  const files = JSON.parse(JSON.stringify(diskStore.TVSeriesList));
+  const res = await window.electron.ipcRenderer.invoke("TVSeriesModePreview", config, files);
+  if (res.code === 0) {
+    diskStore.TVSeriesList = res.data;
+    console.log("预览成功", diskStore.TVSeriesList);
+  } else {
+    console.log("预览失败", res);
+  }
+
+};
 
 </script>
 
