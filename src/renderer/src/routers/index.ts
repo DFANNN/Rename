@@ -1,8 +1,8 @@
-import { createWebHashHistory, createRouter } from "vue-router";
+import {createWebHashHistory, createRouter} from "vue-router";
 
 
 const routes = [
-  { path: "/", redirect: "/layouts/tvSeriesMode" },
+  {path: "/", redirect: "/layouts/tvSeriesMode"},
   {
     path: "/layouts", component: () => import("@renderer/layouts/index.vue"),
     children: [
@@ -10,18 +10,19 @@ const routes = [
         path: "tvSeriesMode",
         name: "tvSeriesMode",
         component: () => import("@renderer/views/tvSeriesMode/index.vue"),
-        meta: { title: "电视剧模式", icon: "VideoCamera", isMenu: true }
+        meta: {title: "电视剧模式", icon: "VideoCamera", isMenu: true}
       },
       {
         path: "replaceTextMode",
         name: "replaceTextMode",
         component: () => import("@renderer/views/replaceTextMode/index.vue"),
-        meta: { title: "替换文本模式", icon: "DocumentRemove", isMenu: true }
+        meta: {title: "替换文本模式", icon: "DocumentRemove", isMenu: true}
       },
       {
-        path: "c",
-        component: () => import("@renderer/views/replaceTextMode/index.vue"),
-        meta: { title: "插入文本模式", icon: "DocumentCopy", isMenu: true }
+        path: "insertTextMode",
+        name: "insertTextMode",
+        component: () => import("@renderer/views/insertTextMode/index.vue"),
+        meta: {title: "插入文本模式", icon: "DocumentCopy", isMenu: true}
       }
 
     ]

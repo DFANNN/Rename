@@ -1,7 +1,7 @@
 import si from "systeminformation";
 import fs from "fs";
 import path from "node:path";
-import { IpcMainInvokeEvent } from "electron";
+import {IpcMainInvokeEvent} from "electron";
 
 
 /**
@@ -94,7 +94,7 @@ export const dirList = async (_event: IpcMainInvokeEvent, dirPath: string) => {
     }
     // 使用自然排序，以保证文件或目录按名称进行排序
     files.sort((a, b) =>
-      new Intl.Collator("zh-CN", { numeric: true, sensitivity: "base" }).compare(a.name, b.name)
+      new Intl.Collator("zh-CN", {numeric: true, sensitivity: "base"}).compare(a.name, b.name)
     );
 
     return {
@@ -142,7 +142,7 @@ interface IFiles {
  */
 export const TVSeriesModePreview = (_event: IpcMainInvokeEvent, config: IConfig, files: IFiles[]) => {
   try {
-    const { name, season, startEpisode } = config;
+    const {name, season, startEpisode} = config;
     const newFiles = files.map((file: IFiles, index) => {
       const dir = path.dirname(file.fullPath);
       const ext = path.extname(file.fullPath); // 原始扩展名
@@ -157,9 +157,9 @@ export const TVSeriesModePreview = (_event: IpcMainInvokeEvent, config: IConfig,
         newFullPath: newFilePath
       };
     });
-    return { code: 0, data: newFiles, message: "重命名成功" };
+    return {code: 0, data: newFiles, message: "重命名成功"};
   } catch (error) {
-    return { code: 500, data: [], message: "重命名失败" };
+    return {code: 500, data: [], message: error};
   }
 };
 
@@ -174,7 +174,7 @@ export const replaceTextModePreview = (_event: IpcMainInvokeEvent, config: {
   newText: string
 }, files: IFiles[]) => {
   try {
-    const { oldText, newText } = config;
+    const {oldText, newText} = config;
     const newFiles = files.map((file: IFiles) => {
       if (file.name.includes(oldText)) {
         const dir = path.dirname(file.fullPath);
@@ -191,13 +191,41 @@ export const replaceTextModePreview = (_event: IpcMainInvokeEvent, config: {
         return file;
       }
     });
-    return { code: 0, data: newFiles, message: "重命名成功" };
+    return {code: 0, data: newFiles, message: "重命名成功"};
   } catch (error) {
-    return { code: 500, data: [], message: "重命名失败" };
+    return {code: 500, data: [], message: error};
   }
-
-
 };
+
+/**
+ * 插入文本模式预览
+ * @param _event 事件对象，未在本函数中使用，但可能在将来用于事件处理
+ * @param config 配置对象，(insertText:插入文本，insertPosition:插入位置)
+ * @param files 要修改名称的文件列表（完整路径数组）
+ */
+export const insertTextModePreview = (_event: IpcMainInvokeEvent, config: {
+  insertText: string,
+  insertPosition: number | undefined
+}, files: IFiles[]) => {
+  try {
+    const {insertText, insertPosition} = config;
+    const newFiles = files.map((file: IFiles) => {
+      const dir = path.dirname(file.fullPath);
+      const newFileName = insertPosition ? file.name + insertText : insertText + file.name;
+      const newFilePath = path.join(dir, newFileName);
+      return {
+        ...file,
+        // 新的剧集名字
+        newName: newFileName,
+        // 新的剧集完整路径
+        newFullPath: newFilePath
+      }
+    })
+    return {code: 0, data: newFiles, message: "重命名成功"}
+  } catch (error) {
+    return {code: 500, data: [], message: error}
+  }
+}
 
 
 /**

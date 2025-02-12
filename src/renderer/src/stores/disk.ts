@@ -1,11 +1,12 @@
-import { defineStore } from "pinia";
-import { ElMessage } from "element-plus";
+import {defineStore} from "pinia";
+import {ElMessage} from "element-plus";
 import router from "@renderer/routers";
 import type {
   IDiskOrFilesListItem,
   ITVSeriesListItem,
   ITVSeriesModeForm,
-  IReplaceTextModeForm
+  IReplaceTextModeForm,
+  IInsertTextModeForm
 } from "@renderer/stores/diskType";
 
 
@@ -58,20 +59,27 @@ export const useDiskStore = defineStore("disk", () => {
       oldText: "",
       newText: ""
     };
+    insertTextModeForm.value = {
+      insertPosition: undefined,
+      insertText: ""
+    };
   };
 
+  // TODO:这儿有问题，如果if条件不成立，还会执行下面的代码。
   // 重命名
   const renameHandler = async () => {
     if (router.currentRoute.value.name === "tvSeriesMode") {
       await TVSeriesModePreviewHandler();
     } else if (router.currentRoute.value.name === "replaceTextMode") {
       await replaceTextModePreviewHandler();
+    } else if (router.currentRoute.value.name === "insertTextMode") {
+      await insertTextModePreviewHandler();
     }
-    await replaceTextModePreviewHandler();
     const files = JSON.parse(JSON.stringify(TVSeriesList.value));
     const res = await window.electron.ipcRenderer.invoke("renameFiles", files);
     if (res.code === 0) {
       TVSeriesList.value = res.data;
+      ElMessage("修改成功");
     } else {
       console.log("重命名失败", res);
     }
@@ -146,6 +154,41 @@ export const useDiskStore = defineStore("disk", () => {
     }
   };
 
+  // --------------插入文本模式------------------
+  // 插入文本模式的表单
+  const insertTextModeForm = ref<IInsertTextModeForm>({
+    insertPosition: undefined,
+    insertText: ""
+  });
+
+  // 插入文本模式预览
+  const insertTextModePreviewHandler = async () => {
+    if (!currentSelectDirPath.value.fullPath) {
+      ElMessage("请选择或输入文件夹路径");
+      return;
+    }
+    if (insertTextModeForm.value.insertPosition === undefined) {
+      ElMessage("请选择插入位置");
+      return;
+    }
+    if (!insertTextModeForm.value.insertText) {
+      ElMessage("请输入插入文本");
+      return;
+    }
+    if (!TVSeriesList.value.length) {
+      ElMessage("当前路径下没有文件");
+      return;
+    }
+    const config = JSON.parse(JSON.stringify(insertTextModeForm.value));
+    const files = JSON.parse(JSON.stringify(TVSeriesList.value));
+    const res = await window.electron.ipcRenderer.invoke("insertTextModePreview", config, files);
+    if (res.code === 0) {
+      TVSeriesList.value = res.data;
+    } else {
+      console.log("预览失败", res);
+    }
+  }
+
   return {
     systemType,
     diskOrFilesList,
@@ -154,12 +197,14 @@ export const useDiskStore = defineStore("disk", () => {
     TVSeriesList,
     TVSeriesModeForm,
     replaceTextModeForm,
+    insertTextModeForm,
     selectedFilesNum,
     successNum,
     failNum,
     deleteFiles,
     TVSeriesModePreviewHandler,
     replaceTextModePreviewHandler,
+    insertTextModePreviewHandler,
     renameHandler,
     resetData
   };

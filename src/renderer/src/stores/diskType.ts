@@ -37,3 +37,11 @@ export interface IReplaceTextModeForm {
   newText: string
 }
 
+// 插入文本模式表单
+export interface IInsertTextModeForm {
+  // 插入文本
+  insertText: string,
+  // 插入位置
+  insertPosition: number | undefined
+}
+
