@@ -7,7 +7,7 @@ const routes = [
     path: "/layouts", component: () => import("@renderer/layouts/index.vue"),
     children: [
       {
-        path: "a",
+        path: "tVSeriesMode",
         component: () => import("@renderer/views/tVSeriesMode/index.vue"),
         meta: { title: "电视剧模式", icon: "VideoCamera", isMenu: true }
       },

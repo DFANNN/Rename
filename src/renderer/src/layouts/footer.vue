@@ -20,7 +20,7 @@ import CommonButton from "@renderer/components/CommonButton.vue";
 
 const diskStore = useDiskStore();
 
-const percentage = ref(20);
+// const percentage = ref(20);
 </script>
 
 <style scoped lang="less">
