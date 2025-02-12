@@ -46,7 +46,7 @@
 
           </div>
         </div>
-        <div class="disk-path-box">
+        <div class="disk-path-box" v-show="diskStore.diskOrFilesList.length">
           <div class="disk-box" v-for="disk in diskStore.diskOrFilesList" @click="getDirList(disk)">
             <el-icon class="disk-icon">
               <DiskIcon v-if="disk.type === 0" />
@@ -55,6 +55,9 @@
             </el-icon>
             <div class="disk-name">{{ disk.name }}</div>
           </div>
+        </div>
+        <div v-show="!diskStore.diskOrFilesList.length" class="no-files-box">
+          暂无文件
         </div>
       </div>
       <template #footer>
@@ -251,9 +254,9 @@ const cancel = () => {
       border: 1px solid var(--border-color);
       height: 40vh;
       overflow-y: auto;
-      cursor: pointer;
 
       .disk-box {
+        cursor: pointer;
         display: flex;
         align-items: center;
         padding: 0.75rem 0.5rem;
@@ -277,6 +280,21 @@ const cancel = () => {
           background-color: var(--table-tr-hover-color);
         }
       }
+
+
+    }
+
+    .no-files-box {
+      display: grid;
+      grid-template-columns: 1fr;
+      align-items: center;
+      padding: 1rem 1.5rem;
+      border-radius: 0.5rem;
+      color: #909399;
+      border: 1px solid var(--border-color);
+      height: 40vh;
+      overflow-y: auto;
+      text-align: center;
     }
   }
 

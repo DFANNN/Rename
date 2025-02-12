@@ -2,7 +2,7 @@
   <div class="a-container">
     <div class="left-box">
       <UploadFile />
-      <div class="title2">替换规则</div>
+      <div class="title">替换规则</div>
       <el-form
         ref="ruleFormRef"
         :model="diskStore.TVSeriesModeForm"
@@ -58,12 +58,12 @@ const ruleFormRef = ref<FormInstance>();
     min-width: 350px;
     background: var(--background-color);
 
-    .title2 {
-      font-size: 14px;
-      line-height: 1.25rem;
+    .title {
+      line-height: 1.5rem;
       color: var(--text-color);
       margin: 1rem 0;
     }
+
 
     .line-box {
       display: flex;

@@ -1,5 +1,5 @@
 //  主题设置公共数据仓库
-import {defineStore} from "pinia";
+import { defineStore } from "pinia";
 
 export const usePublicStore = defineStore("public", () => {
   // app dom 高度
@@ -18,7 +18,7 @@ export const usePublicStore = defineStore("public", () => {
   // 当前的主题模式
   const themeMode = ref(localStorage.getItem("themeMode") || "light");
   // 当前主题色
-  const themeColor = ref(localStorage.getItem("themeColor") || "#000000");
+  const themeColor = ref(localStorage.getItem("themeColor") || "#7EB6E6");
   // 颜色选择器颜色
   const pickerColor = ref("");
   // 主题色数据

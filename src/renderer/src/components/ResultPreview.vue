@@ -2,6 +2,7 @@
   <div class="result-preview-container">
     <div class="title">修改结果预览</div>
     <el-table :data="diskStore.TVSeriesList" :height="publicStore.tableHeight" :highlight-current-row="false"
+              empty-text="暂无文件"
               class="table-box">
       <el-table-column type="index" width="60" label="序号" align="center" />
       <el-table-column prop="name" label="原文件名" />
@@ -83,6 +84,10 @@ const diskStore = useDiskStore();
 
 .el-table {
   --el-table-row-hover-bg-color: var(--table-tr-hover-color);
+}
+
+:deep(.el-table__empty-block) {
+  background-color: var(--background-color);
 }
 
 </style>
