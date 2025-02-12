@@ -91,7 +91,6 @@ export const useDiskStore = defineStore("disk", () => {
     const res = await window.electron.ipcRenderer.invoke("TVSeriesModePreview", config, files);
     if (res.code === 0) {
       TVSeriesList.value = res.data;
-      console.log("预览成功", TVSeriesList.value);
     } else {
       console.log("预览失败", res);
     }
@@ -104,7 +103,6 @@ export const useDiskStore = defineStore("disk", () => {
     const res = await window.electron.ipcRenderer.invoke("renameFiles", files);
     if (res.code === 0) {
       TVSeriesList.value = res.data;
-      console.log("重命名成功", res);
     } else {
       console.log("重命名失败", res);
     }

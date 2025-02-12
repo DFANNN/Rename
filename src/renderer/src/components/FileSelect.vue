@@ -2,7 +2,8 @@
   <div class="file-select-container">
     <div class="title">文件选择</div>
     <div class="file-select-box">
-      <el-input v-model="diskStore.currentSelectDirPath.fullPath" clearable placeholder="请选择或输入文件夹路径" />
+      <el-input v-model.trim="diskStore.currentSelectDirPath.fullPath" clearable placeholder="请选择或输入文件夹路径"
+                @keydown="keyDownEnter" />
       <CommonButton class="button" @click="showDialog">浏览文件夹</CommonButton>
     </div>
 
@@ -74,6 +75,7 @@
 import CommonButton from "@renderer/components/CommonButton.vue";
 import FolderIcon from "@renderer/components/icon/FolderIcon.vue";
 import DiskIcon from "@renderer/components/icon/DiskIcon.vue";
+import { ElMessage } from "element-plus";
 import { Close, Document, FolderOpened } from "@element-plus/icons-vue";
 import type { IDiskOrFilesListItem } from "@renderer/stores/diskType";
 
@@ -131,13 +133,14 @@ const goToPath = (disk: IDiskOrFilesListItem, index: number) => {
   getDirList(disk, false);
 };
 
+// 获取文件夹下的文件
+
 // 确定
 const confirm = async () => {
   diskStore.currentSelectDirPath = diskStore.currentFullPath[diskStore.currentFullPath.length - 1];
   const res = await window.electron.ipcRenderer.invoke("dirList", diskStore.currentSelectDirPath.fullPath);
   if (res.code === 0) {
     diskStore.TVSeriesList = res.data;
-    console.log("获取电视剧集成功", diskStore.TVSeriesList);
   } else {
     console.log("获取电视剧集失败", res);
   }
@@ -148,6 +151,23 @@ const cancel = () => {
   dialogVisible.value = false;
   diskStore.currentFullPath = [];
   diskStore.diskOrFilesList = [];
+};
+
+/**
+ * 异步处理键盘事件的函数
+ * 当用户按下Enter键时，调用Electron的IPC渲染进程API获取目录列表
+ * @param {KeyboardEvent} e 键盘事件对象
+ */
+const keyDownEnter = async (e: KeyboardEvent) => {
+  if (e.key === "Enter") {
+    const res = await window.electron.ipcRenderer.invoke("dirList", diskStore.currentSelectDirPath.fullPath);
+    if (res.code === 0) {
+      diskStore.TVSeriesList = res.data;
+    } else {
+      console.log("获取电视剧集失败", res);
+      ElMessage("文件夹路径错误");
+    }
+  }
 };
 
 

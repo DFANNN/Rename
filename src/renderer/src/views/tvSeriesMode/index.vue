@@ -1,5 +1,5 @@
 <template xmlns="">
-  <div class="a-container">
+  <div class="tv-series-mode-container">
     <div class="left-box">
       <UploadFile />
       <div class="title">替换规则</div>
@@ -10,7 +10,7 @@
         class="demo-ruleForm"
       >
         <el-form-item label="电视剧名称" prop="name">
-          <el-input v-model="diskStore.TVSeriesModeForm.name" clearable autocomplete="off"
+          <el-input v-model.trim="diskStore.TVSeriesModeForm.name" clearable autocomplete="off"
                     placeholder="请输入电视剧名称" />
         </el-form-item>
         <div class="line-box">
@@ -39,11 +39,10 @@ import type { FormInstance } from "element-plus";
 const diskStore = useDiskStore();
 const ruleFormRef = ref<FormInstance>();
 
-
 </script>
 
 <style scoped lang="less">
-.a-container {
+.tv-series-mode-container {
   display: flex;
   height: 100%;
   width: 100%;

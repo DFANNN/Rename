@@ -65,7 +65,7 @@ app.whenReady().then(() => {
   createWindow();
 
   app.on("activate", function() {
-    // On macOS it's common to re-create tVSeriesMode window in the app when the
+    // On macOS it's common to re-create tvSeriesMode window in the app when the
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
