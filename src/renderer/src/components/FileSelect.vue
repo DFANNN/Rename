@@ -2,7 +2,7 @@
   <div class="file-select-container">
     <div class="title">文件选择</div>
     <div class="file-select-box">
-      <el-input v-model="diskStore.currentSelectDirPath.fullPath" placeholder="请选择文件夹路径" />
+      <el-input v-model="diskStore.currentSelectDirPath.fullPath" clearable placeholder="请选择或输入文件夹路径" />
       <CommonButton class="button" @click="showDialog">浏览文件夹</CommonButton>
     </div>
 

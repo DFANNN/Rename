@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
-import { IDiskOrFilesListItem, ITVSeriesListItem, ITVSeriesModeForm } from "@renderer/stores/diskType";
+import { ElMessage } from "element-plus";
+import type { IDiskOrFilesListItem, ITVSeriesListItem, ITVSeriesModeForm } from "@renderer/stores/diskType";
 
 
 export const useDiskStore = defineStore("disk", () => {
@@ -72,6 +73,19 @@ export const useDiskStore = defineStore("disk", () => {
 
   // 电视剧模式预览
   const TVSeriesModePreviewHandler = async () => {
+    if (!currentSelectDirPath.value.fullPath) {
+      ElMessage("请选择或输入文件夹路径");
+      return;
+    }
+    if (!TVSeriesModeForm.value.name) {
+      ElMessage("请输入电视剧名字");
+      return;
+    }
+    if (!TVSeriesList.value.length) {
+      ElMessage("当前路径下没有文件");
+      return;
+    }
+
     const config = JSON.parse(JSON.stringify(TVSeriesModeForm.value));
     const files = JSON.parse(JSON.stringify(TVSeriesList.value));
     const res = await window.electron.ipcRenderer.invoke("TVSeriesModePreview", config, files);

@@ -6,23 +6,24 @@
       <el-form
         ref="ruleFormRef"
         :model="diskStore.TVSeriesModeForm"
-        status-icon
         label-position="top"
         class="demo-ruleForm"
       >
-        <el-form-item label="电视剧名称" prop="pass">
-          <el-input v-model="diskStore.TVSeriesModeForm.name" autocomplete="off" />
+        <el-form-item label="电视剧名称" prop="name">
+          <el-input v-model="diskStore.TVSeriesModeForm.name" clearable autocomplete="off"
+                    placeholder="请输入电视剧名称" />
         </el-form-item>
         <div class="line-box">
-          <el-form-item label="当前季" prop="pass" class="line-item">
+          <el-form-item label="当前季" prop="season" class="line-item">
             <el-input-number v-model="diskStore.TVSeriesModeForm.season" class="number-input" />
           </el-form-item>
-          <el-form-item label="起始集" prop="pass" class="line-item">
+          <el-form-item label="起始集" prop="startEpisode" class="line-item">
             <el-input-number v-model="diskStore.TVSeriesModeForm.startEpisode" class="number-input" />
           </el-form-item>
         </div>
         <el-form-item>
-          <CommonButton style="width: 100%" @click="diskStore.TVSeriesModePreviewHandler">预览修改结果</CommonButton>
+          <CommonButton style="width: 100%" @click="diskStore.TVSeriesModePreviewHandler">预览修改结果
+          </CommonButton>
         </el-form-item>
       </el-form>
     </div>
