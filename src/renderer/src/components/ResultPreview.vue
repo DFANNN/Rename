@@ -6,9 +6,11 @@
       <el-table-column type="index" width="60" label="序号" align="center" />
       <el-table-column prop="name" label="原文件名" />
       <el-table-column prop="newName" label="新文件名" />
-      <el-table-column prop="address" label="状态" width="100">
-        <template #default>
-          <CommonStatus status="failure">成功</CommonStatus>
+      <el-table-column prop="address" label="操作" align="center" width="60">
+        <template #default="scope">
+          <el-icon class="delete-icon" @click="diskStore.deleteFiles(scope.row.name)">
+            <DeleteFilled />
+          </el-icon>
         </template>
       </el-table-column>
     </el-table>
@@ -16,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import CommonStatus from "@renderer/components/CommonStatus.vue";
+import { DeleteFilled } from "@element-plus/icons-vue";
 
 const publicStore = usePublicStore();
 const diskStore = useDiskStore();
@@ -42,6 +44,12 @@ const diskStore = useDiskStore();
   .table-box {
     border-radius: 0.5rem;
     border: 1px solid var(--border-color);
+  }
+
+  .delete-icon {
+    //color: #EF4444;
+    color: var(--theme-common-color);
+    cursor: pointer;
   }
 
   .el-table {

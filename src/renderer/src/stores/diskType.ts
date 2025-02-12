@@ -15,4 +15,17 @@ export interface ITVSeriesListItem extends IDiskOrFilesListItem {
   newName: string,
   // 新的剧集完整路径
   newFullPath: string,
+  // 0:修改失败；1:修改成功
+  status?: number
 }
+
+// 电视剧模式表单
+export interface ITVSeriesModeForm {
+  // 电视剧名字
+  name: string,
+  // 季数
+  season: number,
+  // 开始集数
+  startEpisode: number
+}
+

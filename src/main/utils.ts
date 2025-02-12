@@ -167,37 +167,27 @@ export const TVSeriesModePreview = (_event: IpcMainInvokeEvent, config: IConfig,
  * 重命名文件
  */
 export const renameFiles = async (_event: IpcMainInvokeEvent, files: IFiles[]) => {
-  console.log("开始批量重命名文件...");
-
   const results = await Promise.all(
     files.map(async (file: IFiles) => {
       try {
         // 执行文件重命名
         await fs.promises.rename(file.fullPath, file.newFullPath);
-
         // 返回成功结果
         return {
-          name: file.name,
-          fullPath: file.fullPath,
-          newFullPath: file.newFullPath,
-          status: "成功",
-          message: "重命名成功"
+          name: file.newName,
+          fullPath: file.newFullPath,
+          newName: "",
+          newFullPath: "",
+          status: 1
         };
       } catch (error: any) {
-        console.error(`重命名失败: ${file.fullPath}`, error);
-        // 返回失败结果
         return {
-          name: file.name,
-          fullPath: file.fullPath,
-          newFullPath: file.newFullPath,
-          status: "失败",
-          message: error.message || "未知错误"
+          ...file,
+          status: 0
         };
       }
     })
   );
-  // 打印和返回结果
-  console.log("批量重命名完成", results);
   return {
     code: 0,
     data: results,

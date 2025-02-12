@@ -2,13 +2,13 @@ import { createWebHashHistory, createRouter } from "vue-router";
 
 
 const routes = [
-  { path: "/", redirect: "/layouts/a" },
+  { path: "/", redirect: "/layouts/tVSeriesMode" },
   {
     path: "/layouts", component: () => import("@renderer/layouts/index.vue"),
     children: [
       {
         path: "a",
-        component: () => import("@renderer/views/a/index.vue"),
+        component: () => import("@renderer/views/tVSeriesMode/index.vue"),
         meta: { title: "电视剧模式", icon: "VideoCamera", isMenu: true }
       },
       {
