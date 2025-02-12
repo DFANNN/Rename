@@ -1,0 +1,120 @@
+<template xmlns="">
+  <div class="tv-series-mode-container">
+    <div class="left-box">
+      <UploadFile />
+      <div class="title">替换规则</div>
+      <el-form
+        ref="ruleFormRef"
+        :model="diskStore.replaceTextModeForm"
+        label-position="top"
+      >
+        <el-form-item label="查找文本" prop="oldText">
+          <el-input v-model.trim="diskStore.replaceTextModeForm.oldText" clearable autocomplete="off"
+                    placeholder="请输入查找文本" />
+        </el-form-item>
+        <el-form-item label="替换文本" prop="newText">
+          <el-input v-model.trim="diskStore.replaceTextModeForm.newText" clearable autocomplete="off"
+                    placeholder="请输入替换文本" />
+        </el-form-item>
+        <el-form-item>
+          <CommonButton style="width: 100%" @click="diskStore.replaceTextModePreviewHandler">预览修改结果
+          </CommonButton>
+        </el-form-item>
+      </el-form>
+    </div>
+    <ResultPreview class="result-preview" />
+  </div>
+</template>
+
+<script setup lang="ts">
+import ResultPreview from "@renderer/components/ResultPreview.vue";
+import UploadFile from "@renderer/components/FileSelect.vue";
+import type { FormInstance } from "element-plus";
+
+const diskStore = useDiskStore();
+const ruleFormRef = ref<FormInstance>();
+
+</script>
+
+<style scoped lang="less">
+.tv-series-mode-container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+
+  .left-box {
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    width: 38%;
+    height: 100%;
+    margin-right: 2%;
+    min-width: 350px;
+    background: var(--background-color);
+
+    .title {
+      line-height: 1.5rem;
+      color: var(--text-color);
+      margin: 1rem 0;
+    }
+
+
+    .el-form-item {
+      margin-bottom: 1rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .result-preview {
+    width: 60%;
+  }
+
+  :deep(.el-form-item__label) {
+    color: var(--text-info-color);
+  }
+
+  :deep(.el-input__wrapper) {
+    background-color: var(--background-color);
+    --el-input-border-color: var(--upload-border-color);
+  }
+
+  :deep(.el-input-number__decrease) {
+    background-color: var(--background-color);
+    border-color: var(--upload-border-color);
+  }
+
+  :deep(.el-input-number__increase) {
+    background-color: var(--background-color);
+    border-color: var(--upload-border-color);
+  }
+
+  .el-input {
+    --el-input-focus-border-color: var(--theme-common-color);
+  }
+
+  :deep(.el-input__wrapper.is-focus) {
+    box-shadow: 0 0 0 1px var(--theme-common-color) inset;
+  }
+
+  :deep(.el-input-number__increase:hover~.el-input:not(.is-disabled) .el-input__wrapper) {
+    box-shadow: 0 0 0 1px var(--theme-common-color) inset;
+  }
+
+  :deep(.el-input-number__decrease:hover~.el-input:not(.is-disabled) .el-input__wrapper) {
+    box-shadow: 0 0 0 1px var(--theme-common-color) inset;
+  }
+
+  :deep(.el-input-number__increase:hover, .el-input-number__increase:hover) {
+    color: var(--theme-common-color);
+  }
+
+  :deep(.el-input-number__decrease:hover, .el-input-number__increase:hover) {
+    color: var(--theme-common-color);
+  }
+}
+
+
+</style>

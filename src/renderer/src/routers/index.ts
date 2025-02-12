@@ -8,17 +8,19 @@ const routes = [
     children: [
       {
         path: "tvSeriesMode",
+        name: "tvSeriesMode",
         component: () => import("@renderer/views/tvSeriesMode/index.vue"),
         meta: { title: "电视剧模式", icon: "VideoCamera", isMenu: true }
       },
       {
-        path: "b",
-        component: () => import("@renderer/views/c/index.vue"),
+        path: "replaceTextMode",
+        name: "replaceTextMode",
+        component: () => import("@renderer/views/replaceTextMode/index.vue"),
         meta: { title: "替换文本模式", icon: "DocumentRemove", isMenu: true }
       },
       {
         path: "c",
-        component: () => import("@renderer/views/b/index.vue"),
+        component: () => import("@renderer/views/replaceTextMode/index.vue"),
         meta: { title: "插入文本模式", icon: "DocumentCopy", isMenu: true }
       }
 

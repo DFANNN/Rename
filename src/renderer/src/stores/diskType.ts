@@ -29,3 +29,11 @@ export interface ITVSeriesModeForm {
   startEpisode: number
 }
 
+// 替换文本模式表单
+export interface IReplaceTextModeForm {
+  // 原始文本
+  oldText: string,
+  // 替换文本
+  newText: string
+}
+

@@ -1,6 +1,12 @@
 import { defineStore } from "pinia";
 import { ElMessage } from "element-plus";
-import type { IDiskOrFilesListItem, ITVSeriesListItem, ITVSeriesModeForm } from "@renderer/stores/diskType";
+import router from "@renderer/routers";
+import type {
+  IDiskOrFilesListItem,
+  ITVSeriesListItem,
+  ITVSeriesModeForm,
+  IReplaceTextModeForm
+} from "@renderer/stores/diskType";
 
 
 export const useDiskStore = defineStore("disk", () => {
@@ -48,6 +54,27 @@ export const useDiskStore = defineStore("disk", () => {
       season: 1,
       startEpisode: 1
     };
+    replaceTextModeForm.value = {
+      oldText: "",
+      newText: ""
+    };
+  };
+
+  // 重命名
+  const renameHandler = async () => {
+    if (router.currentRoute.value.name === "tvSeriesMode") {
+      await TVSeriesModePreviewHandler();
+    } else if (router.currentRoute.value.name === "replaceTextMode") {
+      await replaceTextModePreviewHandler();
+    }
+    await replaceTextModePreviewHandler();
+    const files = JSON.parse(JSON.stringify(TVSeriesList.value));
+    const res = await window.electron.ipcRenderer.invoke("renameFiles", files);
+    if (res.code === 0) {
+      TVSeriesList.value = res.data;
+    } else {
+      console.log("重命名失败", res);
+    }
   };
 
   // 获取当前系统类型
@@ -96,18 +123,28 @@ export const useDiskStore = defineStore("disk", () => {
     }
   };
 
-  // 重命名
-  const renameHandler = async () => {
-    await TVSeriesModePreviewHandler();
+  // --------------替换文本模式------------------
+  // 替换文本模式的表单
+  const replaceTextModeForm = ref<IReplaceTextModeForm>({
+    oldText: "",
+    newText: ""
+  });
+
+  // 替换文本模式预览
+  const replaceTextModePreviewHandler = async () => {
+    if (!currentSelectDirPath.value.fullPath) {
+      ElMessage("请选择或输入文件夹路径");
+      return;
+    }
+    const config = JSON.parse(JSON.stringify(replaceTextModeForm.value));
     const files = JSON.parse(JSON.stringify(TVSeriesList.value));
-    const res = await window.electron.ipcRenderer.invoke("renameFiles", files);
+    const res = await window.electron.ipcRenderer.invoke("replaceTextModePreview", config, files);
     if (res.code === 0) {
       TVSeriesList.value = res.data;
     } else {
-      console.log("重命名失败", res);
+      console.log("预览失败", res);
     }
   };
-
 
   return {
     systemType,
@@ -116,11 +153,13 @@ export const useDiskStore = defineStore("disk", () => {
     currentSelectDirPath,
     TVSeriesList,
     TVSeriesModeForm,
+    replaceTextModeForm,
     selectedFilesNum,
     successNum,
     failNum,
     deleteFiles,
     TVSeriesModePreviewHandler,
+    replaceTextModePreviewHandler,
     renameHandler,
     resetData
   };

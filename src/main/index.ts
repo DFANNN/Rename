@@ -2,7 +2,7 @@ import { app, shell, BrowserWindow, ipcMain } from "electron";
 import { join } from "path";
 import { electronApp, optimizer, is } from "@electron-toolkit/utils";
 import icon from "../../resources/icon.png?asset";
-import { diskList, dirList, systemType, TVSeriesModePreview, renameFiles } from "./utils";
+import { diskList, dirList, systemType, TVSeriesModePreview, renameFiles, replaceTextModePreview } from "./utils";
 
 function createWindow(): void {
   // Create the browser window.
@@ -25,6 +25,7 @@ function createWindow(): void {
   ipcMain.handle("dirList", dirList);
   ipcMain.handle("TVSeriesModePreview", TVSeriesModePreview);
   ipcMain.handle("renameFiles", renameFiles);
+  ipcMain.handle("replaceTextModePreview", replaceTextModePreview);
 
 
   mainWindow.on("ready-to-show", () => {
