@@ -95,6 +95,10 @@ const ruleFormRef = ref<FormInstance>();
     --el-input-focus-border-color: var(--theme-common-color);
   }
 
+  :deep(.el-input__inner) {
+    color: var(--text-color);
+  }
+
   :deep(.el-input__wrapper.is-focus) {
     box-shadow: 0 0 0 1px var(--theme-common-color) inset;
   }

@@ -1,5 +1,5 @@
-import {defineStore} from "pinia";
-import {ElMessage} from "element-plus";
+import { defineStore } from "pinia";
+import { ElMessage } from "element-plus";
 import router from "@renderer/routers";
 import type {
   IDiskOrFilesListItem,
@@ -68,13 +68,19 @@ export const useDiskStore = defineStore("disk", () => {
   // TODO:这儿有问题，如果if条件不成立，还会执行下面的代码。
   // 重命名
   const renameHandler = async () => {
+    // 是否可以继续执行
+    let canProceed = true;
+
     if (router.currentRoute.value.name === "tvSeriesMode") {
-      await TVSeriesModePreviewHandler();
+      canProceed = await TVSeriesModePreviewHandler();
     } else if (router.currentRoute.value.name === "replaceTextMode") {
-      await replaceTextModePreviewHandler();
+      canProceed = await replaceTextModePreviewHandler();
     } else if (router.currentRoute.value.name === "insertTextMode") {
-      await insertTextModePreviewHandler();
+      canProceed = await insertTextModePreviewHandler();
     }
+
+    if (!canProceed) return;// 预览失败或条件不满足时，终止执行
+
     const files = JSON.parse(JSON.stringify(TVSeriesList.value));
     const res = await window.electron.ipcRenderer.invoke("renameFiles", files);
     if (res.code === 0) {
@@ -110,15 +116,15 @@ export const useDiskStore = defineStore("disk", () => {
   const TVSeriesModePreviewHandler = async () => {
     if (!currentSelectDirPath.value.fullPath) {
       ElMessage("请选择或输入文件夹路径");
-      return;
+      return false;
     }
     if (!TVSeriesModeForm.value.name) {
       ElMessage("请输入电视剧名字");
-      return;
+      return false;
     }
     if (!TVSeriesList.value.length) {
       ElMessage("当前路径下没有文件");
-      return;
+      return false;
     }
 
     const config = JSON.parse(JSON.stringify(TVSeriesModeForm.value));
@@ -126,8 +132,10 @@ export const useDiskStore = defineStore("disk", () => {
     const res = await window.electron.ipcRenderer.invoke("TVSeriesModePreview", config, files);
     if (res.code === 0) {
       TVSeriesList.value = res.data;
+      return true;
     } else {
       console.log("预览失败", res);
+      return true;
     }
   };
 
@@ -142,15 +150,17 @@ export const useDiskStore = defineStore("disk", () => {
   const replaceTextModePreviewHandler = async () => {
     if (!currentSelectDirPath.value.fullPath) {
       ElMessage("请选择或输入文件夹路径");
-      return;
+      return false;
     }
     const config = JSON.parse(JSON.stringify(replaceTextModeForm.value));
     const files = JSON.parse(JSON.stringify(TVSeriesList.value));
     const res = await window.electron.ipcRenderer.invoke("replaceTextModePreview", config, files);
     if (res.code === 0) {
       TVSeriesList.value = res.data;
+      return true;
     } else {
       console.log("预览失败", res);
+      return true;
     }
   };
 
@@ -165,29 +175,31 @@ export const useDiskStore = defineStore("disk", () => {
   const insertTextModePreviewHandler = async () => {
     if (!currentSelectDirPath.value.fullPath) {
       ElMessage("请选择或输入文件夹路径");
-      return;
+      return false;
     }
     if (insertTextModeForm.value.insertPosition === undefined) {
       ElMessage("请选择插入位置");
-      return;
+      return false;
     }
     if (!insertTextModeForm.value.insertText) {
       ElMessage("请输入插入文本");
-      return;
+      return false;
     }
     if (!TVSeriesList.value.length) {
       ElMessage("当前路径下没有文件");
-      return;
+      return false;
     }
     const config = JSON.parse(JSON.stringify(insertTextModeForm.value));
     const files = JSON.parse(JSON.stringify(TVSeriesList.value));
     const res = await window.electron.ipcRenderer.invoke("insertTextModePreview", config, files);
     if (res.code === 0) {
       TVSeriesList.value = res.data;
+      return true;
     } else {
       console.log("预览失败", res);
+      return true;
     }
-  }
+  };
 
   return {
     systemType,

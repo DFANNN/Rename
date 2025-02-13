@@ -84,10 +84,12 @@ const diskStore = useDiskStore();
 
 .el-table {
   --el-table-row-hover-bg-color: var(--table-tr-hover-color);
+  background-color: var(--background-color);
 }
 
 :deep(.el-table__empty-block) {
   background-color: var(--background-color);
 }
+
 
 </style>
