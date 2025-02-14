@@ -7,11 +7,16 @@
         ref="ruleFormRef"
         :model="diskStore.TVSeriesModeForm"
         label-position="top"
-        class="demo-ruleForm"
       >
-        <el-form-item label="电视剧名称" prop="name">
+        <el-form-item prop="name">
+          <template #label>
+            <div class="name-label-box" @click.stop>
+              <div class="label-text">电视剧名称22</div>
+              <TMDBSearch />
+            </div>
+          </template>
           <el-input v-model.trim="diskStore.TVSeriesModeForm.name" clearable autocomplete="off"
-                    placeholder="请输入电视剧名称" />
+                    placeholder="请输入电视剧名称" for="kkjjhhnn" />
         </el-form-item>
         <div class="line-box">
           <el-form-item label="当前季" prop="season" class="line-item">
@@ -34,6 +39,7 @@
 <script setup lang="ts">
 import ResultPreview from "@renderer/components/ResultPreview.vue";
 import UploadFile from "@renderer/components/FileSelect.vue";
+import TMDBSearch from "@renderer/components/TMDBSearch.vue";
 import type { FormInstance } from "element-plus";
 
 const diskStore = useDiskStore();
@@ -61,6 +67,12 @@ const ruleFormRef = ref<FormInstance>();
       line-height: 1.5rem;
       color: var(--text-color);
       margin: 1rem 0;
+    }
+
+    .name-label-box {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
     }
 
 
@@ -98,6 +110,7 @@ const ruleFormRef = ref<FormInstance>();
 
   :deep(.el-form-item__label) {
     color: var(--text-info-color);
+    width: 100%;
   }
 
   :deep(.el-input__wrapper) {
@@ -142,6 +155,11 @@ const ruleFormRef = ref<FormInstance>();
   :deep(.el-input-number__decrease:hover, .el-input-number__increase:hover) {
     color: var(--theme-common-color);
   }
+
+
+  //:deep(.el-form-item__label) {
+  //  pointer-events: none;
+  //}
 }
 
 
