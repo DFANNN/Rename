@@ -10,7 +10,7 @@
       >
         <el-form-item prop="name">
           <template #label>
-            <div class="name-label-box" @click.stop>
+            <div class="name-label-box" @click.prevent>
               <div class="label-text">电视剧名称22</div>
               <TMDBSearch />
             </div>
@@ -155,11 +155,7 @@ const ruleFormRef = ref<FormInstance>();
   :deep(.el-input-number__decrease:hover, .el-input-number__increase:hover) {
     color: var(--theme-common-color);
   }
-
-
-  //:deep(.el-form-item__label) {
-  //  pointer-events: none;
-  //}
+  
 }
 
 
