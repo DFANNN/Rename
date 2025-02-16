@@ -1,5 +1,5 @@
-import { defineStore } from "pinia";
-import { ElMessage } from "element-plus";
+import {defineStore} from "pinia";
+import {ElMessage} from "element-plus";
 import router from "@renderer/routers";
 import type {
   IDiskOrFilesListItem,
@@ -65,7 +65,6 @@ export const useDiskStore = defineStore("disk", () => {
     };
   };
 
-  // TODO:这儿有问题，如果if条件不成立，还会执行下面的代码。
   // 重命名
   const renameHandler = async () => {
     // 是否可以继续执行

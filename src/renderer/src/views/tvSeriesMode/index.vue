@@ -1,29 +1,26 @@
 <template xmlns="">
   <div class="tv-series-mode-container">
     <div class="left-box">
-      <UploadFile />
-      <div class="title">替换规则</div>
+      <UploadFile/>
+      <div class="title">
+        <div>替换规则</div>
+        <TMDBSearch/>
+      </div>
       <el-form
         ref="ruleFormRef"
         :model="diskStore.TVSeriesModeForm"
         label-position="top"
       >
-        <el-form-item prop="name">
-          <template #label>
-            <div class="name-label-box" @click.prevent>
-              <div class="label-text">电视剧名称22</div>
-              <TMDBSearch />
-            </div>
-          </template>
+        <el-form-item prop="name" label="电视剧名称">
           <el-input v-model.trim="diskStore.TVSeriesModeForm.name" clearable autocomplete="off"
-                    placeholder="请输入电视剧名称" for="kkjjhhnn" />
+                    placeholder="请输入电视剧名称" for="kkjjhhnn"/>
         </el-form-item>
         <div class="line-box">
           <el-form-item label="当前季" prop="season" class="line-item">
-            <el-input-number v-model="diskStore.TVSeriesModeForm.season" class="number-input" />
+            <el-input-number v-model="diskStore.TVSeriesModeForm.season" class="number-input"/>
           </el-form-item>
           <el-form-item label="起始集" prop="startEpisode" class="line-item">
-            <el-input-number v-model="diskStore.TVSeriesModeForm.startEpisode" class="number-input" />
+            <el-input-number v-model="diskStore.TVSeriesModeForm.startEpisode" class="number-input"/>
           </el-form-item>
         </div>
         <el-form-item>
@@ -32,7 +29,7 @@
         </el-form-item>
       </el-form>
     </div>
-    <ResultPreview class="result-preview" />
+    <ResultPreview class="result-preview"/>
   </div>
 </template>
 
@@ -40,7 +37,7 @@
 import ResultPreview from "@renderer/components/ResultPreview.vue";
 import UploadFile from "@renderer/components/FileSelect.vue";
 import TMDBSearch from "@renderer/components/TMDBSearch.vue";
-import type { FormInstance } from "element-plus";
+import type {FormInstance} from "element-plus";
 
 const diskStore = useDiskStore();
 const ruleFormRef = ref<FormInstance>();
@@ -67,6 +64,9 @@ const ruleFormRef = ref<FormInstance>();
       line-height: 1.5rem;
       color: var(--text-color);
       margin: 1rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
     .name-label-box {
@@ -155,7 +155,7 @@ const ruleFormRef = ref<FormInstance>();
   :deep(.el-input-number__decrease:hover, .el-input-number__increase:hover) {
     color: var(--theme-common-color);
   }
-  
+
 }
 
 
