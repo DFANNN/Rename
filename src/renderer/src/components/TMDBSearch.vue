@@ -22,7 +22,7 @@
               v-model="name"
               placeholder="请输入电视剧名称"
               clearable
-              @keydown="search"
+              @keydown.enter="search"
             >
             </el-input>
             <CommonButton class="search-btn" @click="search">搜索</CommonButton>
