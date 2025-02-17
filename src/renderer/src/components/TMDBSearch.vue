@@ -17,7 +17,7 @@
       </template>
       <template #default>
         <div class="dialog-body">
-          <!--TODO:1.未做加载loading效果；2.做懒加载；3.用element plus滚动条组件 -->
+          <!--TODO:3.用element plus滚动条组件 -->
           <div class="body-header-box">
             <el-input
               v-model="name"
@@ -28,10 +28,20 @@
             </el-input>
             <CommonButton class="search-btn" @click="search">搜索</CommonButton>
           </div>
-          <div class="body-container-box" v-show="TMDBResult.length">
+          <!-- 骨架屏效果 -->
+          <div v-show="isLoading" class="skeleton-container">
+            <el-skeleton v-for="i in 16" :key="i" animated>
+              <template #template>
+                <el-skeleton-item variant="image" style="width: 100px; height: 140px" />
+                <el-skeleton-item variant="text" style="width: 80px; margin-top: 8px" />
+                <el-skeleton-item variant="text" style="width: 50px; margin-top: 4px" />
+              </template>
+            </el-skeleton>
+          </div>
+          <div class="body-container-box" v-show="TMDBResult.length && !isLoading ">
             <div v-for="TVSeries in TMDBResult" class="body-container-item" @click="selectTVSeriesId = TVSeries.id">
-              <img :src="`https://image.tmdb.org/t/p/original${TVSeries.poster_path}`" alt="poster"
-                   :class="{'is-active':selectTVSeriesId === TVSeries.id}">
+              <el-image :src="`https://image.tmdb.org/t/p/w92${TVSeries.poster_path}`" alt="poster" lazy
+                        :class="{'tv-image':true,'is-active':selectTVSeriesId === TVSeries.id}" />
               <el-tooltip
                 :effect="publicStore.themeMode"
                 :content="TVSeries.name"
@@ -53,7 +63,7 @@
             @current-change="search()"
             class="pagination"
           />
-          <div class="body-no-data" v-show="!TMDBResult.length">暂无数据</div>
+          <div class="body-no-data" v-show="!TMDBResult.length && !isLoading ">暂无数据</div>
         </div>
       </template>
       <template #footer>
@@ -88,6 +98,7 @@ const diskStore = useDiskStore();
 
 // 开关
 const dialogVisible = ref(false);
+const isLoading = ref(false);
 
 // TMDB搜索结果
 const TMDBResult = ref<ITMDBResultItem[]>([]);
@@ -122,6 +133,11 @@ const showDialog = () => {
 
 // 搜索
 const search = async () => {
+  if (!name.value.trim()) {
+    ElMessage("请输入搜索内容");
+    return;
+  }
+
   // url地址
   const url = `https://api.themoviedb.org/3/search/tv?query=${name.value}&language=zh-CN&page=${currentPage.value}`;
   // api 配置项
@@ -132,6 +148,7 @@ const search = async () => {
       Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0YWNkMDQ1NGM5ODMxOTA1ZDFiMDk1ZDNlZDg3NWQ0NCIsIm5iZiI6MTczOTQ0MDM0NS42NDQsInN1YiI6IjY3YWRjMGQ5NTMzNTNmOWJiYTM2ZWVmMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.AqO9jtKsKdb0w3sSmkBlkyztT1U4l1VmmntRXfpbGfI"
     }
   };
+  isLoading.value = true; // 显示骨架屏
   try {
     const response = await fetch(url, options);
     console.log(response);
@@ -144,12 +161,15 @@ const search = async () => {
     console.log(data);
   } catch (error) {
     console.error("Fetch error:", error);
+  } finally {
+    isLoading.value = false; // 隐藏骨架屏，显示真实数据
   }
 
 };
 </script>
 
 <style scoped lang="less">
+
 .TMDB-search-container {
   .name {
     color: var(--theme-common-color);
@@ -204,7 +224,7 @@ const search = async () => {
         align-items: center;
         color: var(--text-color);
 
-        img {
+        .tv-image {
           padding: 1px;
           border-radius: 0.25rem;
           width: 100%;
@@ -212,7 +232,7 @@ const search = async () => {
           cursor: pointer;
         }
 
-        img.is-active {
+        .tv-image.is-active {
           border: 2px solid var(--theme-common-color);
         }
 
@@ -226,6 +246,16 @@ const search = async () => {
         }
       }
     }
+
+    .skeleton-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 1rem;
+      padding: 1rem 1.5rem;
+      height: 50vh;
+      overflow-y: auto;
+    }
+
 
     .pagination {
       display: flex;
