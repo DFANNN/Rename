@@ -11,7 +11,7 @@
         <div class="dialog-header">
           <div>TMDB搜索</div>
           <el-icon class="close-icon" @click="cancel">
-            <Close/>
+            <Close />
           </el-icon>
         </div>
       </template>
@@ -32,17 +32,32 @@
           <div v-show="isLoading" class="skeleton-container">
             <el-skeleton v-for="i in 16" :key="i" animated>
               <template #template>
-                <el-skeleton-item variant="image" style="width: 100px; height: 140px"/>
-                <el-skeleton-item variant="text" style="width: 80px; margin-top: 8px"/>
-                <el-skeleton-item variant="text" style="width: 50px; margin-top: 4px"/>
+                <el-skeleton-item variant="image" style="width: 100px; height: 140px" />
+                <el-skeleton-item variant="text" style="width: 80px; margin-top: 8px" />
+                <el-skeleton-item variant="text" style="width: 50px; margin-top: 4px" />
               </template>
             </el-skeleton>
           </div>
+          <!-- tv内容 -->
           <div class="body-container-box" v-show="TMDBResult.length && !isLoading ">
-            <div v-for="TVSeries in TMDBResult" class="body-container-item" @click="selectTVSeriesId = TVSeries.id">
-              <!--TMDB请求图片尺寸：w92、w154、w185、w342、w500、w780、original（原始尺寸）-->
-              <el-image :src="`https://image.tmdb.org/t/p/w92${TVSeries.poster_path}`" alt="poster" lazy
-                        :class="{'tv-image':true,'is-active':selectTVSeriesId === TVSeries.id}"/>
+            <div v-for="TVSeries in TMDBResult" class="body-container-item" @click="selectTvHandler(TVSeries.id)">
+              <el-popover title="季列表" placement="right" :width="400" trigger="click">
+                <template #reference>
+                  <!--TMDB请求图片尺寸：w92、w154、w185、w342、w500、w780、original（原始尺寸）-->
+                  <el-image :src="`https://image.tmdb.org/t/p/w92${TVSeries.poster_path}`" alt="poster" lazy
+                            :class="{'tv-image':true,'is-active':selectTVSeriesId === TVSeries.id}"
+                            @click="getSeason(TVSeries.id)" />
+                </template>
+                <div class="season-box">
+                  <div class="season-item" v-for="season in seasonResult" @click="selectSeason = season.id">
+                    <el-image :src="`https://image.tmdb.org/t/p/w92${season.poster_path}`" alt="季图片" lazy
+                              :class="{'season-img':true,'is-active':selectSeason === season.id}" />
+                    <div class="season-name">{{ season.name }}</div>
+                    <div class="season-data">{{ season.air_date }}</div>
+                  </div>
+                </div>
+              </el-popover>
+
               <el-tooltip
                 :effect="publicStore.themeMode"
                 :content="TVSeries.name"
@@ -64,6 +79,7 @@
             @current-change="search()"
             class="pagination"
           />
+          <!-- 无内容效果 -->
           <div class="body-no-data" v-show="!TMDBResult.length && !isLoading ">暂无数据</div>
         </div>
       </template>
@@ -79,8 +95,8 @@
 
 <script setup lang="ts">
 import CommonButton from "@renderer/components/CommonButton.vue";
-import {Close} from "@element-plus/icons-vue";
-import {ElMessage} from "element-plus";
+import { Close } from "@element-plus/icons-vue";
+import { ElMessage } from "element-plus";
 
 interface ITMDBResultItem {
   // 封面图地址
@@ -94,6 +110,24 @@ interface ITMDBResultItem {
   id: number;
 }
 
+interface ISeasonResult {
+  id: number;
+  // 季名称
+  name: string;
+  // 季描述
+  overview: string;
+  // 季封面图
+  poster_path: string;
+  // 季序号
+  season_number: number;
+  // 该季包含的集数
+  episode_count: number;
+  // 该季的首播日期
+  air_date: string;
+  // 该季的平均评分
+  vote_average: number;
+}
+
 const publicStore = usePublicStore();
 const diskStore = useDiskStore();
 
@@ -103,16 +137,25 @@ const isLoading = ref(false);
 
 // TMDB搜索结果
 const TMDBResult = ref<ITMDBResultItem[]>([]);
+// season结果数组
+const seasonResult = ref<ISeasonResult[]>([]);
 
 // input输入的名称
 const name = ref("");
 // 当前选择的电视剧
 const selectTVSeriesId = ref();
+// 当前选择的季
+const selectSeason = ref();
 // 当前页码
 const currentPage = ref(1);
 // 数据总条数
 const total = ref(0);
 
+
+const selectTvHandler = (id: number) => {
+  selectTVSeriesId.value = id;
+  selectSeason.value = null;
+};
 
 const cancel = () => {
   dialogVisible.value = false;
@@ -125,6 +168,9 @@ const confirm = () => {
     return;
   }
   diskStore.TVSeriesModeForm.name = TMDBResult.value.filter((item) => item.id === selectTVSeriesId.value)[0].name;
+  if (selectSeason.value) {
+    diskStore.TVSeriesModeForm.season = seasonResult.value.filter((item) => item.id === selectSeason.value)[0].season_number;
+  }
   dialogVisible.value = false;
 };
 
@@ -152,18 +198,39 @@ const search = async () => {
   isLoading.value = true; // 显示骨架屏
   try {
     const response = await fetch(url, options);
-    console.log(response);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data = await response.json();
     TMDBResult.value = data.results;
     total.value = data.total_results;
-    console.log(data);
   } catch (error) {
     console.error("Fetch error:", error);
   } finally {
     isLoading.value = false; // 隐藏骨架屏，显示真实数据
+  }
+
+};
+
+// 获取季信息
+const getSeason = async (id: number) => {
+  // url地址
+  const url = `https://api.themoviedb.org/3/tv/${id}?language=zh-CN`;
+  // api 配置项
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0YWNkMDQ1NGM5ODMxOTA1ZDFiMDk1ZDNlZDg3NWQ0NCIsIm5iZiI6MTczOTQ0MDM0NS42NDQsInN1YiI6IjY3YWRjMGQ5NTMzNTNmOWJiYTM2ZWVmMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.AqO9jtKsKdb0w3sSmkBlkyztT1U4l1VmmntRXfpbGfI"
+    }
+  };
+  try {
+    const response = await fetch(url, options);
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    const data = await response.json();
+    seasonResult.value = data.seasons;
+  } catch (error) {
+    console.error("Fetch error:", error);
   }
 
 };
@@ -250,7 +317,7 @@ const search = async () => {
 
     .skeleton-container {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
       gap: 1rem;
       padding: 1rem 1.5rem;
       height: 50vh;
@@ -277,6 +344,7 @@ const search = async () => {
     }
   }
 
+
   .dialog-footer {
     padding: 0.75rem 1.5rem;
     border-top: 1px solid var(--border-color);
@@ -297,6 +365,45 @@ const search = async () => {
 @media (min-width: 1351px) {
   :deep(.el-dialog) {
     width: 50vw;
+  }
+}
+
+.season-box {
+  height: 50vh;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-color);
+  overflow-y: auto;
+  color: var(--text-color);
+
+  .season-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+
+    .season-img {
+      width: 100%;
+      height: 8.75rem;
+      padding: 1px;
+      border-radius: 0.25rem;
+      cursor: pointer;
+
+      &.is-active {
+        border: 2px solid var(--theme-common-color);
+      }
+    }
+
+    .season-name {
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      text-align: center;
+    }
   }
 }
 </style>

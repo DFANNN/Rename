@@ -1,5 +1,5 @@
-import {defineStore} from "pinia";
-import {ElMessage} from "element-plus";
+import { defineStore } from "pinia";
+import { ElMessage } from "element-plus";
 import router from "@renderer/routers";
 import type {
   IDiskOrFilesListItem,
@@ -50,6 +50,22 @@ export const useDiskStore = defineStore("disk", () => {
     currentFullPath.value = [];
     currentSelectDirPath.value = {} as IDiskOrFilesListItem;
     TVSeriesList.value = [];
+    TVSeriesModeForm.value = {
+      name: "",
+      season: 1,
+      startEpisode: 1
+    };
+    replaceTextModeForm.value = {
+      oldText: "",
+      newText: ""
+    };
+    insertTextModeForm.value = {
+      insertPosition: undefined,
+      insertText: ""
+    };
+  };
+
+  const resetFormData = () => {
     TVSeriesModeForm.value = {
       name: "",
       season: 1,
@@ -217,6 +233,7 @@ export const useDiskStore = defineStore("disk", () => {
     replaceTextModePreviewHandler,
     insertTextModePreviewHandler,
     renameHandler,
-    resetData
+    resetData,
+    resetFormData
   };
 });

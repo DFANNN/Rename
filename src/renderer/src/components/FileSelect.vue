@@ -137,6 +137,11 @@ const goToPath = (disk: IDiskOrFilesListItem, index: number) => {
 
 // 确定
 const confirm = async () => {
+  if (!diskStore.currentFullPath.length) {
+    ElMessage("请选择文件路径");
+    return;
+  }
+  diskStore.resetFormData();
   diskStore.currentSelectDirPath = diskStore.currentFullPath[diskStore.currentFullPath.length - 1];
   const res = await window.electron.ipcRenderer.invoke("dirList", diskStore.currentSelectDirPath.fullPath);
   if (res.code === 0) {
@@ -160,6 +165,7 @@ const cancel = () => {
  */
 const keyDownEnter = async (e: KeyboardEvent) => {
   if (e.key === "Enter") {
+    diskStore.resetFormData();
     const res = await window.electron.ipcRenderer.invoke("dirList", diskStore.currentSelectDirPath.fullPath);
     if (res.code === 0) {
       diskStore.TVSeriesList = res.data;
