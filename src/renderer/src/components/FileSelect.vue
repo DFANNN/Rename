@@ -3,7 +3,7 @@
     <div class="title">文件选择</div>
     <div class="file-select-box">
       <el-input v-model.trim="diskStore.currentSelectDirPath.fullPath" clearable placeholder="请选择或输入文件夹路径"
-                @keydown="keyDownEnter" />
+                @keydown="keyDownEnter as any"/>
       <CommonButton class="button" @click="showDialog">浏览文件夹</CommonButton>
     </div>
 
@@ -17,7 +17,7 @@
         <div class="dialog-header">
           <div>选择文件路径</div>
           <el-icon class="close-icon" @click="cancel">
-            <Close />
+            <Close/>
           </el-icon>
         </div>
 
@@ -32,7 +32,7 @@
               :show-after="200"
             >
               <el-icon class="current-path-home-icon" @click="returnRootDir">
-                <FolderIcon />
+                <FolderIcon/>
               </el-icon>
             </el-tooltip>
             <div>
@@ -50,9 +50,9 @@
         <div class="disk-path-box" v-show="diskStore.diskOrFilesList.length">
           <div class="disk-box" v-for="disk in diskStore.diskOrFilesList" @click="getDirList(disk)">
             <el-icon class="disk-icon">
-              <DiskIcon v-if="disk.type === 0" />
-              <FolderOpened v-if="disk.type === 1" />
-              <Document v-if="disk.type === 2" />
+              <DiskIcon v-if="disk.type === 0"/>
+              <FolderOpened v-if="disk.type === 1"/>
+              <Document v-if="disk.type === 2"/>
             </el-icon>
             <div class="disk-name">{{ disk.name }}</div>
           </div>
@@ -75,9 +75,9 @@
 import CommonButton from "@renderer/components/CommonButton.vue";
 import FolderIcon from "@renderer/components/icon/FolderIcon.vue";
 import DiskIcon from "@renderer/components/icon/DiskIcon.vue";
-import { ElMessage } from "element-plus";
-import { Close, Document, FolderOpened } from "@element-plus/icons-vue";
-import type { IDiskOrFilesListItem } from "@renderer/stores/diskType";
+import {ElMessage} from "element-plus";
+import {Close, Document, FolderOpened} from "@element-plus/icons-vue";
+import type {IDiskOrFilesListItem} from "@renderer/stores/diskType";
 
 const publicStore = usePublicStore();
 const diskStore = useDiskStore();

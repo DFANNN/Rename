@@ -27,6 +27,8 @@
   --table-header-background-color: #f9fafb;
   /* 表格 行 hover 颜色 */
   --table-tr-hover-color: #F3F4F6;
+  /* 骨架屏 背景色 */
+  --skeleton-background-color: linear-gradient(90deg, #f0f2f5 25%, #e6e8eb 37%, #f0f2f5 63%);
 }
 
 
@@ -52,5 +54,7 @@ html.dark {
   --table-header-background-color: #364150;
   /* 表格 行 hover 颜色 */
   --table-tr-hover-color: #374151;
+  /* 骨架屏 背景色 */
+  --skeleton-background-color: linear-gradient(90deg, #303030 25%, #424243 37%, #303030 63%);
 }
 

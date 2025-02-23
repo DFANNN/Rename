@@ -11,7 +11,7 @@
         <div class="dialog-header">
           <div>TMDB搜索</div>
           <el-icon class="close-icon" @click="cancel">
-            <Close />
+            <Close/>
           </el-icon>
         </div>
       </template>
@@ -32,9 +32,9 @@
           <div v-show="isLoading" class="skeleton-container">
             <el-skeleton v-for="i in 16" :key="i" animated>
               <template #template>
-                <el-skeleton-item variant="image" style="width: 100px; height: 140px" />
-                <el-skeleton-item variant="text" style="width: 80px; margin-top: 8px" />
-                <el-skeleton-item variant="text" style="width: 50px; margin-top: 4px" />
+                <el-skeleton-item variant="image" style="width: 100px; height: 140px"/>
+                <el-skeleton-item variant="text" style="width: 80px; margin-top: 8px"/>
+                <el-skeleton-item variant="text" style="width: 50px; margin-top: 4px"/>
               </template>
             </el-skeleton>
           </div>
@@ -46,12 +46,12 @@
                   <!--TMDB请求图片尺寸：w92、w154、w185、w342、w500、w780、original（原始尺寸）-->
                   <el-image :src="`https://image.tmdb.org/t/p/w92${TVSeries.poster_path}`" alt="poster" lazy
                             :class="{'tv-image':true,'is-active':selectTVSeriesId === TVSeries.id}"
-                            @click="getSeason(TVSeries.id)" />
+                            @click="getSeason(TVSeries.id)"/>
                 </template>
                 <div class="season-box">
                   <div class="season-item" v-for="season in seasonResult" @click="selectSeason = season.id">
                     <el-image :src="`https://image.tmdb.org/t/p/w92${season.poster_path}`" alt="季图片" lazy
-                              :class="{'season-img':true,'is-active':selectSeason === season.id}" />
+                              :class="{'season-img':true,'is-active':selectSeason === season.id}"/>
                     <div class="season-name">{{ season.name }}</div>
                     <div class="season-data">{{ season.air_date }}</div>
                   </div>
@@ -69,7 +69,6 @@
               <div>{{ TVSeries.first_air_date }}</div>
             </div>
           </div>
-          <!-- TODO:未改主题色         -->
           <el-pagination
             v-model:current-page="currentPage"
             :total="total"
@@ -95,8 +94,8 @@
 
 <script setup lang="ts">
 import CommonButton from "@renderer/components/CommonButton.vue";
-import { Close } from "@element-plus/icons-vue";
-import { ElMessage } from "element-plus";
+import {Close} from "@element-plus/icons-vue";
+import {ElMessage} from "element-plus";
 
 interface ITMDBResultItem {
   // 封面图地址
@@ -237,7 +236,6 @@ const getSeason = async (id: number) => {
 </script>
 
 <style scoped lang="less">
-
 .TMDB-search-container {
   .name {
     color: var(--theme-common-color);
@@ -405,5 +403,53 @@ const getSeason = async (id: number) => {
       text-align: center;
     }
   }
+}
+
+.el-skeleton.is-animated .el-skeleton__item {
+  background: var(--skeleton-background-color);
+  background-size: 400% 100%;
+  animation: el-skeleton-loading 1.4s ease infinite;
+}
+
+</style>
+
+<style lang="less">
+
+.el-popover__title {
+  color: var(--text-color);
+}
+
+.el-popper.is-light, .el-popper.is-light > .el-popper__arrow:before {
+  background: var(--background-color);
+  border: 1px solid var(--background-color);
+}
+
+.el-pagination button.is-disabled, .el-pagination button:disabled {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  cursor: not-allowed;
+}
+
+.el-pagination button {
+  background-color: var(--background-color);
+  color: var(--text-color);
+
+  &:hover {
+    color: var(--theme-common-color);
+  }
+}
+
+.el-pager li {
+  background-color: var(--background-color);
+  color: var(--text-color);
+
+  &.is-active {
+    color: var(--theme-common-color);
+  }
+
+  &:hover {
+    color: var(--theme-common-color);
+  }
+
 }
 </style>
