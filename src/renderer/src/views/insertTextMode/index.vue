@@ -1,21 +1,22 @@
 <template xmlns="">
   <div class="tv-series-mode-container">
     <div class="left-box">
-      <UploadFile />
+      <UploadFile/>
       <div class="title">替换规则</div>
       <el-form
         :model="diskStore.insertTextModeForm"
         label-position="top"
       >
         <el-form-item label="插入规则" prop="insertPosition">
-          <el-select v-model="diskStore.insertTextModeForm.insertPosition" placeholder="请选择插入规则">
-            <el-option label="插入到开头" :value="0" />
-            <el-option label="插入到结尾" :value="1" />
+          <el-select v-model="diskStore.insertTextModeForm.insertPosition" class="select" :teleported="false"
+                     placeholder="请选择插入规则">
+            <el-option label="插入到开头" :value="0"/>
+            <el-option label="插入到结尾" :value="1"/>
           </el-select>
         </el-form-item>
         <el-form-item label="插入文本" prop="insertText">
           <el-input v-model.trim="diskStore.insertTextModeForm.insertText" clearable autocomplete="off"
-                    placeholder="请输入插入文本" />
+                    placeholder="请输入插入文本"/>
         </el-form-item>
         <el-form-item>
           <CommonButton style="width: 100%" @click="diskStore.insertTextModePreviewHandler">预览修改结果
@@ -23,7 +24,7 @@
         </el-form-item>
       </el-form>
     </div>
-    <ResultPreview class="result-preview" />
+    <ResultPreview class="result-preview"/>
   </div>
 </template>
 
@@ -78,6 +79,10 @@ const diskStore = useDiskStore();
   :deep(.el-input__wrapper) {
     background-color: var(--background-color);
     --el-input-border-color: var(--upload-border-color);
+
+    &:hover {
+      box-shadow: 0 0 0 1px var(--theme-common-color) inset;
+    }
   }
 
   :deep(.el-input-number__decrease) {
@@ -120,10 +125,47 @@ const diskStore = useDiskStore();
 
   :deep(.el-select__wrapper) {
     background-color: var(--background-color);
-    box-shadow: 0 0 0 1px var(--upload-border-color)
+    box-shadow: 0 0 0 1px var(--upload-border-color);
+
+    &.is-hovering {
+      box-shadow: 0 0 0 1px var(--theme-common-color);
+    }
+
+    &.is-focused {
+      box-shadow: 0 0 0 1px var(--theme-common-color);
+    }
   }
 
- 
+  :deep(.el-select__selected-item.el-select__placeholder:not(.is-transparent)) {
+    color: var(--text-color);
+  }
+
+  :deep(.el-select__popper) {
+    background-color: var(--background-color);
+  }
+
+  :deep(.el-select-dropdown__item:hover) {
+    background: var(--table-tr-hover-color);
+  }
+
+  :deep(.el-select-dropdown__item) {
+    background-color: transparent;
+    color: var(--text-color);
+
+    &.is-selected {
+      background: var(--table-tr-hover-color);
+    }
+  }
+
+  :deep(.el-popper) {
+    border-color: var(--upload-border-color);
+  }
+
+  :deep(.el-popper .el-popper__arrow::before) {
+    border-color: var(--upload-border-color); // 箭头按钮边框
+    background-color: var(--background-color); // 箭头按钮背景色
+  }
+
 }
 
 

@@ -116,6 +116,10 @@ const ruleFormRef = ref<FormInstance>();
   :deep(.el-input__wrapper) {
     background-color: var(--background-color);
     --el-input-border-color: var(--upload-border-color);
+
+    &:hover {
+      box-shadow: 0 0 0 1px var(--theme-common-color) inset;
+    }
   }
 
   :deep(.el-input-number__decrease) {
