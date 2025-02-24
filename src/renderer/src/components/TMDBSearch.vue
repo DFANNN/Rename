@@ -11,13 +11,12 @@
         <div class="dialog-header">
           <div>TMDB搜索</div>
           <el-icon class="close-icon" @click="cancel">
-            <Close/>
+            <Close />
           </el-icon>
         </div>
       </template>
       <template #default>
         <div class="dialog-body">
-          <!--TODO:3.用element plus滚动条组件 -->
           <div class="body-header-box">
             <el-input
               v-model="name"
@@ -29,46 +28,61 @@
             <CommonButton class="search-btn" @click="search">搜索</CommonButton>
           </div>
           <!-- 骨架屏效果 -->
-          <div v-show="isLoading" class="skeleton-container">
-            <el-skeleton v-for="i in 16" :key="i" animated>
-              <template #template>
-                <el-skeleton-item variant="image" style="width: 100px; height: 140px"/>
-                <el-skeleton-item variant="text" style="width: 80px; margin-top: 8px"/>
-                <el-skeleton-item variant="text" style="width: 50px; margin-top: 4px"/>
-              </template>
-            </el-skeleton>
-          </div>
-          <!-- tv内容 -->
-          <div class="body-container-box" v-show="TMDBResult.length && !isLoading ">
-            <div v-for="TVSeries in TMDBResult" class="body-container-item" @click="selectTvHandler(TVSeries.id)">
-              <el-popover title="季列表" placement="right" :width="400" trigger="click">
-                <template #reference>
-                  <!--TMDB请求图片尺寸：w92、w154、w185、w342、w500、w780、original（原始尺寸）-->
-                  <el-image :src="`https://image.tmdb.org/t/p/w92${TVSeries.poster_path}`" alt="poster" lazy
-                            :class="{'tv-image':true,'is-active':selectTVSeriesId === TVSeries.id}"
-                            @click="getSeason(TVSeries.id)"/>
+          <el-scrollbar height="50vh" v-show="isLoading">
+            <div class="skeleton-container">
+              <el-skeleton v-for="i in 16" :key="i" animated>
+                <template #template>
+                  <el-skeleton-item variant="image" style="width: 100px; height: 140px" />
+                  <el-skeleton-item variant="text" style="width: 80px; margin-top: 8px" />
+                  <el-skeleton-item variant="text" style="width: 50px; margin-top: 4px" />
                 </template>
-                <div class="season-box">
-                  <div class="season-item" v-for="season in seasonResult" @click="selectSeason = season.id">
-                    <el-image :src="`https://image.tmdb.org/t/p/w92${season.poster_path}`" alt="季图片" lazy
-                              :class="{'season-img':true,'is-active':selectSeason === season.id}"/>
-                    <div class="season-name">{{ season.name }}</div>
-                    <div class="season-data">{{ season.air_date }}</div>
-                  </div>
-                </div>
-              </el-popover>
-
-              <el-tooltip
-                :effect="publicStore.themeMode"
-                :content="TVSeries.name"
-                placement="top"
-                :show-after="200"
-              >
-                <div class="item-name">{{ TVSeries.name }}</div>
-              </el-tooltip>
-              <div>{{ TVSeries.first_air_date }}</div>
+              </el-skeleton>
             </div>
-          </div>
+          </el-scrollbar>
+          <!-- tv内容 -->
+          <el-scrollbar height="50vh" v-show="TMDBResult.length && !isLoading">
+            <div class="body-container-box">
+              <div v-for="TVSeries in TMDBResult" class="body-container-item" @click="selectTvHandler(TVSeries.id)">
+                <el-popover title="季列表" placement="right" :width="400" trigger="click">
+                  <template #reference>
+                    <!--TMDB请求图片尺寸：w92、w154、w185、w342、w500、w780、original（原始尺寸）-->
+                    <el-image :src="`https://image.tmdb.org/t/p/w92${TVSeries.poster_path}`" alt="poster" lazy
+                              :class="{'tv-image':true,'is-active':selectTVSeriesId === TVSeries.id}"
+                              @click="getSeason(TVSeries.id)" />
+                  </template>
+                  <el-scrollbar height="50vh">
+                    <div class="season-box" v-show="isLoadingSeason">
+                      <el-skeleton v-for="i in 8" :key="i" animated>
+                        <template #template>
+                          <el-skeleton-item variant="image" style="width: 100px; height: 140px" />
+                          <el-skeleton-item variant="text" style="width: 80px; margin-top: 8px" />
+                          <el-skeleton-item variant="text" style="width: 50px; margin-top: 4px" />
+                        </template>
+                      </el-skeleton>
+                    </div>
+                    <div class="season-box" v-show="!isLoadingSeason">
+                      <div class="season-item" v-for="season in seasonResult" @click="selectSeason = season.id">
+                        <el-image :src="`https://image.tmdb.org/t/p/w92${season.poster_path}`" alt="季图片" lazy
+                                  :class="{'season-img':true,'is-active':selectSeason === season.id}" />
+                        <div class="season-name">{{ season.name }}</div>
+                        <div class="season-data">{{ season.air_date }}</div>
+                      </div>
+                    </div>
+                  </el-scrollbar>
+                </el-popover>
+
+                <el-tooltip
+                  :effect="publicStore.themeMode"
+                  :content="TVSeries.name"
+                  placement="top"
+                  :show-after="200"
+                >
+                  <div class="item-name">{{ TVSeries.name }}</div>
+                </el-tooltip>
+                <div>{{ TVSeries.first_air_date }}</div>
+              </div>
+            </div>
+          </el-scrollbar>
           <el-pagination
             v-model:current-page="currentPage"
             :total="total"
@@ -94,8 +108,8 @@
 
 <script setup lang="ts">
 import CommonButton from "@renderer/components/CommonButton.vue";
-import {Close} from "@element-plus/icons-vue";
-import {ElMessage} from "element-plus";
+import { Close } from "@element-plus/icons-vue";
+import { ElMessage } from "element-plus";
 
 interface ITMDBResultItem {
   // 封面图地址
@@ -133,6 +147,7 @@ const diskStore = useDiskStore();
 // 开关
 const dialogVisible = ref(false);
 const isLoading = ref(false);
+const isLoadingSeason = ref(false);
 
 // TMDB搜索结果
 const TMDBResult = ref<ITMDBResultItem[]>([]);
@@ -150,10 +165,11 @@ const currentPage = ref(1);
 // 数据总条数
 const total = ref(0);
 
-
+// 选择了电视剧的回调
 const selectTvHandler = (id: number) => {
   selectTVSeriesId.value = id;
   selectSeason.value = null;
+  seasonResult.value = [];
 };
 
 const cancel = () => {
@@ -223,6 +239,7 @@ const getSeason = async (id: number) => {
       Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0YWNkMDQ1NGM5ODMxOTA1ZDFiMDk1ZDNlZDg3NWQ0NCIsIm5iZiI6MTczOTQ0MDM0NS42NDQsInN1YiI6IjY3YWRjMGQ5NTMzNTNmOWJiYTM2ZWVmMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.AqO9jtKsKdb0w3sSmkBlkyztT1U4l1VmmntRXfpbGfI"
     }
   };
+  isLoadingSeason.value = true;
   try {
     const response = await fetch(url, options);
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
@@ -230,6 +247,8 @@ const getSeason = async (id: number) => {
     seasonResult.value = data.seasons;
   } catch (error) {
     console.error("Fetch error:", error);
+  } finally {
+    isLoadingSeason.value = false; // 隐藏骨架屏，显示真实数据
   }
 
 };
@@ -282,7 +301,6 @@ const getSeason = async (id: number) => {
       padding: 1rem 1.5rem;
       border-radius: 0.5rem;
       border: 1px solid var(--border-color);
-      overflow-y: auto;
 
       .body-container-item {
         display: flex;
@@ -318,10 +336,8 @@ const getSeason = async (id: number) => {
       grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
       gap: 1rem;
       padding: 1rem 1.5rem;
-      height: 50vh;
-      overflow-y: auto;
+      height: 100%;
     }
-
 
     .pagination {
       display: flex;
@@ -374,7 +390,6 @@ const getSeason = async (id: number) => {
   padding: 1rem 1.5rem;
   border-radius: 0.5rem;
   border: 1px solid var(--border-color);
-  overflow-y: auto;
   color: var(--text-color);
 
   .season-item {
