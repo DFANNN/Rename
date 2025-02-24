@@ -1,10 +1,10 @@
 <template xmlns="">
   <div class="tv-series-mode-container">
     <div class="left-box">
-      <UploadFile/>
+      <UploadFile />
       <div class="title">
         <div>替换规则</div>
-        <TMDBSearch/>
+        <TMDBSearch />
       </div>
       <el-form
         ref="ruleFormRef"
@@ -13,14 +13,14 @@
       >
         <el-form-item prop="name" label="电视剧名称">
           <el-input v-model.trim="diskStore.TVSeriesModeForm.name" clearable autocomplete="off"
-                    placeholder="请输入电视剧名称" for="kkjjhhnn"/>
+                    placeholder="请输入电视剧名称" for="kkjjhhnn" />
         </el-form-item>
         <div class="line-box">
           <el-form-item label="当前季" prop="season" class="line-item">
-            <el-input-number v-model="diskStore.TVSeriesModeForm.season" class="number-input"/>
+            <el-input-number v-model="diskStore.TVSeriesModeForm.season" class="number-input" />
           </el-form-item>
           <el-form-item label="起始集" prop="startEpisode" class="line-item">
-            <el-input-number v-model="diskStore.TVSeriesModeForm.startEpisode" class="number-input"/>
+            <el-input-number v-model="diskStore.TVSeriesModeForm.startEpisode" class="number-input" />
           </el-form-item>
         </div>
         <el-form-item>
@@ -29,7 +29,7 @@
         </el-form-item>
       </el-form>
     </div>
-    <ResultPreview class="result-preview"/>
+    <ResultPreview class="result-preview" />
   </div>
 </template>
 
@@ -37,11 +37,14 @@
 import ResultPreview from "@renderer/components/ResultPreview.vue";
 import UploadFile from "@renderer/components/FileSelect.vue";
 import TMDBSearch from "@renderer/components/TMDBSearch.vue";
-import type {FormInstance} from "element-plus";
+import type { FormInstance } from "element-plus";
 
 const diskStore = useDiskStore();
 const ruleFormRef = ref<FormInstance>();
 
+onBeforeUnmount(() => {
+  diskStore.resetFormData();
+});
 </script>
 
 <style scoped lang="less">

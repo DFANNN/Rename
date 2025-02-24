@@ -1,7 +1,7 @@
 <template xmlns="">
   <div class="tv-series-mode-container">
     <div class="left-box">
-      <UploadFile/>
+      <UploadFile />
       <div class="title">替换规则</div>
       <el-form
         ref="ruleFormRef"
@@ -10,11 +10,11 @@
       >
         <el-form-item label="查找文本" prop="oldText">
           <el-input v-model.trim="diskStore.replaceTextModeForm.oldText" clearable autocomplete="off"
-                    placeholder="请输入查找文本"/>
+                    placeholder="请输入查找文本" />
         </el-form-item>
         <el-form-item label="替换文本" prop="newText">
           <el-input v-model.trim="diskStore.replaceTextModeForm.newText" clearable autocomplete="off"
-                    placeholder="请输入替换文本"/>
+                    placeholder="请输入替换文本" />
         </el-form-item>
         <el-form-item>
           <CommonButton style="width: 100%" @click="diskStore.replaceTextModePreviewHandler">预览修改结果
@@ -22,18 +22,20 @@
         </el-form-item>
       </el-form>
     </div>
-    <ResultPreview class="result-preview"/>
+    <ResultPreview class="result-preview" />
   </div>
 </template>
 
 <script setup lang="ts">
 import ResultPreview from "@renderer/components/ResultPreview.vue";
 import UploadFile from "@renderer/components/FileSelect.vue";
-import type {FormInstance} from "element-plus";
+import type { FormInstance } from "element-plus";
 
 const diskStore = useDiskStore();
 const ruleFormRef = ref<FormInstance>();
-
+onBeforeUnmount(() => {
+  diskStore.resetFormData();
+});
 </script>
 
 <style scoped lang="less">
