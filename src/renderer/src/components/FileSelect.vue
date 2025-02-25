@@ -26,7 +26,7 @@
         <div class="current-path-box">
           <div class="current-path">
             <el-tooltip
-              :effect="publicStore.themeMode"
+              :effect="publicStore.tooltipTheme"
               content="返回根目录"
               placement="top-start"
               :show-after="200"

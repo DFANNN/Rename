@@ -9,14 +9,14 @@
       <div :class="{'icon-box':true,'is-active':defaultActive === menu.path}" v-for="(menu,index) in menus"
            :key="index" @click="router.push(menu.path)">
         <el-tooltip
-          :effect="publicStore.themeMode"
+          :effect="publicStore.tooltipTheme"
           :content="menu.meta?.title as string"
           placement="right"
           :offset="30"
           :show-after="200"
         >
           <el-icon>
-            <component :is="menuIcons[menu.meta?.icon as any]" />
+            <component :is="menuIcons[menu.meta?.icon as any]"/>
           </el-icon>
         </el-tooltip>
       </div>
@@ -25,7 +25,7 @@
     <div class="function-box">
       <div class="setting-box">
         <el-icon class="icon" @click="publicStore.themeSettingDrawer = true">
-          <Setting />
+          <Setting/>
         </el-icon>
       </div>
     </div>
@@ -39,7 +39,7 @@ import {
   DocumentRemove,
   Setting
 } from "@element-plus/icons-vue";
-import { RouteRecordRaw } from "vue-router";
+import {RouteRecordRaw} from "vue-router";
 
 
 const router = useRouter();

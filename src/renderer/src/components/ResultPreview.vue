@@ -17,13 +17,13 @@
         </el-table-column>
       </el-table>
     </VueDraggable>
-
   </div>
 </template>
 
 <script setup lang="ts">
 import {VueDraggable} from 'vue-draggable-plus'
 import {DeleteFilled} from "@element-plus/icons-vue";
+
 
 const publicStore = usePublicStore();
 const diskStore = useDiskStore();

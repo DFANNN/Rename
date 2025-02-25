@@ -17,16 +17,17 @@ export const usePublicStore = defineStore("public", () => {
 
   // 当前的主题模式
   const themeMode = ref(localStorage.getItem("themeMode") || "light");
+  // tooltip主题
+  const tooltipTheme = ref('');
   // 当前主题色
   const themeColor = ref(localStorage.getItem("themeColor") || "#3A6B91");
   // 颜色选择器颜色
   const pickerColor = ref("");
   // 主题色数据
   const themeColorList = ["#7EB6E6", "#91C499", "#E8A87C", "#F4B6C2", "#CAB8E1", "#000000", "#3A6B91", "#496B50", "#8C5A3E", "#865564", "#9277C2"];
-
+  
   // 当前导航菜单模式(是否折叠菜单,默认折叠)
   const themeMenuMode = ref(true);
-
   // 切换主题模式
   const toggleThemeMode = () => {
     const html = document.documentElement;
@@ -36,11 +37,15 @@ export const usePublicStore = defineStore("public", () => {
       // 获取当前是否是深色模式
       const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
       html.className = isDarkMode ? "dark" : "light";
+      // 单独设置 tooltip主题
+      tooltipTheme.value = isDarkMode ? "dark" : "light";
       return;
     }
     // 手动设置主题
     html.className = themeMode.value;
-
+    // 单独设置 tooltip主题
+    tooltipTheme.value = themeMode.value;
+    console.log('执行了')
   };
 
   // 切换主题颜色
@@ -79,6 +84,7 @@ export const usePublicStore = defineStore("public", () => {
     tableHeight,
     themeSettingDrawer,
     themeMode,
+    tooltipTheme,
     themeColorList,
     themeMenuMode,
     themeColor,
