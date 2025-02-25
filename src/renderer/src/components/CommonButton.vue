@@ -17,6 +17,7 @@
   height: 2.25rem;
   transition: background-color 0.3s ease;
   border: none;
+  font-family: PingFangSC-Semibold, serif;
 
   &:hover {
     filter: brightness(1.2); /* 提高亮度，使颜色变浅 */

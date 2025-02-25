@@ -1,7 +1,7 @@
 <template xmlns="">
   <div class="tv-series-mode-container">
     <div class="left-box">
-      <UploadFile />
+      <UploadFile/>
       <div class="title">替换规则</div>
       <el-form
         :model="diskStore.insertTextModeForm"
@@ -10,13 +10,13 @@
         <el-form-item label="插入规则" prop="insertPosition">
           <el-select v-model="diskStore.insertTextModeForm.insertPosition" class="select" :teleported="false"
                      placeholder="请选择插入规则">
-            <el-option label="插入到开头" :value="0" />
-            <el-option label="插入到结尾" :value="1" />
+            <el-option label="插入到开头" :value="0"/>
+            <el-option label="插入到结尾" :value="1"/>
           </el-select>
         </el-form-item>
         <el-form-item label="插入文本" prop="insertText">
           <el-input v-model.trim="diskStore.insertTextModeForm.insertText" clearable autocomplete="off"
-                    placeholder="请输入插入文本" />
+                    placeholder="请输入插入文本"/>
         </el-form-item>
         <el-form-item>
           <CommonButton style="width: 100%" @click="diskStore.insertTextModePreviewHandler">预览修改结果
@@ -24,7 +24,7 @@
         </el-form-item>
       </el-form>
     </div>
-    <ResultPreview class="result-preview" />
+    <ResultPreview class="result-preview"/>
   </div>
 </template>
 
@@ -103,6 +103,7 @@ onBeforeUnmount(() => {
 
   :deep(.el-input__inner) {
     color: var(--text-color);
+    font-family: PingFangSC-Semibold, serif;
   }
 
   :deep(.el-input__wrapper.is-focus) {
