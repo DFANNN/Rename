@@ -11,7 +11,7 @@
         <div class="dialog-header">
           <div>TMDB搜索</div>
           <el-icon class="close-icon" @click="cancel">
-            <Close />
+            <Close/>
           </el-icon>
         </div>
       </template>
@@ -32,9 +32,9 @@
             <div class="skeleton-container">
               <el-skeleton v-for="i in 16" :key="i" animated>
                 <template #template>
-                  <el-skeleton-item variant="image" style="width: 100px; height: 140px" />
-                  <el-skeleton-item variant="text" style="width: 80px; margin-top: 8px" />
-                  <el-skeleton-item variant="text" style="width: 50px; margin-top: 4px" />
+                  <el-skeleton-item variant="image" style="width: 100px; height: 140px"/>
+                  <el-skeleton-item variant="text" style="width: 80px; margin-top: 8px"/>
+                  <el-skeleton-item variant="text" style="width: 50px; margin-top: 4px"/>
                 </template>
               </el-skeleton>
             </div>
@@ -48,22 +48,22 @@
                     <!--TMDB请求图片尺寸：w92、w154、w185、w342、w500、w780、original（原始尺寸）-->
                     <el-image :src="`https://image.tmdb.org/t/p/w92${TVSeries.poster_path}`" alt="poster" lazy
                               :class="{'tv-image':true,'is-active':selectTVSeriesId === TVSeries.id}"
-                              @click="getSeason(TVSeries.id)" />
+                              @click="getSeason(TVSeries.id)"/>
                   </template>
                   <el-scrollbar height="50vh">
                     <div class="season-box" v-show="isLoadingSeason">
                       <el-skeleton v-for="i in 8" :key="i" animated>
                         <template #template>
-                          <el-skeleton-item variant="image" style="width: 100px; height: 140px" />
-                          <el-skeleton-item variant="text" style="width: 80px; margin-top: 8px" />
-                          <el-skeleton-item variant="text" style="width: 50px; margin-top: 4px" />
+                          <el-skeleton-item variant="image" style="width: 100px; height: 140px"/>
+                          <el-skeleton-item variant="text" style="width: 80px; margin-top: 8px"/>
+                          <el-skeleton-item variant="text" style="width: 50px; margin-top: 4px"/>
                         </template>
                       </el-skeleton>
                     </div>
                     <div class="season-box" v-show="!isLoadingSeason">
                       <div class="season-item" v-for="season in seasonResult" @click="selectSeason = season.id">
                         <el-image :src="`https://image.tmdb.org/t/p/w92${season.poster_path}`" alt="季图片" lazy
-                                  :class="{'season-img':true,'is-active':selectSeason === season.id}" />
+                                  :class="{'season-img':true,'is-active':selectSeason === season.id}"/>
                         <div class="season-name">{{ season.name }}</div>
                         <div class="season-data">{{ season.air_date }}</div>
                       </div>
@@ -72,7 +72,7 @@
                 </el-popover>
 
                 <el-tooltip
-                  :effect="publicStore.themeMode"
+                  :effect="publicStore.tooltipTheme"
                   :content="TVSeries.name"
                   placement="top"
                   :show-after="200"
@@ -108,8 +108,8 @@
 
 <script setup lang="ts">
 import CommonButton from "@renderer/components/CommonButton.vue";
-import { Close } from "@element-plus/icons-vue";
-import { ElMessage } from "element-plus";
+import {Close} from "@element-plus/icons-vue";
+import {ElMessage} from "element-plus";
 
 interface ITMDBResultItem {
   // 封面图地址
