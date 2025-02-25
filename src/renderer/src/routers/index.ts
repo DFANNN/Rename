@@ -20,13 +20,13 @@ const routes = [
         path: "replaceTextMode",
         name: "replaceTextMode",
         component: () => import("@renderer/views/replaceTextMode/index.vue"),
-        meta: {title: "替换文本模式", modeInfo: replaceTextModeInfo, icon: "DocumentRemove", isMenu: true}
+        meta: {title: "替换文本模式", modeInfo: replaceTextModeInfo, icon: "DocumentCopy", isMenu: true}
       },
       {
         path: "insertTextMode",
         name: "insertTextMode",
         component: () => import("@renderer/views/insertTextMode/index.vue"),
-        meta: {title: "插入文本模式", modeInfo: insertTextModeInfo, icon: "DocumentCopy", isMenu: true}
+        meta: {title: "插入文本模式", modeInfo: insertTextModeInfo, icon: "DocumentRemove", isMenu: true}
       }
 
     ]
