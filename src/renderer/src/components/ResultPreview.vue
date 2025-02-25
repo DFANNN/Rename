@@ -1,30 +1,32 @@
 <template>
   <div class="result-preview-container">
     <div class="title">修改结果预览</div>
-    <el-table :data="diskStore.TVSeriesList" :height="publicStore.tableHeight" :highlight-current-row="false"
-              empty-text="暂无文件"
-              class="table-box">
-      <el-table-column type="index" width="60" label="序号" align="center" />
-      <el-table-column prop="name" label="原文件名" />
-      <el-table-column prop="newName" label="新文件名" />
-      <el-table-column prop="address" label="操作" align="center" width="60">
-        <template #default="scope">
-          <el-icon class="delete-icon" @click="diskStore.deleteFiles(scope.row.name)">
-            <DeleteFilled />
-          </el-icon>
-        </template>
-      </el-table-column>
-    </el-table>
+    <VueDraggable v-model="diskStore.TVSeriesList" target="tbody" :animation="150">
+      <el-table :data="diskStore.TVSeriesList" :height="publicStore.tableHeight" :highlight-current-row="false"
+                empty-text="暂无文件"
+                class="table-box">
+        <el-table-column type="index" width="60" label="序号" align="center"/>
+        <el-table-column prop="name" label="原文件名"/>
+        <el-table-column prop="newName" label="新文件名"/>
+        <el-table-column prop="address" label="操作" align="center" width="60">
+          <template #default="scope">
+            <el-icon class="delete-icon" @click="diskStore.deleteFiles(scope.row.name)">
+              <DeleteFilled/>
+            </el-icon>
+          </template>
+        </el-table-column>
+      </el-table>
+    </VueDraggable>
+
   </div>
 </template>
 
 <script setup lang="ts">
-import { DeleteFilled } from "@element-plus/icons-vue";
+import {VueDraggable} from 'vue-draggable-plus'
+import {DeleteFilled} from "@element-plus/icons-vue";
 
 const publicStore = usePublicStore();
 const diskStore = useDiskStore();
-
-
 </script>
 
 <style scoped lang="less">

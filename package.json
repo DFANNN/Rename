@@ -29,6 +29,7 @@
     "less": "^4.2.1",
     "pinia": "^2.3.1",
     "systeminformation": "^5.25.11",
+    "vue-draggable-plus": "^0.6.0",
     "vue-router": "4"
   },
   "devDependencies": {
@@ -43,7 +44,7 @@
     "electron": "^31.0.2",
     "electron-builder": "^24.13.3",
     "electron-vite": "^2.3.0",
-    "eslint": "^8.57.0",
+    "eslint": "9.0.0",
     "eslint-plugin-vue": "^9.26.0",
     "prettier": "^3.3.2",
     "typescript": "^5.5.2",
@@ -52,5 +53,9 @@
     "vite": "^5.3.1",
     "vue": "^3.4.30",
     "vue-tsc": "^2.0.22"
+  },
+  "pnpm": {
+    "_comment": "防止某些依赖跳过构建，解决 ERR_PNPM_TARBALL_INTEGRITY 问题",
+    "neverBuiltDependencies": []
   }
 }
