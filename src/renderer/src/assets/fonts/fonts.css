@@ -1,0 +1,10 @@
+/*创建字体*/
+@font-face {
+  font-family: 'PingFangSC-Semibold';
+  src: local('PingFangSC-Semibold'), url("./PingFangSC-Semibold.woff2") format('woff2');
+}
+
+@font-face {
+  font-family: 'PingFangSC-Regular';
+  src: local('PingFangSC-Regular'), url("./PingFangSC-Regular.woff2") format('woff2');
+}

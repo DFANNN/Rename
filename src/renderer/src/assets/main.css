@@ -1,5 +1,5 @@
 @import './theme.css';
-
+@import './fonts/fonts.css';
 
 *,
 *::before,
@@ -19,7 +19,7 @@ body {
   background: var(--background-color);
   line-height: 1.6;
   font-family: PingFangSC-Semibold,
-  'PingFangSC-Regular',
+  PingFangSC-Regular,
   Inter,
   -apple-system,
   BlinkMacSystemFont,
@@ -44,15 +44,4 @@ body {
 
 .el-divider__text {
   background: red;
-}
-
-/*创建字体*/
-@font-face {
-  font-family: 'PingFangSC-Semibold';
-  src: url("./fonts/PingFangSC-Semibold.woff2") format('woff2');
-}
-
-@font-face {
-  font-family: 'PingFangSC-Regular';
-  src: url("./fonts/PingFangSC-Regular.woff2") format('woff2');
 }
