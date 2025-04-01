@@ -2,8 +2,16 @@
   <div class="file-select-container">
     <div class="title">文件选择</div>
     <div class="file-select-box">
-      <el-input v-model.trim="diskStore.currentSelectDirPath.fullPath" clearable placeholder="请选择或输入文件夹路径"
-                @keydown="keyDownEnter as any"/>
+      <el-input
+        v-model.trim="diskStore.currentSelectDirPath.fullPath"
+        clearable
+        @keydown="keyDownEnter as any"
+        placeholder="请选择或输入文件夹路径"
+      >
+        <template #append>
+          <el-button :icon="Search" @click="searchPath" />
+        </template>
+      </el-input>
       <CommonButton class="button" @click="showDialog">浏览文件夹</CommonButton>
     </div>
 
@@ -17,10 +25,9 @@
         <div class="dialog-header">
           <div>选择文件路径</div>
           <el-icon class="close-icon" @click="cancel">
-            <Close/>
+            <Close />
           </el-icon>
         </div>
-
       </template>
       <div class="dialog-body">
         <div class="current-path-box">
@@ -32,27 +39,37 @@
               :show-after="200"
             >
               <el-icon class="current-path-home-icon" @click="returnRootDir">
-                <FolderIcon/>
+                <FolderIcon />
               </el-icon>
             </el-tooltip>
-            <div>
-              当前路径：
-            </div>
-            <div class="path-box" v-for="(disk,index) in diskStore.currentFullPath" @click="goToPath(disk,index)">
+            <div>当前路径：</div>
+            <div
+              class="path-box"
+              v-for="(disk, index) in diskStore.currentFullPath"
+              @click="goToPath(disk, index)"
+            >
               <span class="path-name">{{ disk.name }}</span>
-              <span class="separator" v-if="(diskStore.currentFullPath.length - 1) !== index">
-                {{ diskStore.systemType === "Windows" ? "\\" : index ? "/" : "" }}
+              <span
+                class="separator"
+                v-if="diskStore.currentFullPath.length - 1 !== index"
+              >
+                {{
+                  diskStore.systemType === "Windows" ? "\\" : index ? "/" : ""
+                }}
               </span>
             </div>
-
           </div>
         </div>
         <div class="disk-path-box" v-show="diskStore.diskOrFilesList.length">
-          <div class="disk-box" v-for="disk in diskStore.diskOrFilesList" @click="getDirList(disk)">
+          <div
+            class="disk-box"
+            v-for="disk in diskStore.diskOrFilesList"
+            @click="getDirList(disk)"
+          >
             <el-icon class="disk-icon">
-              <DiskIcon v-if="disk.type === 0"/>
-              <FolderOpened v-if="disk.type === 1"/>
-              <Document v-if="disk.type === 2"/>
+              <DiskIcon v-if="disk.type === 0" />
+              <FolderOpened v-if="disk.type === 1" />
+              <Document v-if="disk.type === 2" />
             </el-icon>
             <div class="disk-name">{{ disk.name }}</div>
           </div>
@@ -75,9 +92,9 @@
 import CommonButton from "@renderer/components/CommonButton.vue";
 import FolderIcon from "@renderer/components/icon/FolderIcon.vue";
 import DiskIcon from "@renderer/components/icon/DiskIcon.vue";
-import {ElMessage} from "element-plus";
-import {Close, Document, FolderOpened} from "@element-plus/icons-vue";
-import type {IDiskOrFilesListItem} from "@renderer/stores/diskType";
+import { ElMessage } from "element-plus";
+import { Close, Document, FolderOpened, Search } from "@element-plus/icons-vue";
+import type { IDiskOrFilesListItem } from "@renderer/stores/diskType";
 
 const publicStore = usePublicStore();
 const diskStore = useDiskStore();
@@ -114,11 +131,17 @@ const returnRootDir = () => {
  * @param disk 当前点击的目录
  * @param isPush 是否将当前目录添加到currentFullPath中
  */
-const getDirList = async (disk: IDiskOrFilesListItem, isPush: boolean = true) => {
+const getDirList = async (
+  disk: IDiskOrFilesListItem,
+  isPush: boolean = true,
+) => {
   // 如果当前是文件，则不进行操作
   if (disk.type === 2) return;
   if (isPush) diskStore.currentFullPath.push(disk);
-  const res = await window.electron.ipcRenderer.invoke("dirList", disk.fullPath);
+  const res = await window.electron.ipcRenderer.invoke(
+    "dirList",
+    disk.fullPath,
+  );
   if (res.code === 0) {
     diskStore.diskOrFilesList = res.data;
   } else {
@@ -142,8 +165,12 @@ const confirm = async () => {
     return;
   }
   diskStore.resetFormData();
-  diskStore.currentSelectDirPath = diskStore.currentFullPath[diskStore.currentFullPath.length - 1];
-  const res = await window.electron.ipcRenderer.invoke("dirList", diskStore.currentSelectDirPath.fullPath);
+  diskStore.currentSelectDirPath =
+    diskStore.currentFullPath[diskStore.currentFullPath.length - 1];
+  const res = await window.electron.ipcRenderer.invoke(
+    "dirList",
+    diskStore.currentSelectDirPath.fullPath,
+  );
   if (res.code === 0) {
     diskStore.TVSeriesList = res.data;
   } else {
@@ -166,7 +193,10 @@ const cancel = () => {
 const keyDownEnter = async (e: KeyboardEvent) => {
   if (e.key === "Enter") {
     diskStore.resetFormData();
-    const res = await window.electron.ipcRenderer.invoke("dirList", diskStore.currentSelectDirPath.fullPath);
+    const res = await window.electron.ipcRenderer.invoke(
+      "dirList",
+      diskStore.currentSelectDirPath.fullPath,
+    );
     if (res.code === 0) {
       diskStore.TVSeriesList = res.data;
     } else {
@@ -176,7 +206,23 @@ const keyDownEnter = async (e: KeyboardEvent) => {
   }
 };
 
-
+const searchPath = async () => {
+  if (!diskStore.currentSelectDirPath.fullPath) {
+    ElMessage("请选择或输入文件路径");
+    return;
+  }
+  diskStore.resetFormData();
+  const res = await window.electron.ipcRenderer.invoke(
+    "dirList",
+    diskStore.currentSelectDirPath.fullPath,
+  );
+  if (res.code === 0) {
+    diskStore.TVSeriesList = res.data;
+  } else {
+    console.log("获取电视剧集失败", res);
+    ElMessage("文件夹路径错误");
+  }
+};
 </script>
 
 <style scoped lang="less">
@@ -197,7 +243,6 @@ const keyDownEnter = async (e: KeyboardEvent) => {
       margin-top: 1rem;
     }
   }
-
 
   .dialog-header {
     display: flex;
@@ -223,6 +268,7 @@ const keyDownEnter = async (e: KeyboardEvent) => {
 
     .current-path-box {
       display: flex;
+
       color: var(--text-color);
       font-size: 14px;
       margin-bottom: 1rem;
@@ -230,6 +276,7 @@ const keyDownEnter = async (e: KeyboardEvent) => {
       .current-path {
         display: flex;
         align-items: center;
+        flex-wrap: wrap;
 
         .current-path-home-icon {
           font-size: 16px;
@@ -253,7 +300,6 @@ const keyDownEnter = async (e: KeyboardEvent) => {
             text-overflow: ellipsis;
             white-space: nowrap;
 
-
             &:hover {
               color: var(--theme-common-color);
               text-decoration: underline;
@@ -264,8 +310,6 @@ const keyDownEnter = async (e: KeyboardEvent) => {
             margin: 0 0.25rem;
           }
         }
-
-
       }
     }
 
@@ -299,15 +343,12 @@ const keyDownEnter = async (e: KeyboardEvent) => {
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
-
         }
 
         &:hover {
           background-color: var(--table-tr-hover-color);
         }
       }
-
-
     }
 
     .no-files-box {
@@ -346,5 +387,4 @@ const keyDownEnter = async (e: KeyboardEvent) => {
     width: 50vw;
   }
 }
-
 </style>
