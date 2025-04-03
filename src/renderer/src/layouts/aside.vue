@@ -1,13 +1,17 @@
 <template>
-  <div class="aside-container" :class="{'collapse':collapse}">
+  <div class="aside-container" :class="{ collapse: collapse }">
     <div class="logo-box">
       <div class="logo">
-        <img src="../assets/logo1.jpg" alt="logo">
+        <img src="../assets/logo.jpg" alt="logo" />
       </div>
     </div>
     <div class="menu-box">
-      <div :class="{'icon-box':true,'is-active':defaultActive === menu.path}" v-for="(menu,index) in menus"
-           :key="index" @click="router.push(menu.path)">
+      <div
+        :class="{ 'icon-box': true, 'is-active': defaultActive === menu.path }"
+        v-for="(menu, index) in menus"
+        :key="index"
+        @click="router.push(menu.path)"
+      >
         <el-tooltip
           :effect="publicStore.tooltipTheme"
           :content="menu.meta?.title as string"
@@ -16,7 +20,7 @@
           :show-after="200"
         >
           <el-icon>
-            <component :is="menuIcons[menu.meta?.icon as any]"/>
+            <component :is="menuIcons[menu.meta?.icon as any]" />
           </el-icon>
         </el-tooltip>
       </div>
@@ -25,7 +29,7 @@
     <div class="function-box">
       <div class="setting-box">
         <el-icon class="icon" @click="publicStore.themeSettingDrawer = true">
-          <Setting/>
+          <Setting />
         </el-icon>
       </div>
     </div>
@@ -37,10 +41,9 @@ import {
   VideoCamera,
   DocumentCopy,
   DocumentRemove,
-  Setting
+  Setting,
 } from "@element-plus/icons-vue";
-import {RouteRecordRaw} from "vue-router";
-
+import { RouteRecordRaw } from "vue-router";
 
 const router = useRouter();
 const route = useRoute();
@@ -56,12 +59,11 @@ const menus = ref<RouteRecordRaw[]>([]);
 const menuIcons = {
   VideoCamera,
   DocumentCopy,
-  DocumentRemove
+  DocumentRemove,
 };
 
 // 页面加载时默认激活菜单的 index
 const defaultActive = computed(() => route.path);
-
 
 // 获取菜单
 const getMenus = () => {
@@ -69,11 +71,8 @@ const getMenus = () => {
 };
 
 onMounted(() => {
-    getMenus();
-  }
-);
-
-
+  getMenus();
+});
 </script>
 
 <style scoped lang="less">
@@ -112,8 +111,6 @@ onMounted(() => {
         margin-left: 1rem;
       }
     }
-
-
   }
 
   .menu-box {
@@ -133,7 +130,7 @@ onMounted(() => {
 
     .icon-box.is-active {
       background: var(--theme-common-color);
-      color: var(--menu-select-text-color)
+      color: var(--menu-select-text-color);
     }
   }
 
@@ -155,7 +152,6 @@ onMounted(() => {
         }
       }
     }
-
   }
 }
 </style>

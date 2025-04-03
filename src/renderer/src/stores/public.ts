@@ -1,5 +1,5 @@
 //  主题设置公共数据仓库
-import {defineStore} from "pinia";
+import { defineStore } from "pinia";
 
 export const usePublicStore = defineStore("public", () => {
   // app dom 高度
@@ -18,14 +18,26 @@ export const usePublicStore = defineStore("public", () => {
   // 当前的主题模式
   const themeMode = ref(localStorage.getItem("themeMode") || "light");
   // tooltip主题
-  const tooltipTheme = ref('');
+  const tooltipTheme = ref("");
   // 当前主题色
   const themeColor = ref(localStorage.getItem("themeColor") || "#3A6B91");
   // 颜色选择器颜色
   const pickerColor = ref("");
   // 主题色数据
-  const themeColorList = ["#7EB6E6", "#91C499", "#E8A87C", "#F4B6C2", "#CAB8E1", "#000000", "#3A6B91", "#496B50", "#8C5A3E", "#865564", "#9277C2"];
-  
+  const themeColorList = [
+    "#7EB6E6",
+    "#91C499",
+    "#E8A87C",
+    "#F4B6C2",
+    "#CAB8E1",
+    "#000000",
+    "#3A6B91",
+    "#496B50",
+    "#8C5A3E",
+    "#865564",
+    "#9277C2",
+  ];
+
   // 当前导航菜单模式(是否折叠菜单,默认折叠)
   const themeMenuMode = ref(true);
   // 切换主题模式
@@ -35,7 +47,9 @@ export const usePublicStore = defineStore("public", () => {
     // 跟随系统主题
     if (themeMode.value === "device") {
       // 获取当前是否是深色模式
-      const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const isDarkMode = window.matchMedia(
+        "(prefers-color-scheme: dark)",
+      ).matches;
       html.className = isDarkMode ? "dark" : "light";
       // 单独设置 tooltip主题
       tooltipTheme.value = isDarkMode ? "dark" : "light";
@@ -45,7 +59,6 @@ export const usePublicStore = defineStore("public", () => {
     html.className = themeMode.value;
     // 单独设置 tooltip主题
     tooltipTheme.value = themeMode.value;
-    console.log('执行了')
   };
 
   // 切换主题颜色
@@ -53,9 +66,7 @@ export const usePublicStore = defineStore("public", () => {
     if (themeColorList.includes(color)) pickerColor.value = "";
     themeColor.value = color;
     document.documentElement.style.setProperty("--theme-common-color", color);
-
   };
-
 
   // 监听主题模式变化,动态更新本地存储
   watchEffect(() => {
@@ -66,7 +77,8 @@ export const usePublicStore = defineStore("public", () => {
   watchEffect(() => {
     localStorage.setItem("themeColor", themeColor.value);
     toggleThemeColor(themeColor.value);
-    if (!themeColorList.includes(themeColor.value)) pickerColor.value = themeColor.value;
+    if (!themeColorList.includes(themeColor.value))
+      pickerColor.value = themeColor.value;
   });
 
   // 当系统主题发生变化时，如果用户选择的是系统主题，则切换主题模式，跟系统主题保持一致
@@ -90,6 +102,6 @@ export const usePublicStore = defineStore("public", () => {
     themeColor,
     pickerColor,
     toggleThemeMode,
-    toggleThemeColor
+    toggleThemeColor,
   };
 });
