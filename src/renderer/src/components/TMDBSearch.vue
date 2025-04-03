@@ -11,7 +11,7 @@
         <div class="dialog-header">
           <div>TMDB搜索</div>
           <el-icon class="close-icon" @click="cancel">
-            <Close/>
+            <Close />
           </el-icon>
         </div>
       </template>
@@ -32,9 +32,18 @@
             <div class="skeleton-container">
               <el-skeleton v-for="i in 16" :key="i" animated>
                 <template #template>
-                  <el-skeleton-item variant="image" style="width: 100px; height: 140px"/>
-                  <el-skeleton-item variant="text" style="width: 80px; margin-top: 8px"/>
-                  <el-skeleton-item variant="text" style="width: 50px; margin-top: 4px"/>
+                  <el-skeleton-item
+                    variant="image"
+                    style="width: 100px; height: 140px"
+                  />
+                  <el-skeleton-item
+                    variant="text"
+                    style="width: 80px; margin-top: 8px"
+                  />
+                  <el-skeleton-item
+                    variant="text"
+                    style="width: 50px; margin-top: 4px"
+                  />
                 </template>
               </el-skeleton>
             </div>
@@ -42,28 +51,64 @@
           <!-- tv内容 -->
           <el-scrollbar height="50vh" v-show="TMDBResult.length && !isLoading">
             <div class="body-container-box">
-              <div v-for="TVSeries in TMDBResult" class="body-container-item" @click="selectTvHandler(TVSeries.id)">
-                <el-popover title="季列表" placement="right" :width="400" trigger="click">
+              <div
+                v-for="TVSeries in TMDBResult"
+                class="body-container-item"
+                @click="selectTvHandler(TVSeries.id)"
+              >
+                <el-popover
+                  title="季列表"
+                  placement="right"
+                  :width="400"
+                  trigger="click"
+                >
                   <template #reference>
                     <!--TMDB请求图片尺寸：w92、w154、w185、w342、w500、w780、original（原始尺寸）-->
-                    <el-image :src="`https://image.tmdb.org/t/p/w92${TVSeries.poster_path}`" alt="poster" lazy
-                              :class="{'tv-image':true,'is-active':selectTVSeriesId === TVSeries.id}"
-                              @click="getSeason(TVSeries.id)"/>
+                    <el-image
+                      :src="`https://image.tmdb.org/t/p/w92${TVSeries.poster_path}`"
+                      alt="poster"
+                      lazy
+                      :class="{
+                        'tv-image': true,
+                        'is-active': selectTVSeriesId === TVSeries.id,
+                      }"
+                      @click="getSeason(TVSeries.id)"
+                    />
                   </template>
                   <el-scrollbar height="50vh">
                     <div class="season-box" v-show="isLoadingSeason">
                       <el-skeleton v-for="i in 8" :key="i" animated>
                         <template #template>
-                          <el-skeleton-item variant="image" style="width: 100px; height: 140px"/>
-                          <el-skeleton-item variant="text" style="width: 80px; margin-top: 8px"/>
-                          <el-skeleton-item variant="text" style="width: 50px; margin-top: 4px"/>
+                          <el-skeleton-item
+                            variant="image"
+                            style="width: 100px; height: 140px"
+                          />
+                          <el-skeleton-item
+                            variant="text"
+                            style="width: 80px; margin-top: 8px"
+                          />
+                          <el-skeleton-item
+                            variant="text"
+                            style="width: 50px; margin-top: 4px"
+                          />
                         </template>
                       </el-skeleton>
                     </div>
                     <div class="season-box" v-show="!isLoadingSeason">
-                      <div class="season-item" v-for="season in seasonResult" @click="selectSeason = season.id">
-                        <el-image :src="`https://image.tmdb.org/t/p/w92${season.poster_path}`" alt="季图片" lazy
-                                  :class="{'season-img':true,'is-active':selectSeason === season.id}"/>
+                      <div
+                        class="season-item"
+                        v-for="season in seasonResult"
+                        @click="selectSeason = season.id"
+                      >
+                        <el-image
+                          :src="`https://image.tmdb.org/t/p/w92${season.poster_path}`"
+                          alt="季图片"
+                          lazy
+                          :class="{
+                            'season-img': true,
+                            'is-active': selectSeason === season.id,
+                          }"
+                        />
                         <div class="season-name">{{ season.name }}</div>
                         <div class="season-data">{{ season.air_date }}</div>
                       </div>
@@ -93,7 +138,9 @@
             class="pagination"
           />
           <!-- 无内容效果 -->
-          <div class="body-no-data" v-show="!TMDBResult.length && !isLoading ">暂无数据</div>
+          <div class="body-no-data" v-show="!TMDBResult.length && !isLoading">
+            暂无数据
+          </div>
         </div>
       </template>
       <template #footer>
@@ -108,8 +155,8 @@
 
 <script setup lang="ts">
 import CommonButton from "@renderer/components/CommonButton.vue";
-import {Close} from "@element-plus/icons-vue";
-import {ElMessage} from "element-plus";
+import { Close } from "@element-plus/icons-vue";
+import { ElMessage } from "element-plus";
 
 interface ITMDBResultItem {
   // 封面图地址
@@ -182,9 +229,13 @@ const confirm = () => {
     ElMessage("请选择一个电视剧");
     return;
   }
-  diskStore.TVSeriesModeForm.name = TMDBResult.value.filter((item) => item.id === selectTVSeriesId.value)[0].name;
+  diskStore.TVSeriesModeForm.name = TMDBResult.value.filter(
+    (item) => item.id === selectTVSeriesId.value,
+  )[0].name;
   if (selectSeason.value) {
-    diskStore.TVSeriesModeForm.season = seasonResult.value.filter((item) => item.id === selectSeason.value)[0].season_number;
+    diskStore.TVSeriesModeForm.season = seasonResult.value.filter(
+      (item) => item.id === selectSeason.value,
+    )[0].season_number;
   }
   dialogVisible.value = false;
 };
@@ -207,8 +258,9 @@ const search = async () => {
     method: "GET",
     headers: {
       accept: "application/json",
-      Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0YWNkMDQ1NGM5ODMxOTA1ZDFiMDk1ZDNlZDg3NWQ0NCIsIm5iZiI6MTczOTQ0MDM0NS42NDQsInN1YiI6IjY3YWRjMGQ5NTMzNTNmOWJiYTM2ZWVmMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.AqO9jtKsKdb0w3sSmkBlkyztT1U4l1VmmntRXfpbGfI"
-    }
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0YWNkMDQ1NGM5ODMxOTA1ZDFiMDk1ZDNlZDg3NWQ0NCIsIm5iZiI6MTczOTQ0MDM0NS42NDQsInN1YiI6IjY3YWRjMGQ5NTMzNTNmOWJiYTM2ZWVmMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.AqO9jtKsKdb0w3sSmkBlkyztT1U4l1VmmntRXfpbGfI",
+    },
   };
   isLoading.value = true; // 显示骨架屏
   try {
@@ -224,7 +276,6 @@ const search = async () => {
   } finally {
     isLoading.value = false; // 隐藏骨架屏，显示真实数据
   }
-
 };
 
 // 获取季信息
@@ -236,8 +287,9 @@ const getSeason = async (id: number) => {
     method: "GET",
     headers: {
       accept: "application/json",
-      Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0YWNkMDQ1NGM5ODMxOTA1ZDFiMDk1ZDNlZDg3NWQ0NCIsIm5iZiI6MTczOTQ0MDM0NS42NDQsInN1YiI6IjY3YWRjMGQ5NTMzNTNmOWJiYTM2ZWVmMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.AqO9jtKsKdb0w3sSmkBlkyztT1U4l1VmmntRXfpbGfI"
-    }
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0YWNkMDQ1NGM5ODMxOTA1ZDFiMDk1ZDNlZDg3NWQ0NCIsIm5iZiI6MTczOTQ0MDM0NS42NDQsInN1YiI6IjY3YWRjMGQ5NTMzNTNmOWJiYTM2ZWVmMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.AqO9jtKsKdb0w3sSmkBlkyztT1U4l1VmmntRXfpbGfI",
+    },
   };
   isLoadingSeason.value = true;
   try {
@@ -250,7 +302,6 @@ const getSeason = async (id: number) => {
   } finally {
     isLoadingSeason.value = false; // 隐藏骨架屏，显示真实数据
   }
-
 };
 </script>
 
@@ -301,6 +352,7 @@ const getSeason = async (id: number) => {
       padding: 1rem 1.5rem;
       border-radius: 0.5rem;
       border: 1px solid var(--border-color);
+      overflow-y: auto;
 
       .body-container-item {
         display: flex;
@@ -349,7 +401,7 @@ const getSeason = async (id: number) => {
     .body-no-data {
       height: 50vh;
       display: grid;
-      grid-template-columns:  1fr;
+      grid-template-columns: 1fr;
       align-items: center;
       text-align: center;
       padding: 1rem 1.5rem;
@@ -357,7 +409,6 @@ const getSeason = async (id: number) => {
       border: 1px solid var(--border-color);
     }
   }
-
 
   .dialog-footer {
     padding: 0.75rem 1.5rem;
@@ -391,12 +442,12 @@ const getSeason = async (id: number) => {
   border-radius: 0.5rem;
   border: 1px solid var(--border-color);
   color: var(--text-color);
+  overflow-y: auto;
 
   .season-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-
 
     .season-img {
       width: 100%;
@@ -425,21 +476,21 @@ const getSeason = async (id: number) => {
   background-size: 400% 100%;
   animation: el-skeleton-loading 1.4s ease infinite;
 }
-
 </style>
 
 <style lang="less">
-
 .el-popover__title {
   color: var(--text-color);
 }
 
-.el-popper.is-light, .el-popper.is-light > .el-popper__arrow:before {
+.el-popper.is-light,
+.el-popper.is-light > .el-popper__arrow:before {
   background: var(--background-color);
   border: 1px solid var(--background-color);
 }
 
-.el-pagination button.is-disabled, .el-pagination button:disabled {
+.el-pagination button.is-disabled,
+.el-pagination button:disabled {
   background-color: var(--background-color);
   color: var(--text-color);
   cursor: not-allowed;
@@ -465,6 +516,5 @@ const getSeason = async (id: number) => {
   &:hover {
     color: var(--theme-common-color);
   }
-
 }
 </style>

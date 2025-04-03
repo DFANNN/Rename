@@ -5,7 +5,7 @@
       <el-input
         v-model.trim="diskStore.currentSelectDirPath.fullPath"
         clearable
-        @keydown="keyDownEnter as any"
+        @keydown="keyDownEnter"
         placeholder="请选择或输入文件夹路径"
       >
         <template #append>
@@ -190,7 +190,7 @@ const cancel = () => {
  * 当用户按下Enter键时，调用Electron的IPC渲染进程API获取目录列表
  * @param {KeyboardEvent} e 键盘事件对象
  */
-const keyDownEnter = async (e: KeyboardEvent) => {
+const keyDownEnter = async (e: any) => {
   if (e.key === "Enter") {
     diskStore.resetFormData();
     const res = await window.electron.ipcRenderer.invoke(
@@ -374,6 +374,15 @@ const searchPath = async () => {
 :deep(.el-dialog) {
   padding: 0;
   background-color: var(--background-color);
+}
+
+:deep(.el-input-group__append, .el-input-group__prepend) {
+  background-color: var(--theme-common-color);
+  color: #fff;
+  box-shadow:
+    0 1px 0 0 var(--theme-common-color) inset,
+    0 -1px 0 0 var(--theme-common-color) inset,
+    -1px 0 0 0 var(--theme-common-color) inset;
 }
 
 @media (max-width: 1350px) {
