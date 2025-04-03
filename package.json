@@ -1,9 +1,9 @@
 {
-  "name": "electron-app",
+  "name": "dfan-rename",
   "version": "1.0.0",
   "description": "An Electron application with Vue and TypeScript",
   "main": "./out/main/index.js",
-  "author": "example.com",
+  "author": "DFAN",
   "homepage": "https://electron-vite.org",
   "scripts": {
     "format": "prettier --write .",
