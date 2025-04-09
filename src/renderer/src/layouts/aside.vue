@@ -2,7 +2,7 @@
   <div class="aside-container" :class="{ collapse: collapse }">
     <div class="logo-box">
       <div class="logo">
-        <img src="../assets/logo.jpg" alt="logo" />
+        <img src="../assets/logo.png" alt="logo" />
       </div>
     </div>
     <div class="menu-box">
@@ -100,6 +100,8 @@ onMounted(() => {
 
       img {
         width: 100%;
+        transform: scale(1.3);
+        transform-origin: center;
       }
     }
 
