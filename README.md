@@ -1,12 +1,7 @@
-<div style="display: flex; align-items: center;">
-  <img src="./src/renderer/src/assets/logo.png" width="50" alt="Logo" style="transform: scale(2);margin-right: 30px;" >
-  <span style="font-size: 2rem; vertical-align: middle;"><strong>DFAN Renamer</strong></span>
-</div>
-
 <p align="center">
   <img src="./build/icon.png" width="120" alt="Logo">
 </p>
-<p align="center" style="font-size: 3rem; vertical-align: middle;">DFAN Rename</p>
+<h1 align="center">DFAN Rename</h1>
 
 <p align="center">
   一个为 Emby / Jellyfin / Plex 等媒体服务器量身打造的影视重命名工具，<br>
