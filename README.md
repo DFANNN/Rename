@@ -63,7 +63,7 @@
 | 系统平台   | 安装包下载地址                                                                                        |
 | ---------- | ----------------------------------------------------------------------------------------------------- |
 | 🪟 Windows | [下载 EXE](https://github.com/DFANNN/Rename/releases/download/v1.0.0/dfan-rename-1.0.0-setup.exe)     |
-| 🍎 macOS   | [下载 DMG](https://github.com/DFANNN/Rename/releases/download/v1.0.0/dfan-rename-1.0.0.dmg")          |
+| 🍎 macOS   | [下载 DMG](https://github.com/DFANNN/Rename/releases/download/v1.0.0/dfan-rename-1.0.0.dmg)           |
 | 🐧 Linux   | [下载 AppImage](https://github.com/DFANNN/Rename/releases/download/v1.0.0/dfan-rename-1.0.0.AppImage) |
 
 ### 或者，你也可以自行构建和运行开发版本：
