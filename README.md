@@ -20,15 +20,11 @@
   </a>
 </p>
 
----
-
 ## 📝 简介
 
 **DFAN Rename** 是一个桌面应用程序，旨在帮助用户将本地影视文件按照 Emby、Jellyfin、Plex 等媒体服务器所推荐的命名规范进行快速重命名，提高媒体刮削的准确性和自动化程度。
 
 > 支持电视剧模式、批量替换、插入文本三种重命名方式。
-
----
 
 ## 🚀 功能特性
 
@@ -40,8 +36,6 @@
 - 🔄 预览修改结果，防止误操作
 - 💻 跨平台支持：Windows / macOS / Linux
 
----
-
 ## 📥 下载与使用
 
 你可以在 [Releases 页面](https://github.com/your-username/media-renamer/releases) 下载适用于你操作系统的最新版本，安装后即可使用：
@@ -51,8 +45,6 @@
 | 🪟 Windows | [下载 EXE](https://github.com/your-username/media-renamer/releases/latest)      |
 | 🍎 macOS   | [下载 DMG](https://github.com/your-username/media-renamer/releases/latest)      |
 | 🐧 Linux   | [下载 AppImage](https://github.com/your-username/media-renamer/releases/latest) |
-
----
 
 ### 或者，你也可以自行构建和运行开发版本：
 
@@ -90,8 +82,6 @@ pnpm build:mac
 pnpm build:linux
 ```
 
----
-
 ## 📚 使用说明
 
 ### 📺 电视剧模式
@@ -108,8 +98,6 @@ pnpm build:linux
 
 > 💡 使用 TMDB 搜索功能，可大幅提升命名准确率，刮削更顺利！
 
----
-
 ### 🔁 替换文本模式
 
 > 替换文件名中指定的旧文本为新文本
@@ -120,8 +108,6 @@ pnpm build:linux
 2. 输入旧文本与新文本。
 3. 点击“预览修改结果”。
 4. 满意后点击“执行重命名”。
-
----
 
 ### ✏️ 插入文本模式
 
@@ -134,28 +120,12 @@ pnpm build:linux
 3. 预览修改结果。
 4. 执行重命名操作。
 
----
-
-## 🖼️ 截图预览
-
-> 💡 _以下为占位符，请替换为真实截图链接_
-
-| 功能界面                                               | 重命名预览                                                  |
-| ------------------------------------------------------ | ----------------------------------------------------------- |
-| ![界面预览](https://your-domain.com/screenshot-ui.png) | ![预览结果](https://your-domain.com/screenshot-preview.png) |
-
----
-
 ## ⚠️ 注意事项
 
 - 重命名前请务必备份重要文件，避免无法恢复。
 - 本工具不会对视频内容做任何更改，仅修改文件名。
 
----
-
 ## 🙌 特别感谢
 
 感谢 **小薯条** 提供的 Logo、想法与 UI 建议，为本项目注入了极大的灵感和美感提升！<br>
 感谢你使用 **DFAN Rename**，希望它能帮助你更好地管理本地媒体库！
-
----
