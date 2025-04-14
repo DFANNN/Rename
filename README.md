@@ -46,13 +46,13 @@
 
 ### 🎛️ 主界面
 
-<p align="center">
+<p>
   <img src="./docs/images/app-preview.png" alt="应用主界面" width="700">
 </p>
 
 ### 🔍 TMDB 搜索功能
 
-<p align="center">
+<p>
   <img src="./docs/images/tmdb-search.png" alt="TMDB 搜索功能界面" width="700">
 </p>
 

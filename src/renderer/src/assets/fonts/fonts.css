@@ -2,4 +2,11 @@
 @font-face {
   font-family: "JetBrains Mono";
   src: local("JetBrains Mono") url(./JetBrainsMono-Bold.woff2) format("woff2");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: local("JetBrains Mono") url(./JetBrainsMono-Medium.woff2) format("woff2");
+  font-weight: 500;
 }
