@@ -8,7 +8,7 @@
   让你的本地视频库刮削更精准，管理更轻松。
 </p>
 
-<p align="center">
+<!-- <p align="center">
   <a href="https://github.com/your-username/media-renamer/releases">
     <img src="https://img.shields.io/github/v/release/your-username/media-renamer.svg?style=flat-square" alt="Release">
   </a>
@@ -18,7 +18,7 @@
   <a href="https://github.com/your-username/media-renamer">
     <img src="https://img.shields.io/github/downloads/your-username/media-renamer/total?style=flat-square" alt="Downloads">
   </a>
-</p>
+</p> -->
 
 ## 📝 项目简介
 
@@ -60,18 +60,18 @@
 
 你可以在 [Releases 页面](https://github.com/your-username/media-renamer/releases) 下载适用于你操作系统的最新版本，安装后即可使用：
 
-| 系统平台   | 安装包下载地址                                                                  |
-| ---------- | ------------------------------------------------------------------------------- |
-| 🪟 Windows | [下载 EXE](https://github.com/your-username/media-renamer/releases/latest)      |
-| 🍎 macOS   | [下载 DMG](https://github.com/your-username/media-renamer/releases/latest)      |
-| 🐧 Linux   | [下载 AppImage](https://github.com/your-username/media-renamer/releases/latest) |
+| 系统平台   | 安装包下载地址                                                                                        |
+| ---------- | ----------------------------------------------------------------------------------------------------- |
+| 🪟 Windows | [下载 EXE](https://github.com/DFANNN/Rename/releases/download/v1.0.0/dfan-rename-1.0.0-setup.exe)     |
+| 🍎 macOS   | [下载 DMG](https://github.com/DFANNN/Rename/releases/download/v1.0.0/dfan-rename-1.0.0.dmg")          |
+| 🐧 Linux   | [下载 AppImage](https://github.com/DFANNN/Rename/releases/download/v1.0.0/dfan-rename-1.0.0.AppImage) |
 
 ### 或者，你也可以自行构建和运行开发版本：
 
 ```bash
 # 克隆仓库
-git clone https://github.com/your-username/media-renamer.git
-cd media-renamer
+git clone https://github.com/DFANNN/Rename.git
+cd Rename
 
 # 安装依赖
 pnpm install
